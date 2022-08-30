@@ -133,11 +133,7 @@
                             </a>
                         </li>
                         <li>
-<<<<<<< HEAD
                             <a href="{{ url('/masterTaskType') }}" class="top-menu">
-=======
-                            <a href="{{ url('/masterTaskName') }}" class="top-menu">
->>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                                 <div class="top-menu__title"> Master Task Type </div>
                             </a>

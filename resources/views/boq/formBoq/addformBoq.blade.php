@@ -249,17 +249,12 @@
                             <div class="group_wrapper" id="main1">
                                 <form action="" class="validate-form" method="POST">
                                     <div id="addmain" class="input-form mt-3">
-<<<<<<< HEAD
                                         @foreach ($catagories as $cat)
                                         <input type="text" class="w-full" value="{{$cat->name}}" id="" class="" style="background-color: rgb(170, 204, 236);" disabled >
                                         @foreach ($cat->catagory_sub as $cat_s)
                                         <span>{{$cat_s->name}}</span><br>
                                         @endforeach
                                         @endforeach
-=======
-                                        <input type="text" class="w-full" value="PRELIMINARY" id="" class="" style="background-color: rgb(170, 204, 236);" disabled>
-
->>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                     </div>
                                         <div class="intro-y overflow-auto input-form mt-3 ml-2">
                                             <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
@@ -280,13 +275,8 @@
                                                     <option value="a">G2000D</option>
                                                 </select>
                                                 <select name="field_namesub[]" id="" class="w-full" required>
-<<<<<<< HEAD
                                                     @foreach ($catagories1 as $cat1)
                                                     <option value="{{ $cat1->id }}">{{ $cat1->name }}</option>
-=======
-                                                    @foreach ($catagories1 as $cat)
-                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
->>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                                     @endforeach
                                                 </select>
                                                 <input type="number" class="form-control w-16" placeholder="จำนวน" aria-label="default input inline 2" required>
