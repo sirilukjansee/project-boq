@@ -28,15 +28,12 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
 // Route::get('/allBoq', function () {
 //     return view('boq.allBoq');
 // });
-=======
 Route::get('/allBoq', function () {
     return view('boq.allBoq');
 });
->>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
 Route::get('/loginBoq', function () {
     return view('boq.loginBoq');
 });

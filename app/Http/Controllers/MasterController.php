@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Models\catagory;
 use App\Models\catagory_sub;
@@ -21,12 +22,15 @@ class MasterController extends Controller
         return view('boq.master.masterBoq', compact('catagories'));
     }
 
-    public function index_sub($id){
+    public function index_sub($id)
+    {
+        $data = array(
+            'catagories' => catagory::find($id),
+            'catagories3' => catagory_sub::where('catagory_id', $id)->get(),
+            'data_brand' => Brand::get()
+        );
 
-        $catagories = catagory::find($id);
-        $catagories3 = catagory_sub::where('catagory_id', $id)->get();
-
-        return view('boq.master.sub_masterBoq', compact('catagories','catagories3'));
+        return view('boq.master.sub_masterBoq', $data);
     }
 
     public function store(Request $request)
@@ -87,8 +91,10 @@ class MasterController extends Controller
     {
         // dd($request);
        $catagory_sub = new catagory_sub;
+       $catagory_sub->code = $request->code;
        $catagory_sub->catagory_id = $request->catagory_id;
        $catagory_sub->name = $request->name;
+       $catagory_sub->brand_id = implode( ',', $request->brand_id);
        $catagory_sub->create_by = $request->create_by;
        $catagory_sub->update_by = $request->update_by;
        $catagory_sub->is_active = $request->is_active;

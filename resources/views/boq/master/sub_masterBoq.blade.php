@@ -166,9 +166,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <form action="{{url('/sub_masterBoq/add_sub')}}" method="post">
                                             @csrf
                                             <div class="form-group mb-4">
-                                                <input type="text" class="form-control mb-2" name="catagory_id" value="{{$catagories->id}}" readonly>
+                                                <input type="hidden" class="form-control mb-2" name="catagory_id" value="{{$catagories->id}}" readonly>
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="{{ $catagories->name }}" disabled>
+                                                <input type="text" class="form-control mb-2" name="code" placeholder="Ex: GG001">
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="ชื่องานย่อย">
+                                                <select placeholder="Select Brand" class="tom-select w-full" name="brand_id[]" multiple required>
+                                                    <option value="0" disabled selected>เลือกข้อมูล</option>
+                                                    @foreach ($data_brand as $value)
+                                                        <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
+                                                    @endforeach
+                                                </select>
                                                 <input type="hidden" class="form-control mb-2" name="create_by" value="admin" >
                                                 <input type="hidden" class="form-control mb-2" name="update_by" value="admin" >
                                                 <input type="hidden" class="form-control mb-2" name="is_active" value="1" >
@@ -199,14 +206,34 @@ License: You must have a valid license purchased only from themeforest(the above
                             <table class="table table-hover table-auto sm:mt-2" id="allWork">
                                 <thead>
                                   <tr>
+                                    <th scope="col">Code</th>
                                     <th scope="col">งานย่อย</th>
+                                    <th scope="col">Brand</th>
                                     <th scope="col"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($catagories3 as $cat)
+                                    @foreach ($catagories3 as $key => $cat)
                                     <tr>
+                                        @php
+                                          $brand = explode(',', $cat->brand_id);
+                                        @endphp
+                                        <td>{{ $cat->code }}</td>
                                         <td>{{ $cat->name }}</td>
+                                        <td>
+                                        @foreach ($brand as $keyb => $b)
+                                            @php
+                                                $b_name = App\Models\Brand::where('id', $b)->first();
+                                            @endphp
+                                                @if ($b_name)
+                                                    @if (count($brand) > $keyb + 1)
+                                                        {{ $b_name->brand_name }}, <br>
+                                                    @else
+                                                        {{ $b_name->brand_name }}
+                                                    @endif
+                                                @endif
+                                        @endforeach
+                                        </td>
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->
                                             <a href="javascript:;" onclick="edit_modal_sub({{$cat->id}})" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_edit_sub" class="btn btn-secondary mr-1 mb-2"> Edit </a>
