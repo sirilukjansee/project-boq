@@ -142,22 +142,35 @@
                                         Brand
                                     </label>
                                     {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
+<<<<<<< HEAD
                                     <select id="select-beast-empty" name="brand" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                         @foreach ($project1 as $pro1)
                                         <option value="{{$pro1->brand_name}}">{{$pro1->brand_name}}</option>
                                         @endforeach
+=======
+                                    <select id="select-beast-empty" data-placeholder="Select a person..."  autocomplete="off" class="w-full">
+                                        <option value=""></option>
+                                        <option value="4">Thomas Edison</option>
+                                        <option value="1">Nikola</option>
+                                        <option value="3">Nikola Tesla</option>
+                                        <option value="5">Arnold Schwarzenegger</option>
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                     </select>
                                 </div>
                                 <div class="input-form mt-3">
                                     <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
                                         Location
                                     </label>
+<<<<<<< HEAD
                                     {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
                                     <select id="select-beast-empty1" name="location" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                         @foreach ($project2 as $pro2)
                                         <option value="{{$pro2->location_name}}">{{$pro2->location_name}}</option>
                                         @endforeach
                                     </select>
+=======
+                                    <input id="validation-form-2" type="text" name="location" class="form-control" required>
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                 </div>
                             </div>
                             <div class="grid grid-cols-8 gap-2">
@@ -166,7 +179,11 @@
                                         <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
                                             Area
                                         </label>
+<<<<<<< HEAD
                                         <input id="validation-form-3" type="text" name="area" class="form-control" required>
+=======
+                                        <input id="validation-form-3" type="text" name="area" class="form-control" required placeholder="ขนาด และ หน่วย">
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                         <div class="form-help">ขนาด และ หน่วย</div>
                                     </div>
                                 </div>
@@ -183,12 +200,16 @@
                                         <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
                                             Task Type
                                         </label>
+<<<<<<< HEAD
                                         {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
                                         <select id="select-beast-empty2" name="task" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                             @foreach ($project3 as $pro3)
                                             <option value="{{$pro3->task_type_name}}">{{$pro3->task_type_name}}</option>
                                             @endforeach
                                         </select>
+=======
+                                        <input id="validation-form-5" type="text" name="task" class="form-control" required>
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                     </div>
                                 </div>
                                 <div class="col-span-12 xl:col-span-2 mt-3">
@@ -196,12 +217,16 @@
                                         <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
                                             Task Name
                                         </label>
+<<<<<<< HEAD
                                         {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
                                         <select id="select-beast-empty3" name="task_n" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                             @foreach ($project4 as $pro4)
                                             <option value="{{$pro4->task_name}}">{{$pro4->task_name}}</option>
                                             @endforeach
                                         </select>
+=======
+                                        <input id="validation-form-5" type="text" name="task_n" class="form-control" required>
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                     </div>
                                 </div>
                             </div>
@@ -217,7 +242,11 @@
                                 <div class="col-span-12 xl:col-span-2 mt-3">
                                     <div class="input-form mt-2 xl:mt-0">
                                         <label for="validation-form-7" class="form-label w-full sm:flex-row">
+<<<<<<< HEAD
                                             On hand Date
+=======
+                                            Finish Date
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                         </label>
                                         <input id="validation-form-7" type="date" name="finishDate" class="form-control" required>
                                     </div>
@@ -244,12 +273,16 @@
                                     <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
                                         Designer Name
                                     </label>
+<<<<<<< HEAD
                                     {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
                                     <select id="select-beast-empty4" name="ds_name" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                         @foreach ($project5 as $pro5)
                                         <option value="{{$pro5->name}}">{{$pro5->name}}</option>
                                         @endforeach
                                     </select>
+=======
+                                    <input id="validation-form-8" type="text" name="ds_name" class="form-control" required>
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                 </div>
                                 {{-- <div class="input-form mt-3">
                                     <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
@@ -310,14 +343,18 @@
                 console.log(diffDay);
                 $('#validation-form-10').val(diffDay);
 
+<<<<<<< HEAD
 
             });
 
+=======
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
             //
             new TomSelect("#select-beast-empty",{
                 allowEmptyOption: true,
                 create: true
             });
+<<<<<<< HEAD
             //
             new TomSelect("#select-beast-empty1",{
                 allowEmptyOption: true,
@@ -337,6 +374,8 @@
             new TomSelect("#select-beast-empty4",{
                 allowEmptyOption: true,
                 create: true
+=======
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
             });
         </script>
         <!-- END: JS Assets-->

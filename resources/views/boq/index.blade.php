@@ -208,7 +208,10 @@
                                         <th class="text-center whitespace-nowrap">Open date</th>
                                         <th class="text-center whitespace-nowrap">IO</th>
                                         <th class="text-center whitespace-nowrap">Designer</th>
+<<<<<<< HEAD
                                         <th class="text-center whitespace-nowrap">Status</th>
+=======
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -259,11 +262,14 @@
                                                 <p>{{ $pro->designer_name }}</p>
                                             </div>
                                         </td>
+<<<<<<< HEAD
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
                                                 <p>Waiting </p>
                                             </div>
                                         </td>
+=======
+>>>>>>> a6d31ee6768e1e9b5e07b02263f99ede4cf09910
                                     </tr>
                                     @endforeach
                                 </tbody>
