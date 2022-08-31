@@ -22,6 +22,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
         <!-- END: CSS Assets-->
@@ -168,7 +170,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="form-group mb-4">
                                                 <input type="hidden" class="form-control mb-2" name="catagory_id" value="{{$catagories->id}}" readonly>
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="{{ $catagories->name }}" disabled>
-                                                <input type="text" class="form-control mb-2" name="code" placeholder="Ex: GG001">
+                                                <input type="text" class="form-control mb-2" name="code" placeholder="Ex: GG001" required>
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="ชื่องานย่อย">
                                                 <select placeholder="Select Brand" class="tom-select w-full" name="brand_id[]" multiple required>
                                                     <option value="0" disabled selected>เลือกข้อมูล</option>
@@ -263,8 +265,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <input type="hidden" name="id" id="id">
                                             <input type="hidden" class="form-control mb-2" name="catagory_id" id="cat_id" value="{{$catagories->id}}">
                                             <input type="text" class="form-control mb-2" name="name" id="name" placeholder="{{$catagories->name}}" disabled>
+                                            <input type="text" class="form-control mb-2" name="code" id="get_code" required>
                                             <input type="text" class="form-control mb-2" name="name" id="sub_name" placeholder="ชื่องานย่อย" value="">
-                                            <input type="text" class="form-control mb-2" name="update_by" id="update_by" value="admin" >
+                                            {{-- <select class="js-example-basic-multiple form-control mb-2" id="get_brand" name="brand_id[]" multiple="multiple" required> --}}
+                                                {{-- @foreach ($data_brand as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
+                                                @endforeach --}}
+                                            {{-- </select> --}}
+                                            <input type="hidden" class="form-control mb-2" name="update_by" id="update_by" value="admin" >
                                         </div>
 
                                         <input type="submit" value="Save Edit" class="btn btn-primary">
@@ -280,6 +288,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END: Content -->
             </div>
 
+            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                <option value="AL">Alabama</option>
+                <option value="WY">Wyoming</option>
+              </select>
+
         </div>
         <!-- END: Content -->
 
@@ -292,9 +305,13 @@ License: You must have a valid license purchased only from themeforest(the above
                 jQuery('#allWork').DataTable();
             });
 
+            jQuery(document).ready(function() {
+                jQuery('.js-example-basic-multiple').select2();
+            });
+
             //edit sub
             function edit_modal_sub(id){
-                console.log(id);
+                // console.log(id);
                 jQuery.ajax({
                     type:   "GET",
                     url:    "{!! url('sub_masterBoq/edit/"+id+"') !!}",
@@ -302,12 +319,25 @@ License: You must have a valid license purchased only from themeforest(the above
                     async:  false,
                     success: function(data) {
                         $('#id').val(data.dataEdit.id);
-                        // $('#cat_id').val(data.dataEdit.cat_id);
-                        // $('#name').val(data.dataEdit.name);
+                        // $('#get_brand').val(data.dataEdit.brand_id);
+                        $('#get_code').val(data.dataEdit.code);
                         $('#sub_name').val(data.dataEdit.name);
                         $('#update_by').val(data.dataEdit.update_by);
                         jQuery('#Delete').children().remove().end();
+                        jQuery('#get_brand').children().remove().end();
+                        // console.log(data.dataBrand);
 
+                        let rows_tags = data.dataEdit.brand_id.split(",");
+                        let count_tags = rows_tags.length;
+                        jQuery.each(rows_tags, function(tkey, tvalue){
+                            jQuery.each(data.dataBrand, function(key, value){
+                                if(value.id == rows_tags[tkey]){
+                                    $('#get_brand').append('<option value='+value.id+' selected>'+value.brand_name+'</option>');
+                                }else{
+                                    $('#get_brand').append('<option value='+value.id+'>'+value.brand_name+'</option>');
+                                }
+                            });
+                        });
                     }
                 });
             }

@@ -110,14 +110,15 @@ class MasterController extends Controller
         $id2 = catagory_sub::find($id);
 
         return response()->json([
-            'dataEdit' => $id2
+            'dataEdit' => $id2,
+            'dataBrand' => Brand::get()
         ]);
 
     }
 
     public function update_sub(Request $request)
     {
-        // dd($request);
+        dd($request);
         $request->validate([
             'name' => 'unique:catagory_subs'
         ],
@@ -126,7 +127,9 @@ class MasterController extends Controller
         ]);
 
         $update_sub = catagory_sub::find($request->id)->update([
+            'code' => $request->code,
             'name' => $request->name,
+            'brand_id' => implode( ',', $request->brand_id),
             'update_by' => $request->update_by
         ]);
         return back()->with('success', '!!! Edit_SUB Complete !!!');

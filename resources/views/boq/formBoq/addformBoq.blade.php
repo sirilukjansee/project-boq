@@ -254,7 +254,7 @@
                                         @foreach ($cat->catagory_sub as $cat_s)
                                         <span>{{$cat_s->name}}</span><br>
                                         @endforeach
-                                        <input type="text" class="w-full" value="PRELIMINARY" id="" class="" style="background-color: rgb(170, 204, 236);" disabled>
+                                        @endforeach
                                     </div>
                                         <div class="intro-y overflow-auto input-form mt-3 ml-2">
                                             <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
