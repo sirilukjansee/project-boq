@@ -219,6 +219,7 @@
                         <!-- END: Super Large Modal Content -->
                     </div>
                     <!-- BEGIN: Validation Form -->
+<<<<<<< HEAD
                     <form action="" class="validate-form">
                         {{-- <div class="input-form mt-3">
                             <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
@@ -290,190 +291,59 @@
                                                 <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                             </div>
                                             <div id="newRowsub"></div>
+=======
+                        <div class="group_wrapper" id="main1">
+                            <form action="" class="validate-form" method="POST">
+                                <div id="addmain" class="input-form mt-3">
+                                    @foreach ($catagories as $key => $cat)
+                                    <input type="text" class="w-full" value="{{$cat->id}}. {{$cat->name}}" class="" style="background-color: rgb(170, 204, 236);" readonly >
+                                    <div class="intro-y overflow-auto input-form mt-3 ml-2">
+                                        <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
+                                            งานย่อย
+                                        </label>
+                                        <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                            <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                            <select name="" id="" class="form-control w-24">
+                                                <option value="unit">G2000A</option>
+                                                <option value="unit">G2000A</option>
+                                                <option value="square meter">G2000B</option>
+                                                <option value="cubic meter">G2000C</option>
+                                                <option value="a">G2000D</option>
+                                            </select>
+                                            <select name="" id="" class="w-full" required>
+                                                @foreach ($cat->catagory_sub as $cat_s)
+                                                <option value="{{$cat_s->name}}">{{$cat_s->name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="number" class="form-control w-16" placeholder="จำนวน" aria-label="default input inline 2" required>
+                                            <select name="" id="" class="form-control w-24">
+                                                @foreach ($catagories2 as $cat2)
+                                                <option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                            <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+>>>>>>> a218ff3636197d45b2f6d8f774b39860ef83e1ff
                                         </div>
-
-                                    {{-- <div class="flex justify-end mt-3 gap-2">
-                                        <button class="btn btn-secondary">ลบงานย่อยที่เลือก</button>
-                                        <button id="btnAddsub" class="btn btn-primary">เพิ่มงานย่อย</button>
-                                        <button id="removeRow" class="btn btn-secondary">ลบงานหลัก</button>
-                                    </div> --}}
-
-                                        <div class="grid grid-cols-3">
-                                            <div class="col-span-2">
-                                                <input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" />
-                                            </div>
-                                            <div class="flex justify-end gap-2">
-                                                <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub" />
-                                                <input type="button" value="ลบงานหลัก" class="btn btn-secondary" id="delMain">
-                                            </div>
-                                        </div>
-                                    {{-- <div class="flex justify-start mt-3">
-                                        <button class="btn btn-secondary">ลบงานย่อยที่เลือก</button>
+                                        <div id="newRowsub{{$key + 1}}"></div>
+                                        <input type="hidden" id="number_s" rel="{{$key + 1}}">
                                     </div>
-                                    <div class="flex justify-end mt-3 gap-2">
-                                        <button id="btnAddsub" class="btn btn-primary">เพิ่มงานย่อย</button>
-                                        <button id="removeRow" class="btn btn-secondary">ลบงานหลัก</button>
-                                    </div> --}}
-
-                                    <div id="newRow"></div>
-
-                                </form>
-                            {{-- </div>
-                            <div class="group_wrapper" id="main1">
-                                <form action="" class="validate-form" method="POST">
-                                    <div id="addmain" class="input-form mt-3">
-
-                                        <input type="text" class="w-full" value="DEMOLISH" id="" style="background-color: rgb(170, 204, 236);" disabled>
-                                    </div>
-
-                                        <div class="intro-y overflow-auto input-form mt-3 ml-2">
-                                            <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                                                งานย่อย
-                                            </label>
-                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" name="test">
-                                                <input type="text" class="form-control w-24" value="G2000A">
-                                                <select name="field_namesub[]" id="" class="w-full" required>
-                                                    @foreach ($catagories1 as $cat)
-                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>
-                                                <select name="field_unit[]" id="" class="form-control w-24">
-                                                    <option value="unit">หน่วย</option>
-                                                    <option value="square meter">ตร.ม</option>
-                                                    <option value="cubic meter">ลบ.ม</option>
-                                                    <option value="a">งาน</option>
-                                                </select>
-                                                <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                            </div>
-                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="">
-                                                <input type="text" class="form-control w-24" value="G2000A">
-                                                <select name="field_namesub[]" id="" class="w-full" required>
-                                                    @foreach ($catagories1 as $cat)
-                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>
-                                                <select name="field_unit[]" id="" class="form-control w-24">
-                                                    <option value="unit">หน่วย</option>
-                                                    <option value="square meter">ตร.ม</option>
-                                                    <option value="cubic meter">ลบ.ม</option>
-                                                    <option value="a">งาน</option>
-                                                </select>
-                                                <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                            </div>
-                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="">
-                                                <input type="text" class="form-control w-24" value="G2000A">
-                                                <select name="field_namesub[]" id="" class="w-full" required>
-                                                    @foreach ($catagories1 as $cat)
-                                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>
-                                                <select name="field_unit[]" id="" class="form-control w-24">
-                                                    <option value="unit">หน่วย</option>
-                                                    <option value="square meter">ตร.ม</option>
-                                                    <option value="cubic meter">ลบ.ม</option>
-                                                    <option value="a">งาน</option>
-                                                </select>
-                                                <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                            </div>
-                                            <div id="newRowsub1"></div>
+                                    <div class="grid grid-cols-3 mb-3">
+                                        <div class="col-span-2">
+                                            <input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" />
                                         </div>
-
-                                    <div class="grid grid-cols-3">
-                                        <div class="col-span-2"><input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" /></div>
                                         <div class="flex justify-end gap-2">
-                                            <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub1" />
+                                            <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
                                             <input type="button" value="ลบงานหลัก" class="btn btn-secondary" id="delMain">
                                         </div>
                                     </div>
-
-                                    <div id="newRow"></div>
-
-                                </form>
-                            </div> --}}
-
-                    </form>
+                                    @endforeach
+                                </div>
+                            </form>
+                        </div>
                     <input type="submit" value="บันทึก" class="btn btn-primary">
-                    <!--<a href="{{ url("addminorBoq") }}" class="btn btn-secondary mt-5">เพิ่มงานย่อย</a>-->
                     <a href="{{ url('allBoq') }}" class="btn btn-secondary mt-5">ย้อนกลับ</a>
-
-                    {{-- <div class="intro-y overflow-auto lg:overflow-visible pt-6 sm:mt-0">
-                        <table class="table table-hover sm:mt-2">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="whitespace-nowrap">รายการ</th>
-                                    <th class="whitespace-nowrap">งานหลัก</th>
-                                    <th class="text-center whitespace-nowrap"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="intro-x">
-                                    <td class="w-40 text-center table-report__action">
-                                        <div class="flex">
-                                            <h3>1</h3>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a class="font-medium whitespace-nowrap"> งานโครงสร้าง </a>
-                                    </td>
-                                    <td class="table-report__action">
-                                        <div class="btn-group text-center flex justify-center">
-                                            <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="rotate-ccw" class="w-4 h-4 mr-2"></i> แก้ไข </a>
-                                            <a href="{{ url('addminorBoq')}}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> เพิ่มงานย่อย </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="intro-x">
-                                    <td class="w-40 text-center table-report__action">
-                                        <div class="flex">
-                                            <h3>2</h3>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a class="font-medium whitespace-nowrap"> งานระบบ </a>
-                                    </td>
-                                    <td class="table-report__action">
-                                        <div class="btn-group text-center flex justify-center">
-                                            <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="rotate-ccw" class="w-4 h-4 mr-2"></i> แก้ไข </a>
-                                            <a href="{{ url('addminorBoq')}}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="plus" class="w-4 h-4 mr-2"></i> เพิ่มงานย่อย </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> --}}
                     <!-- END: Validation Form -->
-                    <!-- BEGIN: Success Notification Content -->
-                    <div id="success-notification-content" class="toastify-content hidden flex">
-                        <i class="text-success" data-lucide="check-circle"></i>
-                        <div class="ml-4 mr-4">
-                            <div class="font-medium">Registration success!</div>
-                            <div class="text-slate-500 mt-1">
-                                Please check your e-mail for further info!
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: Success Notification Content -->
-                    <!-- BEGIN: Failed Notification Content -->
-                    <div id="failed-notification-content" class="toastify-content hidden flex">
-                        <i class="text-danger" data-lucide="x-circle"></i>
-                        <div class="ml-4 mr-4">
-                            <div class="font-medium">Registration failed!</div>
-                            <div class="text-slate-500 mt-1">
-                                Please check the fileld form.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: Failed Notification Content -->
-
                 </div>
                 <!-- END: Content -->
             </div>
@@ -483,13 +353,6 @@
         <!-- BEGIN: JS Assets-->
         <script src="dist/js/app.js"></script>
         <script type="text/javascript">
-            // new TomSelect("#select-beast",{
-            //     create: true,
-            //     sortField: {
-            //         field: "text",
-            //         direction: "asc"
-            //     }
-            // });
 
             // remove subwork w/ btn
             jQuery(document).on('click', "#delSubBtn", function(){
@@ -513,124 +376,43 @@
 
 
             // btn add subwork
-            $("#btnAddsub").on('click', function(){
-                var html = '';
-                html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
-                html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" name="test">';
-                html += '<select name="field_code[]" id="" class="form-control w-24"><option value="unit">G2000A</option><option value="square meter">G2000B</option>';
-                html += '<option value="cubic meter">G2000C</option><option value="a">G2000D</option></select>';
-                html += '<select name="field_namesub[]" id="" class="w-full" required>';
-                html += '@foreach ($catagories1 as $cat)<option value="{{ $cat->id }}">{{ $cat->name }}</option>@endforeach';
-                html += '</select>';
-                html += '<input type="number" class="form-control w-16" placeholder="จำนวน" aria-label="default input inline 2" required>';
-                html += '<select name="field_unit[]" id="" class="form-control w-24">';
-                html += '<option value="unit">หน่วย</option><option value="square meter">ตร.ม</option><option value="cubic meter">ลบ.ม</option><option value="a">งาน</option>';
-                html += '</select>';
-                html += '<input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
-                html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
-                html += '</div>';
+            jQuery(document).ready(function()
+            {
 
-                $('#newRowsub').append(html);
+                jQuery.ajax({
+                url: "/addformBoq/select-catagory",
+                type: "GET",
+                datatype: "JSON",
+                success: function(response) {
+                    // console.log(response);
+
+                    jQuery.each(response.data, function(key, value){
+                        // console.log(key + 1);
+                        var sub_num = key +1;
+                        $("#btnAddsub" + sub_num).on('click', function(){
+                            var html = '';
+                            html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
+                            html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" name="test">';
+                            html += '<select name="field_code[]" id="" class="form-control w-24"><option value="unit">G2000A</option><option value="square meter">G2000B</option>';
+                            html += '<option value="cubic meter">G2000C</option><option value="a">G2000D</option></select>';
+                            html += '<select name="field_namesub[]" id="" class="w-full" required>';
+                            html += '@foreach ($catagories1 as $cat)<option value="{{ $cat->id }}">{{ $cat->name }}</option>@endforeach';
+                            html += '</select>';
+                            html += '<input type="number" class="form-control w-16" placeholder="จำนวน" aria-label="default input inline 2" required>';
+                            html += '<select name="field_unit[]" id="" class="form-control w-24">';
+                            html += '<option value="unit">หน่วย</option><option value="square meter">ตร.ม</option><option value="cubic meter">ลบ.ม</option><option value="a">งาน</option>';
+                            html += '</select>';
+                            html += '<input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
+                            html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
+                            html += '</div>';
+
+                        $('#newRowsub' + sub_num).append(html);
+
+                         });
+                    });
+                }
+                });
             });
-
-
-            // btn add subwork
-            // $("#btnAddsub1").on('click', function(){
-            //     var html1 = '';
-            //     html1 += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
-            //     html1 += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" name="test">';
-            //     html1 += '<select name="field_namesub[]" id="" class="w-full" required>';
-            //     html1 += '@foreach ($catagories1 as $cat)<option value="{{ $cat->id }}">{{ $cat->name }}</option>@endforeach';
-            //     html1 += '</select>';
-            //     html1 += '<input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>';
-            //     html1 += '<select name="field_unit[]" id="" class="form-control w-24">';
-            //     html1 += '<option value="unit">หน่วย</option><option value="square meter">ตร.ม</option><option value="cubic meter">ลบ.ม</option><option value="a">งาน</option>';
-            //     html1 += '</select>';
-            //     html1 += '<input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
-            //     html1 += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
-            //     html1 += '</div>';
-
-            //     $('#newRowsub1').append(html1);
-            // });
-
-
-            // var max_group = 5;
-            // var add_group = $('.btnAddmain');
-            // var group_wrapper = $('.group_wrapper');
-
-            // var max_field = 10;
-            // var add_field = $('.btnAddsub')
-            // var field = $("#addsub");
-            // var html_group = ''+
-            //     '<form action="" class="validate-form" method="POST">'+
-            //     '<div id="addmain" class="input-form mt-3">'+
-            //     '<label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">งานหลัก</label>'+
-            //     '<select name="field_name[]" id="" class="tom-select w-full" required>@foreach ($catagories as $cat)<option value="{{ $cat->id }}">{{ $cat->name }}</option>@endforeach</select>'+
-            //     '</div>'+
-            //     '<div class="container">'+
-            //     '<div class="intro-y input-form mt-3">'+
-            //     '<label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">งานย่อย</label>'+
-            //     '<div id="addsub" class="flex flex-row gap-2">'+
-            //     '<select name="field_namesub[]" id="" class="basis-1/3" required>@foreach ($catagories1 as $cat)<option value="{{ $cat->id }}">{{ $cat->name }}</option>@endforeach</select>'+
-            //     '<input type="number" class="form-control basis-1/4" placeholder="จำนวน" aria-label="default input inline 2" required>'+
-            //     '<select name="field_unit[]" id="" class="form-control basis-1/4"><option value="unit">หน่วย</option><option value="square meter">ตร.ม</option><option value="cubic meter">ลบ.ม</option><option value="a">งาน</option></select>'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '</div>'+
-            //     '<div class="flex justify-end mt-3 gap-2">'+
-            //     '<button id="btnAddsub" class="btn btn-primary">เพิ่มงานย่อย</button>'+
-            //     '<button id="removeRow" class="btn btn-secondary">ลบ</button>'+
-            //     '</div>'+
-            //     '</form>'+
-            //     '<div class="flex justify-end mt-3"><button id="btnAddmain" class="btn btn-primary">เพิ่มงานหลัก</button></div>';
-
-
-            // var html_fields = ''+
-            //     '<div id="addsub" class="flex flex-row gap-2 mt-1">'+
-            //     '<select name="field_namesub[]" id="" class="basis-1/3" required>'+
-            //     '@foreach ($catagories1 as $cat)'+
-            //     '<option value="{{ $cat->id }}">{{ $cat->name }}</option>'+
-            //     '@endforeach'+
-            //     '</select>'+
-            //     '<input type="number" class="form-control basis-1/4" placeholder="จำนวน" aria-label="default input inline 2" required>'+
-            //     '<select name="field_unit[]" id="" class="form-control basis-1/4">'+
-            //     '<option value="unit">หน่วย</option>'+
-            //     '<option value="square meter">ตร.ม</option>'+
-            //     '<option value="cubic meter">ลบ.ม</option>'+
-            //     '<option value="a">งาน</option>'+
-            //     '</select>'+
-            //     '<div><button id="removeSub" class="btn btn-secondary">ลบ</button></div>'+
-            //     '</div>';
-
-            // var x = 1;
-            // var y = 1;
-
-            // $("#btnAddmain").on('click',function(){
-            //     if(y < max_group){
-            //         y++;
-            //         $(group_wrapper).append(html_group);
-            //     }
-            // });
-
-            // $("#removeRow").on('click', "#removeRow", function(e){
-            //     e.preventDefault();
-            //     $(this).closest('group_wrapper').remove();
-            //     y--;
-            // });
-
-            // $("#btnAddsub").on('click', function(){
-            //     if(x < max_field){
-            //         x++;
-            //         $("#newRowsub").append(html_fields);
-            //     }
-            // });
-
-            // $("#addSub").on('click', "#removeSub", function(e){
-            //     e.preventDefault();
-            //     $(this).closest("#addsub").remove();
-            // });
-
-
 
         </script>
         <!-- END: JS Assets-->
