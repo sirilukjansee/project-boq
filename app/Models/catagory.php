@@ -19,6 +19,7 @@ class catagory extends Model
         'update_by',
         'is_active',
     ];
+
     public function catagory_sub(){
         return $this->hasMany(catagory_sub::class,'catagory_id','id');
     }
