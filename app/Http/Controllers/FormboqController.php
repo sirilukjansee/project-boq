@@ -4,28 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\catagory;
+use App\Models\catagory_sub;
 use App\Models\Unit;
+use App\Models\Project;
+use App\Models\Brand;
 use Illuminate\Support\Facades\DB;
 
 class FormboqController extends Controller
 {
-    public function index(){
+    public function index($id){
+
+        $project = Project::leftjoin('brands','projects.brand','brands.brand_name')
+        ->where('projects.id',$id)
+        ->select('projects.*','brands.id as brand_id')
+        ->first();
 
         $catagories = catagory::all();
-        $catagories1 = DB::table('catagory_subs')
-        ->join('catagories','catagories.id','=','catagory_subs.catagory_id')
-        ->select('catagories.*', 'catagory_subs.*','catagories.name as catagory_name')
-        ->get();
+        // $catagories1 = catagory_sub::where('brand_id', 'LIKE','%'.$project->brand_id.'%')
+        // ->get();
+        $brand_master = Brand::all();
         $catagories2 = Unit::all();
 
-        return view('boq.formBoq.addformBoq', compact('catagories','catagories1','catagories2'));
+        // echo $catagories1;
+        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master'));
 
     }
 
     public function select_catagory()
     {
         return response()->json([
-            'data' => catagory::all()
+            'data' => catagory::all(),
+            'dataSub' => catagory_sub::all()
         ]);
     }
 }

@@ -4,21 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class Location extends Model
+class Boq extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
-    protected $filable = [
-        'location_name',
+    protected   $fillable = [
+        'main_id',
+        'sub_id',
+        'amount',
+        'unit_id',
+        'desc',
+        'total',
         'create_by',
         'update_by'
     ];
-
-    protected $guarded = [];
-
-    
 }

@@ -212,21 +212,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($project as $pro)
+                                    @foreach ($project as $key => $pro)
                                     <tr data-href="{{ url('allBoq', $pro->id) }}" class="intro-x cursor-pointer">
                                         <td class="w-40 text-center table-report__action">
                                             <div class="flex">
-                                                <h3>{{ $pro->id }}</h3>
+                                                <h3>{{ $key + 1 }}</h3>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <b class="text-center">{{ $pro->brand }}</b>
+                                                <b class="text-center">{{ $pro->brand_master->brand_name }}</b>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p class="text-center">{{ $pro->location }}</p>
+                                                <p class="text-center">{{ $pro->location_master->location_name }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
@@ -236,12 +236,12 @@
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>{{ $pro->task }}</p>
+                                                <p>{{ $pro->task_type_master->task_type_name }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>{{ $pro->task_n }}</p>
+                                                <p>{{ $pro->task_name_master->task_name }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
@@ -256,12 +256,12 @@
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>{{ $pro->designer_name }}</p>
+                                                <p>{{ $pro->designer_master->name }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>Waiting </p>
+                                                <p>Waiting</p>
                                             </div>
                                         </td>
                                     </tr>

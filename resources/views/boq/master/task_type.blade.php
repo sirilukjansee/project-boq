@@ -236,9 +236,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($task_types as $task)
+                                    @foreach ($task_types as $key => $task)
                                     <tr>
-                                        <td class="text-center">{{ $task->id }}</td>
+                                        <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $task->task_type_name }}</td>
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->

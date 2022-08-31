@@ -220,9 +220,9 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($units as $un)
+                                    @foreach ($units as $key => $un)
                                     <tr>
-                                        <td class="text-center">{{ $un->id }}</td>
+                                        <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $un->unit_name }}</td>
 
                                         <td class="text-center">

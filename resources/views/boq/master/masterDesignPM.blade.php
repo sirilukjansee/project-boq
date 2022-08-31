@@ -239,9 +239,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($design_and_pms as $dp)
+                                    @foreach ($design_and_pms as $key => $dp)
                                     <tr>
-                                        <td class="text-center">{{ $dp->id }}</td>
+                                        <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $dp->name }}</td>
                                         <td>{{ $dp->email }}</td>
                                         <td class="text-center">{{ $dp->tel }}</td>

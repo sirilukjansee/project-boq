@@ -16,7 +16,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
-        <title>{{ $project->brand }} at {{ $project->location }}</title>
+        <title>{{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
         <!-- END: CSS Assets-->
@@ -145,7 +145,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
                                 <ol class="breadcrumb breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ url('index') }}">Project</a></li>
-                                    <li class="breadcrumb-item active"><a></a>{{ $project->brand }} at {{ $project->location }}</li>
+                                    <li class="breadcrumb-item active"><a></a>{{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</li>
                                 </ol>
                             </nav>
                         </h2>
@@ -158,7 +158,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </form>
                             <div class="sm:flex items-center mt-2 xl:mt-0">
-                                <a href="{{ url('addformBoq') }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>เพิ่มใบเสนอราคา</a>
+                                <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>เพิ่มใบเสนอราคา</a>
                             </div>
                         </div>
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">

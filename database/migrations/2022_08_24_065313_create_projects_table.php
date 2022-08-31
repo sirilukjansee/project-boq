@@ -15,18 +15,18 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('brand');
-            $table->string('location');
+            $table->foreignId('brand');
+            $table->foreignId('location');
             $table->string('area');
             $table->string('unit');
             $table->string('io');
-            $table->string('task');
-            $table->string('task_n');
+            $table->foreignId('task');
+            $table->foreignId('task_n');
             $table->date('start_date');
             $table->date('finish_date');
             $table->integer('all_date');
             $table->date('open_date');
-            $table->string('designer_name');
+            $table->foreignId('designer_name');
             $table->string('project_manager');
             $table->float('total', 8, 2)->default('0')->nullable()->comment('ยอดรวม');
             $table->timestamps();

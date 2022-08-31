@@ -235,9 +235,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($locations as $lo)
+                                    @foreach ($locations as $key => $lo)
                                     <tr>
-                                        <td class="text-center">{{ $lo->id }}</td>
+                                        <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $lo->location_name }}</td>
 
                                         <td class="text-center">

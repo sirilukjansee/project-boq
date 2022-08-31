@@ -235,9 +235,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($brands as $brd)
+                                    @foreach ($brands as $key => $brd)
                                     <tr>
-                                        <td class="text-center">{{ $brd->id }}</td>
+                                        <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $brd->brand_name }}</td>
 
                                         <td class="text-center">

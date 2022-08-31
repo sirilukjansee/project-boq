@@ -236,9 +236,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($catagories as $cat)
+                                    @foreach ($catagories as $key => $cat)
                                     <tr>
-                                        <td class="text-center">{{ $cat->id }}</td>
+                                        <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $cat->name }}</td>
                                         <td class="text-center">
                                             <a href="{{ url('sub_masterBoq', $cat->id) }}" class="btn btn-primary mr-1"> Sub </a>

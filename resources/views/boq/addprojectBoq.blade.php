@@ -144,7 +144,7 @@
                                     {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
                                     <select id="select-beast-empty" name="brand" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                         @foreach ($project1 as $pro1)
-                                        <option value="{{$pro1->brand_name}}">{{$pro1->brand_name}}</option>
+                                        <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -155,7 +155,7 @@
                                     {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
                                     <select id="select-beast-empty1" name="location" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                         @foreach ($project2 as $pro2)
-                                        <option value="{{$pro2->location_name}}">{{$pro2->location_name}}</option>
+                                        <option value="{{$pro2->id}}">{{$pro2->location_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -186,7 +186,7 @@
                                         {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
                                         <select id="select-beast-empty2" name="task" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                             @foreach ($project3 as $pro3)
-                                            <option value="{{$pro3->task_type_name}}">{{$pro3->task_type_name}}</option>
+                                            <option value="{{$pro3->id}}">{{$pro3->task_type_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -199,7 +199,7 @@
                                         {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
                                         <select id="select-beast-empty3" name="task_n" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                             @foreach ($project4 as $pro4)
-                                            <option value="{{$pro4->task_name}}">{{$pro4->task_name}}</option>
+                                            <option value="{{$pro4->id}}">{{$pro4->task_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -247,7 +247,7 @@
                                     {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
                                     <select id="select-beast-empty4" name="ds_name" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
                                         @foreach ($project5 as $pro5)
-                                        <option value="{{$pro5->name}}">{{$pro5->name}}</option>
+                                        <option value="{{$pro5->id}}">{{$pro5->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

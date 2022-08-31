@@ -26,4 +26,24 @@ class Project extends Model
         'project_manager',
         'total'
     ];
+
+    public function brand_master(){
+        return $this->hasOne(Brand::class,'id','brand');
+    }
+
+    public function location_master(){
+        return $this->hasOne(Location::class,'id','location');
+    }
+
+    public function task_type_master(){
+        return $this->hasOne(task_type::class,'id','task');
+    }
+
+    public function task_name_master(){
+        return $this->hasOne(taskname::class,'id','task_n');
+    }
+
+    public function designer_master(){
+        return $this->hasOne(design_and_pm::class,'id','designer_name');
+    }
 }
