@@ -119,3 +119,5 @@ Route::get('/allBoq/{id}', [BoqController::class, 'index'])->name('allBoq');
 
 
 Route::get('/addformBoq', [FormboqController::class, 'index'])->name('addformboq');
+Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_catagory']);
+

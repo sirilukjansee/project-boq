@@ -21,4 +21,11 @@ class FormboqController extends Controller
         return view('boq.formBoq.addformBoq', compact('catagories','catagories1','catagories2'));
 
     }
+
+    public function select_catagory()
+    {
+        return response()->json([
+            'data' => catagory::all()
+        ]);
+    }
 }
