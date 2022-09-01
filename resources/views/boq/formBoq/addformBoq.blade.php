@@ -219,84 +219,11 @@
                         <!-- END: Super Large Modal Content -->
                     </div>
                     <!-- BEGIN: Validation Form -->
-<<<<<<< HEAD
-                    <form action="" class="validate-form">
-                        {{-- <div class="input-form mt-3">
-                            <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                                งานหลัก
-                            </label>
-                            <input id="validation-form-2" type="text" name="email" class="form-control" placeholder="" required>
-                        </div> --}}
-                        {{-- <div>
-                            <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">catagory</th>
-                                    <th scope="col">catagory_sub</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($catagories1 as $cat)
-                                    <tr>
-                                        <th scope="row">{{ $cat->id }}</th>
-                                        <td>{{ $cat->catagory_name }}</td>
-                                        <td>{{ $cat->name }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div> --}}
-                            <div class="group_wrapper" id="main1">
-                                <form action="" class="validate-form" method="POST">
-                                    <div id="addmain" class="input-form mt-3">
-                                        @foreach ($catagories as $cat)
-                                        <input type="text" class="w-full" value="{{$cat->name}}" id="" class="" style="background-color: rgb(170, 204, 236);" disabled >
-                                        @foreach ($cat->catagory_sub as $cat_s)
-                                        <span>{{$cat_s->name}}</span><br>
-                                        @endforeach
-                                        @endforeach
-                                    </div>
-                                        <div class="intro-y overflow-auto input-form mt-3 ml-2">
-                                            <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                                                งานย่อย
-                                            </label>
-                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                {{-- <select id="select-beast" placeholder="  " autocomplete="off" class="form-control w-24">
-                                                    <option value="unit">G2000A</option>
-                                                    <option value="square meter">G2000B</option>
-                                                    <option value="cubic meter">G2000C</option>
-                                                    <option value="a">G2000D</option>
-                                                </select> --}}
-                                                <select name="field_code[]" id="" class="form-control w-24">
-                                                    <option value="unit">G2000A</option>
-                                                    <option value="square meter">G2000B</option>
-                                                    <option value="cubic meter">G2000C</option>
-                                                    <option value="a">G2000D</option>
-                                                </select>
-                                                <select name="field_namesub[]" id="" class="w-full" required>
-                                                    @foreach ($catagories1 as $cat1)
-                                                    <option value="{{ $cat1->id }}">{{ $cat1->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="number" class="form-control w-16" placeholder="จำนวน" aria-label="default input inline 2" required>
-                                                <select name="field_unit[]" id="" class="form-control w-24">
-                                                    <option value="unit">หน่วย</option>
-                                                    <option value="square meter">ตร.ม</option>
-                                                    <option value="cubic meter">ลบ.ม</option>
-                                                    <option value="a">งาน</option>
-                                                </select>
-                                                <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                            </div>
-                                            <div id="newRowsub"></div>
-=======
                         <div class="group_wrapper" id="main1">
                             <form action="" class="validate-form" method="POST">
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
-                                    <input type="text" class="w-full" value="{{$cat->id}}. {{$cat->name}}"  style="background-color: rgb(153, 187, 238);" readonly >
+                                    <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}"  style="background-color: rgb(153, 187, 238);" readonly >
                                     <input type="hidden" name="main_id[]" id="" value="{{$cat->id}}" >
                                     <div class="intro-y overflow-auto input-form mt-3 ml-2">
                                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
@@ -334,7 +261,6 @@
                                             </select>
                                             <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
                                             <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
->>>>>>> a218ff3636197d45b2f6d8f774b39860ef83e1ff
                                         </div>
                                         <div id="newRowsub{{$key + 1}}"></div>
                                         <input type="hidden" id="number_s" rel="{{$key + 1}}">
@@ -405,8 +331,14 @@
                             // html += '@foreach ($catagories as $key => $cat)';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select name="" id="" class="form-control w-32"><option value="unit">G2000AX</option><option value="unit">G2000AZ</option><option value="square meter">G2000BH</option>';
-                            html += '<option value="cubic meter">G2000CQ</option><option value="a">G2000DG</option></select>';
+                            html += '<select name="unit_id[]" id="" class="form-control w-32">';
+                            jQuery.each(response.dataSub, function(key, value3){
+                                if(value3.catagory_id == value.id){
+                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                }
+                            });
+                            // html += '@foreach ($cat->catagory_sub as $cat_s)<option value="{{$cat_s->id}}">{{$cat_s->code}}</option>@endforeach</select>';
+                            html += '</select>';
                             html += '<select name="" id="" class="w-full" required>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
