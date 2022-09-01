@@ -288,10 +288,10 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END: Content -->
             </div>
 
-            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+            {{-- <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
                 <option value="AL">Alabama</option>
                 <option value="WY">Wyoming</option>
-              </select>
+              </select> --}}
 
         </div>
         <!-- END: Content -->

@@ -11,6 +11,7 @@
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
         <link href="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/css/tom-select.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/js/tom-select.complete.min.js"></script>
         <!-- END: CSS Assets-->
     </head>
@@ -142,7 +143,8 @@
                                         Brand
                                     </label>
                                     {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
-                                    <select id="select-beast-empty" name="brand" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
+                                    <select id="select-beast-empty" name="brand" data-placeholder="Select a brand..."  autocomplete="off" class="form-control w-full" required>
+                                        <option selected value="">Select a brand...</option>
                                         @foreach ($project1 as $pro1)
                                         <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
                                         @endforeach
@@ -153,7 +155,8 @@
                                         Location
                                     </label>
                                     {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
-                                    <select id="select-beast-empty1" name="location" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
+                                    <select id="select-beast-empty1" name="location" data-placeholder="Select a location..."  autocomplete="off" class="form-control w-full" required>
+                                        <option selected value="">Select a location...</option>
                                         @foreach ($project2 as $pro2)
                                         <option value="{{$pro2->id}}">{{$pro2->location_name}}</option>
                                         @endforeach
@@ -184,7 +187,8 @@
                                             Task Type
                                         </label>
                                         {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
-                                        <select id="select-beast-empty2" name="task" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
+                                        <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="form-control w-full" required>
+                                            <option selected value="">Select a task type...</option>
                                             @foreach ($project3 as $pro3)
                                             <option value="{{$pro3->id}}">{{$pro3->task_type_name}}</option>
                                             @endforeach
@@ -197,7 +201,8 @@
                                             Task Name
                                         </label>
                                         {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
-                                        <select id="select-beast-empty3" name="task_n" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
+                                        <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="form-control w-full" required>
+                                            <option selected value="">Select a task name...</option>
                                             @foreach ($project4 as $pro4)
                                             <option value="{{$pro4->id}}">{{$pro4->task_name}}</option>
                                             @endforeach
@@ -208,7 +213,7 @@
                             <div class="grid grid-cols-8 gap-2">
                                 <div class="col-span-12 xl:col-span-2 mt-3">
                                     <div class="input-form mt-2 xl:mt-0">
-                                        <label for="validation-form-6" class="form-label w-full sm:flex-row">
+                                        <label for="validation-form-6" class="form-label w-full sm:flex-row" id="sDate">
                                             Start Date
                                         </label>
                                         <input id="validation-form-6" type="date" name="startDate" class="form-control" required>
@@ -217,7 +222,7 @@
                                 <div class="col-span-12 xl:col-span-2 mt-3">
                                     <div class="input-form mt-2 xl:mt-0">
                                         <label for="validation-form-7" class="form-label w-full sm:flex-row">
-                                            On hand Date
+                                            Hand Over Date
                                         </label>
                                         <input id="validation-form-7" type="date" name="finishDate" class="form-control" required>
                                     </div>
@@ -245,7 +250,8 @@
                                         Designer Name
                                     </label>
                                     {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
-                                    <select id="select-beast-empty4" name="ds_name" data-placeholder="Select a person..."  autocomplete="off" class="form-control w-full">
+                                    <select id="select-beast-empty4" name="ds_name" data-placeholder="Select a designer..."  autocomplete="off" class="form-control w-full" required>
+                                        <option selected value="">Select a designer...</option>
                                         @foreach ($project5 as $pro5)
                                         <option value="{{$pro5->id}}">{{$pro5->name}}</option>
                                         @endforeach
@@ -293,9 +299,9 @@
 
         <!-- BEGIN: JS Assets-->
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="dist/js/app.js"></script>
         <script type="text/javascript">
+
             //calculate date
             $('#validation-form-7').on('change', function() {
 
@@ -312,27 +318,27 @@
 
             });
 
-            //
+            //select brand
             new TomSelect("#select-beast-empty",{
                 allowEmptyOption: true,
                 create: true
             });
-            //
+            //select location
             new TomSelect("#select-beast-empty1",{
                 allowEmptyOption: true,
                 create: true
             });
-            //
+            //select task type
             new TomSelect("#select-beast-empty2",{
                 allowEmptyOption: true,
                 create: true
             });
-            //
+            //select task name
             new TomSelect("#select-beast-empty3",{
                 allowEmptyOption: true,
                 create: true
             });
-            //
+            //select designer
             new TomSelect("#select-beast-empty4",{
                 allowEmptyOption: true,
                 create: true

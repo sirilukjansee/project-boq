@@ -8,10 +8,10 @@
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/css/tom-select.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/js/tom-select.complete.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
@@ -121,14 +121,6 @@
                         <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                         <div class="top-menu__title"> BOQ <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                    {{-- <ul class="">
-                        <li>
-                            <a href="{{ url('addminorBoq') }}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> เพิ่มงานย่อย </div>
-                            </a>
-                        </li>
-                    </ul> --}}
                 </li>
             </ul>
         </nav>
@@ -142,32 +134,6 @@
                         <h2 class="text-lg font-medium mr-auto">
                             Create BOQ
                         </h2>
-                        {{-- <div class="text-center">
-                            <!-- BEGIN: Super Large Modal Toggle -->
-                            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview1" class="btn btn-primary mr-1 mb-2">Upload Master</a>
-                            <!-- END: Super Large Modal Toggle -->
-                        </div> --}}
-                        {{-- <div id="superlarge-modal-size-preview1" class="modal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-body p-10 text-center">
-                                        <form data-single="true" action="/file-upload" class="dropzone">
-                                            <div class="fallback">
-                                                <input name="file" type="file" />
-                                            </div>
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                                <div class="text-slate-500">
-                                                    This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded.
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        <!-- END: Super Large Modal Content -->
-
                         <div class="text-center">
                             <!-- BEGIN: Super Large Modal Toggle -->
                             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">เลือก Template</a>
@@ -220,50 +186,51 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper" id="main1">
-                            <form action="" class="validate-form" method="POST">
+                            <form action=""  method="POST">
+                                @csrf
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}"  style="background-color: rgb(153, 187, 238);" readonly >
                                     <input type="hidden" name="main_id[]" id="" value="{{$cat->id}}" >
                                     <div class="intro-y overflow-auto input-form mt-3 ml-2">
-                                        <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                                            งานย่อย
-                                        </label>
-                                        <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                            <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                            <select name="unit_id[]" id="" class="form-control w-32">
-                                                @foreach ($cat->catagory_sub as $cat_s)
-                                                <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                                @endforeach
-                                            </select>
-                                            <select name="sub_id[]" id="" class="w-full" required>
-                                                @foreach ($cat->catagory_sub as $cat_s)
-                                                {{-- @php
-                                                    $brand = explode(',', $cat_s->brand_id);
-                                                @endphp
-                                                @foreach ($brand_master as $key_m => $bm)
+                                        <div class="input-form">
+                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test" required>
+                                                <select name="unit_id[]" id="" class="form-control w-32">
+                                                    @foreach ($cat->catagory_sub as $cat_s)
+                                                    <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <select id="" name="sub_id[]" data-placeholder="Select a description..." class="w-full" required>
+                                                    @foreach ($cat->catagory_sub as $cat_s)
+                                                    {{-- @php
+                                                        $brand = explode(',', $cat_s->brand_id);
+                                                    @endphp
+                                                    @foreach ($brand_master as $key_m => $bm)
 
-                                                @if ($brand)
-                                                <option value="{{$bm->id}}">{{$brand[0]}}</option>
-                                                    @if ($bm->id == $brand[$key_m])
-                                                    <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                                    @if ($brand)
+                                                    <option value="{{$bm->id}}">{{$brand[0]}}</option>
+                                                        @if ($bm->id == $brand[$key_m])
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                                        @endif
                                                     @endif
-                                                @endif
-                                                @endforeach --}}
-                                                <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>
-                                            <select name="" id="" class="form-control w-24">
-                                                @foreach ($catagories2 as $cat2)
-                                                <option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                            <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                                    @endforeach --}}
+                                                    <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>
+                                                <select name="" id="" class="form-control w-24">
+                                                    @foreach ($catagories2 as $cat2)
+                                                    <option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                            </div>
+                                            <div id="newRowsub{{$key + 1}}"></div>
+                                            <input type="hidden" id="number_s" rel="{{$key + 1}}">
                                         </div>
-                                        <div id="newRowsub{{$key + 1}}"></div>
-                                        <input type="hidden" id="number_s" rel="{{$key + 1}}">
+
                                     </div>
                                     <div class="grid grid-cols-3 mb-3">
                                         <div class="col-span-2">
@@ -290,6 +257,13 @@
         <!-- BEGIN: JS Assets-->
         <script src="/dist/js/app.js"></script>
         <script type="text/javascript">
+
+            //
+            jQuery(document).ready(function () {
+                jQuery("#select-state").selectize({
+                    sortField: 'text'
+                });
+            });
 
             // remove subwork w/ btn
             jQuery(document).on('click', "#delSubBtn", function(){
