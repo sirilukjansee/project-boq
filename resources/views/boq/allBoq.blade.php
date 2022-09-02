@@ -158,7 +158,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </form>
                             <div class="sm:flex items-center mt-2 xl:mt-0">
-                                <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>เพิ่มใบเสนอราคา</a>
+                                <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
                             </div>
                         </div>
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">

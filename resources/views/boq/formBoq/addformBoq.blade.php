@@ -10,8 +10,6 @@
         <title>Boq - </title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
@@ -185,23 +183,24 @@
                         <!-- END: Super Large Modal Content -->
                     </div>
                     <!-- BEGIN: Validation Form -->
-                        <div class="group_wrapper" id="main1">
+                        <div class="group_wrapper">
                             <form action=""  method="POST">
                                 @csrf
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}"  style="background-color: rgb(153, 187, 238);" readonly >
-                                    <input type="hidden" name="main_id[]" id="" value="{{$cat->id}}" >
-                                    <div class="intro-y overflow-auto input-form mt-3 ml-2">
+                                    <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
+                                    <div class="intro-y input-form mt-3 ml-2">
                                         <div class="input-form">
                                             <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                 <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test" required>
-                                                <select name="unit_id[]" id="" class="form-control w-32">
+                                                <select name="unit_id[]" class="tom-select w-32">
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select id="" name="sub_id[]" data-placeholder="Select a description..." class="w-full" required>
+                                                <select name="sub_id[]" class="tom-select w-full" required>
+                                                    <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     {{-- @php
                                                         $brand = explode(',', $cat_s->brand_id);
@@ -230,7 +229,6 @@
                                             <div id="newRowsub{{$key + 1}}"></div>
                                             <input type="hidden" id="number_s" rel="{{$key + 1}}">
                                         </div>
-
                                     </div>
                                     <div class="grid grid-cols-3 mb-3">
                                         <div class="col-span-2">
@@ -238,7 +236,7 @@
                                         </div>
                                         <div class="flex justify-end gap-2">
                                             <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
-                                            <input type="button" value="ลบงานหลัก" class="btn btn-secondary" id="delMain">
+                                            {{-- <input type="button" value="ลบงานหลัก" class="btn btn-secondary" id="delMain"> --}}
                                         </div>
                                     </div>
                                     @endforeach
@@ -260,7 +258,7 @@
 
             //
             jQuery(document).ready(function () {
-                jQuery("#select-state").selectize({
+                jQuery('.select-state').selectize({
                     sortField: 'text'
                 });
             });
@@ -272,9 +270,9 @@
 
 
             // remove mainwork w/ btn
-            jQuery(document).on('click', "#delMain", function(){
-                jQuery(this).closest('#main1').remove();
-            });
+            // jQuery(document).on('click', "#delMain", function(){
+            //     jQuery(this).closest('#main1').remove();
+            // });
 
 
             // remove subwork w/ checkbox
@@ -302,10 +300,9 @@
                         var sub_num = key + 1;
                         $("#btnAddsub" + sub_num).on('click', function(){
                             var html = '';
-                            // html += '@foreach ($catagories as $key => $cat)';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select name="unit_id[]" id="" class="form-control w-32">';
+                            html += '<select name="unit_id[]" class="tom-select w-32">';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
                                     html += '<option value="'+value3.id+'">'+value3.code+'</option>';
@@ -313,7 +310,7 @@
                             });
                             // html += '@foreach ($cat->catagory_sub as $cat_s)<option value="{{$cat_s->id}}">{{$cat_s->code}}</option>@endforeach</select>';
                             html += '</select>';
-                            html += '<select name="" id="" class="w-full" required>';
+                            html += '<select name="sub_id[]" class="tom-select w-full" required>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
                                     html += '<option value="'+value2.id+'">'+value2.name+'</option>';
@@ -326,9 +323,8 @@
                             html += '<input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
-                            // html += '@endforeach';
 
-                            console.log(sub_num);
+                            // console.log(sub_num);
                         $('#newRowsub' + sub_num).append(html);
 
                          });
