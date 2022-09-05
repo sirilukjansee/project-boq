@@ -118,13 +118,13 @@ class MasterController extends Controller
 
     public function update_sub(Request $request)
     {
-        dd($request);
-        $request->validate([
-            'name' => 'unique:catagory_subs'
-        ],
-        [
-            'name.unique' => "error"
-        ]);
+        // dd($request);
+        // $request->validate([
+        //     'name' => 'unique:catagory_subs'
+        // ],
+        // [
+        //     'name.unique' => "error"
+        // ]);
 
         $update_sub = catagory_sub::find($request->id)->update([
             'code' => $request->code,
