@@ -240,12 +240,12 @@
                                                 <p>{{ $pro->area }}</p>
                                             </div>
                                         </td>
-                                        <td class="table-report__action w-56">
+                                        <td class="text-center table-report__action w-56">
                                             <div class="flex item-center justify-center">
                                                 <p>{{ $pro->task_type_master->task_type_name }}</p>
                                             </div>
                                         </td>
-                                        <td class="table-report__action w-56">
+                                        <td class="text-center table-report__action w-56">
                                             <div class="flex item-center justify-center">
                                                 <p>{{ $pro->task_name_master->task_name }}</p>
                                             </div>
