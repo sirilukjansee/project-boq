@@ -50,6 +50,10 @@ Route::get('/addUser', function () {
     return view('boq.formBoq.addUser');
 });
 
+Route::get('test-select', function () {
+    return view('boq.master.test-select');
+});
+
 //master
 Route::get('/masterBoq', [MasterController::class, 'index'])->name('masterBoq');
 Route::get('/sub_masterBoq/{id}', [MasterController::class, 'index_sub'])->name('sub_masterBoq');

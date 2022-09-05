@@ -22,8 +22,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
         <!-- END: CSS Assets-->
@@ -172,8 +174,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="{{ $catagories->name }}" disabled>
                                                 <input type="text" class="form-control mb-2" name="code" placeholder="Ex: GG001" required>
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="ชื่องานย่อย">
-                                                <select placeholder="Select Brand" class="tom-select w-full" name="brand_id[]" multiple required>
-                                                    <option value="0" disabled selected>เลือกข้อมูล</option>
+                                                <select id="" class="tom-select" name="brand_id[]" multiple placeholder="Select a state..." autocomplete="off" required>
                                                     @foreach ($data_brand as $value)
                                                         <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                                     @endforeach
@@ -267,11 +268,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <input type="text" class="form-control mb-2" name="name" id="name" placeholder="{{$catagories->name}}" disabled>
                                             <input type="text" class="form-control mb-2" name="code" id="get_code" required>
                                             <input type="text" class="form-control mb-2" name="name" id="sub_name" placeholder="ชื่องานย่อย" value="">
-                                            {{-- <select class="js-example-basic-multiple form-control mb-2" id="get_brand" name="brand_id[]" multiple="multiple" required> --}}
-                                                {{-- @foreach ($data_brand as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
-                                                @endforeach --}}
-                                            {{-- </select> --}}
+                                            <select id="get_brand_edit" name="brand_id[]" class="form-control test" style="z-index: -1 !important;">
+                                            </select>
+
                                             <input type="hidden" class="form-control mb-2" name="update_by" id="update_by" value="admin" >
                                         </div>
 
@@ -288,11 +287,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END: Content -->
             </div>
 
-            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-                <option value="AL">Alabama</option>
-                <option value="WY">Wyoming</option>
-              </select>
-
         </div>
         <!-- END: Content -->
 
@@ -301,17 +295,33 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="../dist/js/app.js"></script>
         <script>
-            jQuery(document).ready(function () {
-                jQuery('#allWork').DataTable();
+            jQuery("#test").select2({
+                multiple: true
             });
 
             jQuery(document).ready(function() {
-                jQuery('.js-example-basic-multiple').select2();
+            jQuery(".test").select2({
+                multiple: true
+            });
+            jQuery('.select2-selection').on('click', function (){
+                // alert()
+                if (jQuery('.test').hasClass("select2-hidden-accessible")) {
+                // alert()
+                jQuery('select2-dropdown').css('z-index', '9000000');
+            }
+            })
+
+        });
+
+            jQuery(document).ready(function () {
+                jQuery('#allWork').DataTable();
             });
 
             //edit sub
             function edit_modal_sub(id){
                 // console.log(id);
+                var x = document.getElementById("get_brand_edit");
+                var option = document.createElement("option");
                 jQuery.ajax({
                     type:   "GET",
                     url:    "{!! url('sub_masterBoq/edit/"+id+"') !!}",
@@ -324,20 +334,19 @@ License: You must have a valid license purchased only from themeforest(the above
                         $('#sub_name').val(data.dataEdit.name);
                         $('#update_by').val(data.dataEdit.update_by);
                         jQuery('#Delete').children().remove().end();
-                        jQuery('#get_brand').children().remove().end();
+                        jQuery('#get_brand_edit').children().remove().end();
                         // console.log(data.dataBrand);
-
                         let rows_tags = data.dataEdit.brand_id.split(",");
-                        let count_tags = rows_tags.length;
                         jQuery.each(rows_tags, function(tkey, tvalue){
                             jQuery.each(data.dataBrand, function(key, value){
                                 if(value.id == rows_tags[tkey]){
-                                    $('#get_brand').append('<option value='+value.id+' selected>'+value.brand_name+'</option>');
+                                    $('#get_brand_edit').append('<option value='+value.id+' selected>'+value.brand_name+'</option>');
                                 }else{
-                                    $('#get_brand').append('<option value='+value.id+'>'+value.brand_name+'</option>');
+                                    $('#get_brand_edit').append('<option value='+value.id+'>'+value.brand_name+'</option>');
                                 }
                             });
                         });
+
                     }
                 });
             }

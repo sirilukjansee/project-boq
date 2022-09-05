@@ -224,7 +224,7 @@
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}"  style="background-color: rgb(153, 187, 238);" readonly >
-                                    <input type="hidden" name="main_id[]" id="" value="{{$cat->id}}" >
+                                    <input type="hidden" name="main_id[]" id="" value="{{$cat->id}}">
                                     <div class="intro-y overflow-auto input-form mt-3 ml-2">
                                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
                                             งานย่อย
