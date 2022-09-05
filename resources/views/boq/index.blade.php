@@ -199,10 +199,11 @@
                             <table class="table table-hover table-auto sm:mt-2" id="allWork">
                                 <thead>
                                     <tr>
+                                        <th class="whitespace-nowrap">#</th>
                                         <th class="whitespace-nowrap">ID</th>
                                         <th class="text-center whitespace-nowrap">Brand</th>
                                         <th class="text-center whitespace-nowrap">Location</th>
-                                        <th class="text-center whitespace-nowrap">Area</th>
+                                        <th class="text-center whitespace-nowrap">Area.SQM</th>
                                         <th class="text-center whitespace-nowrap">Task Type</th>
                                         <th class="text-center whitespace-nowrap">Task Name</th>
                                         <th class="text-center whitespace-nowrap">Open date</th>
@@ -217,6 +218,11 @@
                                         <td class="w-40 text-center table-report__action">
                                             <div class="flex">
                                                 <h3>{{ $key + 1 }}</h3>
+                                            </div>
+                                        </td>
+                                        <td class="w-40 text-center table-report__action">
+                                            <div class="flex">
+                                                <h3>{{ $pro->number_id }}</h3>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
@@ -244,9 +250,9 @@
                                                 <p>{{ $pro->task_name_master->task_name }}</p>
                                             </div>
                                         </td>
-                                        <td class="table-report__action w-56">
+                                        <td class="text-center table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>{{ $pro->open_date }}</p>
+                                                <p>{{ Carbon\Carbon::parse($pro->open_date)->format('d F Y') }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">

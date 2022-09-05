@@ -17,9 +17,9 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->foreignId('brand');
             $table->foreignId('location');
-            $table->string('area');
+            $table->integer('area');
             $table->string('unit');
-            $table->string('io');
+            $table->integer('io');
             $table->foreignId('task');
             $table->foreignId('task_n');
             $table->date('start_date');

@@ -10,11 +10,13 @@ use App\Models\task_type;
 use App\Models\taskname;
 use App\Models\design_and_pm;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ProjectController extends Controller
 {
     public function index(){
-        $project = Project::all();
+        $project = Project::orderBy('id', 'desc')
+        ->get();
 
         return view('boq.index', compact('project'));
     }
@@ -49,6 +51,15 @@ class ProjectController extends Controller
         $project->designer_name = $request->ds_name;
         $project->project_manager = $request->pm_name;
         $project->save();
+
+        $project_y = Carbon::today()->format('Y');
+        $project_y_cut = substr($project_y, -2);
+        $number_id = $project_y_cut.str_pad($project->id, 4, '0', STR_PAD_LEFT);
+        // return $number_id;
+
+        Project::find($project->id)->update([
+            'number_id' => $number_id
+        ]);
 
         // return $project->id;
         return redirect(route('allBoq', ['id' => $project->id]))->with('success', '!!! Add Project Complete !!!');
