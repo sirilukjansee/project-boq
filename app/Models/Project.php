@@ -12,6 +12,7 @@ class Project extends Model
 
     protected   $fillable = [
         'brand',
+        'number_id',
         'location',
         'area',
         'unit',

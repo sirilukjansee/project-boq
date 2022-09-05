@@ -287,14 +287,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END: Content -->
             </div>
 
-<<<<<<< HEAD
-=======
-            {{-- <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-                <option value="AL">Alabama</option>
-                <option value="WY">Wyoming</option>
-              </select> --}}
-
->>>>>>> 08327c17d02a8ce352e995c79839a241268efa51
         </div>
         <!-- END: Content -->
 
