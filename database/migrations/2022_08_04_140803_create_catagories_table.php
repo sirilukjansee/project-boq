@@ -16,7 +16,7 @@ class CreateCatagoriesTable extends Migration
         Schema::create('catagories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('is_active');
+            $table->enum('is_active',['0','1'])->default('1')->comment('0 = InActive, 1 = Active');
             $table->string('create_by');
             $table->string('update_by');
             $table->timestamps();

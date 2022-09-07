@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!--
-Template Name: Icewall - HTML Admin Dashboard Template
-Author: Left4code
-Website: http://www.left4code.com/
-Contact: muhammadrizki@left4code.com
-Purchase: https://themeforest.net/user/left4code/portfolio
-Renew Support: https://themeforest.net/user/left4code/portfolio
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en" class="light">
     <!-- BEGIN: Head -->
     <head>
@@ -156,41 +147,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add_sub" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Sub </a>
                             <!-- END: Large Modal Toggle -->
                         </div>
-                        <!-- BEGIN: Large Modal Content -->
-                        <div id="large-modal-size-preview_add_sub" class="modal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <a data-tw-dismiss="modal" href="javascript:;">
-                                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                    </a>
-                                    <div class="modal-body p-10">
-                                        <div class="mb-4">
-                                            เพิ่มงานย่อย
-                                        </div>
-                                        <form action="{{url('/sub_masterBoq/add_sub')}}" method="post">
-                                            @csrf
-                                            <div class="form-group mb-4">
-                                                <input type="hidden" class="form-control mb-2" name="catagory_id" value="{{$catagories->id}}" readonly>
-                                                <input type="text" class="form-control mb-2" name="name" placeholder="{{ $catagories->name }}" disabled>
-                                                <input type="text" class="form-control mb-2" name="code" placeholder="Ex: GG001" required>
-                                                <input type="text" class="form-control mb-2" name="name" placeholder="ชื่องานย่อย">
-                                                <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select a state..." autocomplete="off" required>
-                                                    @foreach ($data_brand as $value)
-                                                        <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="hidden" class="form-control mb-2" name="create_by" value="admin" >
-                                                <input type="hidden" class="form-control mb-2" name="update_by" value="admin" >
-                                                <input type="hidden" class="form-control mb-2" name="is_active" value="1" >
-                                            </div>
-
-                                            <input type="submit" value="Save" class="btn btn-primary">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Large Modal Content -->
                     </div>
                     <!-- BEGIN: HTML Table Data -->
                     <div class="intro-y box p-5 mt-5">
@@ -212,7 +168,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <th scope="col">Code</th>
                                     <th scope="col">งานย่อย</th>
                                     <th scope="col">Brand</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" align="center">Action</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -237,11 +194,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 @endif
                                         @endforeach
                                         </td>
+                                        <td>
+                                            @if ($cat->is_active == "1")
+                                                Active
+                                            @else
+                                                Inactive
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->
-                                            <a href="javascript:;" onclick="edit_modal_sub({{$cat->id}})" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_edit_sub" class="btn btn-secondary mr-1 mb-2"> Edit </a>
+                                            <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal_sub({{$cat->id}})" data-tw-toggle="modal"
+                                                data-tw-target="#large-modal-size-preview_edit_sub"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
                                             <!-- END: Large Modal Toggle -->
-                                            <a href="{{ url('/sub_masterBoq/softdelete', $cat->id) }}" class="btn btn-dark gap-w"> Delete </a>
+                                            <a href="{{ url('/sub_masterBoq/changeStatus', $cat->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                                            {{-- x<a href="{{ url('/sub_masterBoq/softdelete', $cat->id) }}" class="btn btn-pending gap-w"><i data-lucide="activity" class="w-4 h-4 mr-2"></i></a> --}}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -249,34 +215,96 @@ License: You must have a valid license purchased only from themeforest(the above
                             </table>
                         </div>
                     </div>
+
+                    <!-- BEGIN: Large Modal Content -->
+                    <div id="large-modal-size-preview_add_sub" class="modal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="font-medium text-base mr-auto">Add Detail</h2>
+                                </div> <!-- END: Modal Header -->
+                                <!-- BEGIN: Modal Body -->
+                                <form action="{{ url('/sub_masterBoq/add_sub') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" class="form-control" name="catagory_id" value="{{$catagories->id}}">
+                                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                            <input type="text" class="form-control" name="name" placeholder="{{ $catagories->name }}" disabled>
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-4">
+                                            <input type="text" class="form-control" name="code1" minlength="2" maxlength="2" placeholder="Ex: GG" required>
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-4">
+                                            <input type="text" class="form-control" name="code2" minlength="3" maxlength="3" placeholder="Ex: 001" required>
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-4">
+                                            <input type="text" class="form-control" name="code3" minlength="2" maxlength="2" value="- -">
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-12">
+                                            <input type="text" class="form-control" name="name" placeholder="Name">
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-12 input-form">
+                                            <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
+                                                @foreach ($data_brand as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- BEGIN: Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" data-tw-dismiss="modal"
+                                            class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                        <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    </div> <!-- END: Modal Footer -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Large Modal Content -->
+
                     <!-- BEGIN: Large Modal Content -->
                     <div id="large-modal-size-preview_edit_sub" class="modal" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <a data-tw-dismiss="modal" href="javascript:;">
-                                    <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                </a>
-                                <div class="modal-body p-10">
-                                    <div class="mb-4">
-                                        แก้ไขงานย่อย
-                                    </div>
-                                    <form action="{{ url('/sub_masterBoq/update') }}" method="post">
-                                        @csrf
-                                        <div class="form-group mb-4">
-                                            <input type="hidden" name="id" id="id">
-                                            <input type="hidden" class="form-control mb-2" name="catagory_id" id="cat_id" value="{{$catagories->id}}">
-                                            <input type="text" class="form-control mb-2" name="name" id="name" placeholder="{{$catagories->name}}" disabled>
-                                            <input type="text" class="form-control mb-2" name="code" id="get_code" required>
-                                            <input type="text" class="form-control mb-2" name="name" id="sub_name" placeholder="ชื่องานย่อย" value="">
-                                            <select id="get_brand_edit" name="brand_id[]" class="form-control select_brand" style="z-index: -1 !important;">
-                                            </select>
-
-                                            <input type="hidden" class="form-control mb-2" name="update_by" id="update_by" value="admin" >
+                                <div class="modal-header">
+                                    <h2 class="font-medium text-base mr-auto">Edit Detail</h2>
+                                </div> <!-- END: Modal Header -->
+                                <!-- BEGIN: Modal Body -->
+                                <form action="{{ url('/sub_masterBoq/update') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                        <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                            <input type="text" class="form-control" id="name" name="name" placeholder="{{ $catagories->name }}" disabled>
                                         </div>
-
-                                        <input type="submit" value="Save Edit" class="btn btn-primary">
-                                    </form>
-                                </div>
+                                        <div class="col-span-12 sm:col-span-4">
+                                            <input type="text" class="form-control" id="get_code1" name="code1" minlength="2" maxlength="2" required>
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-4">
+                                            <input type="text" class="form-control" id="get_code2" name="code2" minlength="3" maxlength="3" required>
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-4">
+                                            <input type="text" class="form-control" id="get_code3" name="code3" minlength="2" maxlength="2">
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-12">
+                                            <input type="text" class="form-control" id="sub_name" name="name">
+                                        </div>
+                                        <div class="col-span-12 sm:col-span-12 input-form">
+                                            <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
+                                                {{-- @foreach ($data_brand as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+                                        <input type="hidden" name="id" id="id">
+                                    </div>
+                                    <!-- BEGIN: Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" data-tw-dismiss="modal"
+                                            class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                        <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    </div> <!-- END: Modal Footer -->
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -297,15 +325,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <script>
             jQuery(document).ready(function() {
             jQuery(".select_brand").select2({
-                multiple: true
+                multiple: true,
+                placeholder: 'Select Brand'
             });
-            // jQuery('.select2-selection').on('click', function (){
-            //     // alert()
-            //     if (jQuery('.test').hasClass("select2-hidden-accessible")) {
-            //     // alert()
-            //     jQuery('select2-dropdown').css('z-index', '9000000');
-            // }
-            // })
 
         });
 
@@ -325,13 +347,27 @@ License: You must have a valid license purchased only from themeforest(the above
                     async:  false,
                     success: function(data) {
                         $('#id').val(data.dataEdit.id);
-                        // $('#get_brand').val(data.dataEdit.brand_id);
-                        $('#get_code').val(data.dataEdit.code);
+                        var text = data.dataEdit.code;
+                        var result1 = text.substring(0, 2);
+                        var result2 = text.substring(2, 5);
+                        var result3 = text.substring(5, 7);
+                        $('#get_code1').val(result1);
+                        $('#get_code2').val(result2);
+                        if (result3 == '') {
+                            $('#get_code3').val("- -");
+                        }else
+                        {
+                            $('#get_code3').val(result3);
+                        }
+
                         $('#sub_name').val(data.dataEdit.name);
                         $('#update_by').val(data.dataEdit.update_by);
                         jQuery('#Delete').children().remove().end();
                         jQuery('#get_brand_edit').children().remove().end();
                         // console.log(data.dataBrand);
+                        if (condition) {
+
+                        }
                         let rows_tags = data.dataEdit.brand_id.split(",");
                         jQuery.each(rows_tags, function(tkey, tvalue){
                             jQuery.each(data.dataBrand, function(key, value){
