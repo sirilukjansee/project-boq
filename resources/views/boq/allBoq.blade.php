@@ -167,156 +167,82 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <tr>
                                         <th class="whitespace-nowrap">ID</th>
                                         <th class="whitespace-nowrap">BOQ_name</th>
-                                        <th class="text-center whitespace-nowrap">Loaction</th>
+                                        <th class="text-center whitespace-nowrap">Date</th>
                                         <th class="text-center whitespace-nowrap">Status</th>
                                         <th class="text-center whitespace-nowrap"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($project as $proj) --}}
+                                    @foreach ($temp_boq as $tb)
                                     <tr class="intro-x">
                                         <td class="w-40 table-report__action">
                                             <div class="flex">
-                                                <h3></h3>
+                                                <h3>{{ $tb->number_id }}</h3>
                                             </div>
                                         </td>
                                         <td>
-                                            <a class="font-medium whitespace-nowrap"></a>
+                                            <a class="font-medium whitespace-nowrap">{{ $tb->name }}</a>
                                         </td>
                                         <td class="table-report__action w">
-                                            <div class="flex items-center justify-center"></div>
+                                            <div class="flex items-center justify-center">{{ $tb->date }}</div>
                                         </td>
                                         <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center"></div>
+                                            <div class="flex items-center justify-center">
+                                                @if ($tb->status == "0")
+                                                    Drafted
+                                                    @elseif ($tb->status == "1")
+                                                    Waiting Approval
+                                                    @elseif ($tb->status == "2")
+                                                    Approval
+                                                    @elseif ($tb->status == "3")
+                                                    Reject
+                                                    @elseif ($tb->status == "4")
+                                                    Rework
+                                                @endif
+                                            </div>
                                         </td>
                                         <td class="table-report__action">
                                             <div class="btn-group text-center flex justify-center">
                                                 <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
                                                 <a href="{{ url("addformBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                                                 <a href="{{ url("checkBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="send" class="w-4 h-4 mr-2"></i> Sent </a>
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                                                <a href="{{ url('projects/export/') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                                             </div>
                                         </td>
                                     </tr>
-                                    {{-- @endforeach --}}
-
-                                    {{-- <tr class="intro-x">
-                                        <td class="w-40 table-report__action">
-                                            <div class="flex">
-                                                <h3>A00001</h3>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap"> Additional BOQ </a>
-                                        </td>
-                                        <td class="table-report__action w">
-                                            <div class="flex items-center justify-center"> Central Pinklao </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center"> Waiting Approval </div>
-                                        </td>
-                                        <td class="table-report__action">
-                                            <div class="btn-group text-center flex justify-center">
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <a href="{{ url("addformBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
-                                                <a href="{{ url("checkBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="send" class="w-4 h-4 mr-2"></i> Sent </a>
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
-                                            </div>
-                                        </td>
-                                    </tr> --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                           <!--dropzone-->
-                            <div class="sm:flex flex-col sm:items-end mt-2">
-                            <!-- BEGIN: Large Modal Toggle -->
-                                 <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-primary mr-1 mb-2">Import BOQ from vender</a>
-                             <!-- END: Large Modal Toggle -->
-                            </div>
-                            <!-- BEGIN: Large Modal Content -->
-                            <div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <a data-tw-dismiss="modal" href="javascript:;">
-                                            <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                        </a>
-                                        <div class="modal-body p-10 text-center">
-                                            <form data-file-types="image/jpeg|image/png|image/jpg" action="/file-upload" class="dropzone">
-                                                <div class="fallback">
-                                                    <input name="file" type="file" />
+                        <!--dropzone-->
+                        <div class="sm:flex flex-col sm:items-end mt-2">
+                        <!-- BEGIN: Large Modal Toggle -->
+                                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-primary mr-1 mb-2">Import BOQ from vender</a>
+                            <!-- END: Large Modal Toggle -->
+                        </div>
+                        <!-- BEGIN: Large Modal Content -->
+                        <div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <a data-tw-dismiss="modal" href="javascript:;">
+                                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
+                                    </a>
+                                    <div class="modal-body p-10 text-center">
+                                        <form data-file-types="image/jpeg|image/png|image/jpg" action="/file-upload" class="dropzone">
+                                            <div class="fallback">
+                                                <input name="file" type="file" />
+                                            </div>
+                                            <div class="dz-message" data-dz-message>
+                                                <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                                <div class="text-slate-500">
+                                                    This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded.
                                                 </div>
-                                                <div class="dz-message" data-dz-message>
-                                                    <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                                    <div class="text-slate-500">
-                                                        This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded.
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <!-- END: Large Modal Content -->
-                            <!--dropzone-->
-                        {{-- <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                            <table class="table table-hover table-fixed sm:mt-2">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="whitespace-nowrap">ID</th>
-                                        <th class="whitespace-nowrap">Vendors</th>
-                                        <th class="text-center whitespace-nowrap">Location</th>
-                                        <th class="text-center whitespace-nowrap">สถานะ</th>
-                                        <th class="text-center whitespace-nowrap"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="intro-x">
-                                        <td class="w-40 table-report__action">
-                                            <div class="flex">
-                                                <h3>A00000</h3>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap"> Vender A </a>
-                                        </td>
-                                        <td class="table-report__action">
-                                            <div class="flex items-center justify-center"> Central Pinklao </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center"> Approved </div>
-                                        </td>
-                                        <td class="table-report__action">
-                                            <div class="btn-group text-center flex justify-center">
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="intro-x">
-                                        <td class="w-40 table-report__action">
-                                            <div class="flex">
-                                                <h3>A00000</h3>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap"> Vender B </a>
-                                        </td>
-                                        <td class="table-report__action">
-                                            <div class="flex items-center justify-center"> Central Pinklao </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center"> Approved </div>
-                                        </td>
-                                        <td class="table-report__action">
-                                            <div class="btn-group text-center flex justify-center">
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> --}}
+                        </div>
                     </div>
                     <!-- END: HTML Table Data -->
                 </div>

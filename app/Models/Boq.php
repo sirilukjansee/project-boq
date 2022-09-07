@@ -10,6 +10,7 @@ class Boq extends Model
     use HasFactory;
 
     protected   $fillable = [
+        'template_boq_id',
         'main_id',
         'sub_id',
         'amount',

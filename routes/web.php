@@ -12,6 +12,8 @@ use App\Http\Controllers\TaskTypeController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\VenderController;
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -28,9 +30,6 @@ use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/allBoq', function () {
-//     return view('boq.allBoq');
-// });
 Route::get('/allBoq', function () {
     return view('boq.allBoq');
 });
@@ -40,9 +39,9 @@ Route::get('/loginBoq', function () {
 Route::get('/checkBoq', function () {
     return view('boq.checkBoq');
 });
-Route::get('/addminorBoq', function () {
-    return view('boq.formBoq.addminorBoq');
-});
+// Route::get('/addminorBoq', function () {
+//     return view('boq.formBoq.addminorBoq');
+// });
 Route::get('/adminBoq', function () {
     return view('boq.adminBoq');
 });
@@ -100,6 +99,14 @@ Route::get('/masterUnit/edit/{id}', [UnitController::class, 'edit'])->name('/mas
 Route::post('/masterUnit/update', [UnitController::class, 'update']);
 Route::get('/masterUnit/softdelete/{id}',[UnitController::class,'softdelete']);
 
+//master vender
+Route::get('/masterVender', [VenderController::class, 'index'])->name('masterVender');
+Route::post('/masterVender/add', [VenderController::class, 'store'])->name('add_masterVender');
+Route::get('/masterVender/edit/{id}', [VenderController::class, 'edit'])->name('/masterVender/edit/{id}');
+Route::post('/masterVender/update', [VenderController::class, 'update']);
+Route::get('/masterVender/softdelete/{id}',[VenderController::class,'softdelete']);
+
+
 //main
 Route::post('/masterBoq/add', [MasterController::class, 'store'])->name('add_masterBoq');
 Route::get('/master/edit/{id}', [MasterController::class, 'edit'])->name('/master/edit/{id}');
@@ -120,9 +127,15 @@ Route::post('/addprojectBoq/add', [ProjectController::class, 'store'])->name('/a
 
 //BOQ
 Route::get('/allBoq/{id}', [BoqController::class, 'index'])->name('allBoq');
-// Route::get('/addformBoq/{id}', [BoqController::class, 'index']);
-
+Route::post('/addBoq/add', [BoqController::class, 'store'])->name('add_Boq');
 
 Route::get('/createformBoq/{id}', [FormboqController::class, 'index'])->name('createformboq');
 Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_catagory']);
+
+Route::get('projects/export/', [BoqController::class, 'export']);
+
+
+Route::get('/addminorBoq', [ExcelController::class, 'index']);
+Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
+
 

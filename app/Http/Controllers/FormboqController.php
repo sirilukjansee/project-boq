@@ -14,10 +14,7 @@ class FormboqController extends Controller
 {
     public function index($id){
 
-        $project = Project::leftjoin('brands','projects.brand','brands.brand_name')
-        ->where('projects.id',$id)
-        ->select('projects.*','brands.id as brand_id')
-        ->first();
+        $project = Project::find($id);
 
         $catagories = catagory::all();
         // $catagories1 = catagory_sub::where('brand_id', 'LIKE','%'.$project->brand_id.'%')
@@ -26,7 +23,7 @@ class FormboqController extends Controller
         $catagories2 = Unit::all();
 
         // echo $catagories1;
-        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master'));
+        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master','project'));
 
     }
 

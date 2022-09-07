@@ -271,28 +271,6 @@
                         </form>
                     </div>
                     <!-- END: Validation Form -->
-                    <!-- BEGIN: Success Notification Content -->
-                    <div id="success-notification-content" class="toastify-content hidden flex">
-                        <i class="text-success" data-lucide="check-circle"></i>
-                        <div class="ml-4 mr-4">
-                            <div class="font-medium">Registration success!</div>
-                            <div class="text-slate-500 mt-1">
-                                Please check your e-mail for further info!
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: Success Notification Content -->
-                    <!-- BEGIN: Failed Notification Content -->
-                    <div id="failed-notification-content" class="toastify-content hidden flex">
-                        <i class="text-danger" data-lucide="x-circle"></i>
-                        <div class="ml-4 mr-4">
-                            <div class="font-medium">Registration failed!</div>
-                            <div class="text-slate-500 mt-1">
-                                Please check the fileld form.
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END: Failed Notification Content -->
                 </div>
                 <!-- END: Content -->
             </div>
