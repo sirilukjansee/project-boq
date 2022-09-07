@@ -193,13 +193,21 @@
                                         <div class="input-form">
                                             <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                 <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+<<<<<<< HEAD
                                                 <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32">
                                                     <option selected value=""></option>
+=======
+                                                <select name="code_id[]" class="tom-select-code-{{$key + 1}} tom-select w-32">
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
+<<<<<<< HEAD
                                                 <select id="sub_id{{$cat->id}}" name="sub_id[][{{ $cat->id }}]" class="tom-select-sub-{{$key + 1}} tom-select w-full">
+=======
+                                                <select name="sub_id[]" class="tom-select-sub-{{$key + 1}} tom-select w-full">
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
@@ -273,12 +281,15 @@
                     jQuery.each(response.data, function(key, value){
                         // console.log(response);
                         var sub_num = key + 1;
+<<<<<<< HEAD
 
                         $('#code_id'+sub_num).on('change', function(){
                             console.log($(this).val());
                             $('#sub_id'+sub_num).append('<option selected value="1">abc</option>');
                             new TomSelect("#sub_id"+sub_num);
                         });
+=======
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
 
                         new TomSelect(".tom-select-code-"+sub_num);
                         new TomSelect(".tom-select-sub-"+sub_num);
@@ -287,7 +298,11 @@
                             var html = '';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
+<<<<<<< HEAD
                             html += '<select name="code_id[]['+sub_num+']" class="sub_select2-'+x+' tom-select w-32">';
+=======
+                            html += '<select name="code_id[]" class="sub_select2-'+x+' tom-select w-32">';
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -296,7 +311,11 @@
                             });
 
                             html += '</select>';
+<<<<<<< HEAD
                             html += '<select name="sub_id[]['+sub_num+']" class="sub_select-'+x+' tom-select w-full">';
+=======
+                            html += '<select name="sub_id[]" class="sub_select-'+x+' tom-select w-full">';
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){

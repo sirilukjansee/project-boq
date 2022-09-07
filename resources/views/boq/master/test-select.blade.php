@@ -17,15 +17,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
-
-
     </head>
     <!-- END: Head -->
     <body class="main">
@@ -172,132 +169,52 @@ License: You must have a valid license purchased only from themeforest(the above
         </nav>
         <!-- END: Top Menu -->
         <!-- BEGIN: Content -->
-        <div class="wrapper wrapper--top-nav">
-            <div class="wrapper-box">
-                <!-- BEGIN: Content -->
-                <div class="content">
-                    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-                        <h2 class="text-lg font-medium mr-auto">
-                            Master Data
-                        </h2>
-                        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                            <div class="text-center">
-                                <!-- BEGIN: Large Modal Toggle -->
-                                <a href="javascript:;" data-tw-toggle="modal" onclick="edit_modal_sub(19)" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Master </a>
-                                <!-- END: Large Modal Toggle -->
-                            </div>
-
-                            <div class="intro-y box p-5 mt-5">
-                                <div class="col-span-12 col-md-4">
-                                    {{-- <select id="test" name="states" class="form-control w-full">
-                                        <option value="AL">Alabama</option>
-                                        <option value="WY">Wyoming</option>
-                                      </select> --}}
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- BEGIN: HTML Table Data -->
-
-                    <!-- END: HTML Table Data -->
+        <div class="content">
+            <div class="intro-y mt-3">
+                <h2 class="text-lg font-medium mr-auto">
+                    Create BOQ
+                </h2>
+                <div class="col-span-6 mt-5">
+                    <select data-placeholder="Select your favorite actors" id="addition" name="select1" class="tom-select w-full">
+                        {{-- <option value="1">Leonardo DiCaprio</option>
+                        <option value="2">Johnny Deep</option>
+                        <option value="3">Robert Downey, Jr</option>
+                        <option value="4">Samuel L. Jackson</option>
+                        <option value="5">Morgan Freeman</option> --}}
+                    </select>
                 </div>
-                <!-- END: Content -->
-            </div>
+                <div class="col-span-6 mt-5" id="cc"></div>
+                <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary mt-5" id="btn222" rel="" />
+            <!-- BEGIN: Validation Form -->
+
+            <!-- END: Validation Form -->
+
+
         </div>
         <!-- END: Content -->
+        <script type="text/javascript">
+        // jQuery(document).ready(function()
+        // {
+            var html = '';
+        html += '<select data-placeholder="Select your favorite actors" id="sss" class="tom-select w-full"><option value="1">Leonardo DiCaprio</option></select>';
+        $('#cc').append(html);
 
+        // });
 
-
-        <div id="large-modal-size-preview_add" class="modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="font-medium text-base mr-auto">เพิ่มข้อมูลบริษัท</h2>
-                    </div> <!-- END: Modal Header -->
-                    <!-- BEGIN: Modal Body -->
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                            <div class="col-span-12 sm:col-span-6"> <label for="modal-form-3"
-                                class="form-label">อีเมลบริษัท</label>
-                            <input id="" type="email" name="email" class="form-control" placeholder="example@gmail.com">
-                        </div>
-                            <div class="col-span-12 sm:col-span-12 mt-3"> <label for="validation-form-4"
-                                    class="form-label">รูปภาพ</label>
-                                    {{-- <div id="get_brand_edit2"></div> --}}
-                                    <select id="get_brand_edit" name="states" class="form-control test" style="z-index: -1 !important;">
-                                    </select>
-                            </div>
-
-                        </div>
-                        <!-- BEGIN: Modal Footer -->
-                        <div class="modal-footer">
-                            <button type="button" data-tw-dismiss="modal"
-                                class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                            <button type="submit" class="btn btn-primary w-20">บันทึก</button>
-                        </div> <!-- END: Modal Footer -->
-
-                    </form>
-                </div>
-            </div>
-        </div>
+        </script>
+    </div>
+        <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
-        {{-- <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script> --}}
         <script src="{{ asset ('dist/js/app.js') }}"></script>
-
         <script>
 
-            //edit sub
-            function edit_modal_sub(id){
-                jQuery.ajax({
-                    type:   "GET",
-                    url:    "{!! url('sub_masterBoq/edit/"+19+"') !!}",
-                    datatype:   "JSON",
-                    async:  false,
-                    success: function(data) {
+            // jQuery(document).ready(function()
+            // {
 
-                        $('#id').val(data.dataEdit.id);
-                        // $('#get_brand').val(data.dataEdit.brand_id);
-                        $('#get_code').val(data.dataEdit.code);
-                        $('#sub_name').val(data.dataEdit.name);
-                        $('#update_by').val(data.dataEdit.update_by);
-                        // $('#cc').text("123");
-                        jQuery('#Delete').children().remove().end();
-                        // jQuery('#get_brand').children().remove().end();
-                        // console.log(data.dataBrand);
-                        // $('#get_brand_edit2').append('<select id="get_brand_edit" name="states" class="form-control test" style="z-index: 9999;"></select>');
-                        let rows_tags = data.dataEdit.brand_id.split(",");
-                        jQuery.each(rows_tags, function(tkey, tvalue){
-                            jQuery.each(data.dataBrand, function(key, value){
-                                if(value.id == rows_tags[tkey]){
-                                    $('#get_brand_edit').append('<option value='+value.id+' selected>'+value.brand_name+'</option>');
-                                }
-                                else{
-                                    $('#get_brand_edit').append('<option value='+value.id+'>'+value.brand_name+'</option>');
-                                }
-                            });
-                        });
 
-                    }
-                });
-            }
-
-            jQuery(document).ready(function() {
-            jQuery(".test").select2({
-                multiple: true
-            });
-            // jQuery('.select2-selection').on('click', function (){
-            //     // alert()
-            //     if (jQuery('.test').hasClass("select2-hidden-accessible")) {
-            //     // alert()
-            //     jQuery('select2-dropdown').css('z-index', '9000000');
-            // }
-            // })
-
-        });
+            // });
+            $('#addition').append('<option value="CCCCCC">XXXX</option>');
         </script>
 
 
