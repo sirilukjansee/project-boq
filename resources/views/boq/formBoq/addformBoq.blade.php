@@ -9,9 +9,9 @@
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
+        <link rel="stylesheet" href="../tom-select/dist/css/tom-select.css" defer/>
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -67,8 +67,6 @@
                 <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
                     <ol class="breadcrumb breadcrumb-light">
                         <li class="breadcrumb-item"><a href="{{ url('index') }}">Project</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url('allBoq') }}">allBoq</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">addBoq</li>
                     </ol>
                 </nav>
                 <!-- END: Breadcrumb -->
@@ -134,7 +132,7 @@
                         </h2>
                         <div class="text-center">
                             <!-- BEGIN: Super Large Modal Toggle -->
-                            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">เลือก Template</a>
+                            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">Choose Template</a>
                             <!-- END: Super Large Modal Toggle -->
                         </div>
                         <!-- BEGIN: Super Large Modal Content -->
@@ -188,37 +186,25 @@
                                 @csrf
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
-                                    <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}"  style="background-color: rgb(153, 187, 238);" readonly >
+                                    <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                                     <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                                     <div class="intro-y input-form mt-3 ml-2">
                                         <div class="input-form">
                                             <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test" required>
-                                                <select name="unit_id[]" class="tom-select w-32">
+                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                                <select name="code_id[]" class="tom-select-code-{{$key + 1}} tom-select w-32">
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select name="sub_id[]" class="tom-select w-full" required>
+                                                <select name="sub_id[]" class="tom-select-sub-{{$key + 1}} tom-select w-full">
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
-                                                    {{-- @php
-                                                        $brand = explode(',', $cat_s->brand_id);
-                                                    @endphp
-                                                    @foreach ($brand_master as $key_m => $bm)
-
-                                                    @if ($brand)
-                                                    <option value="{{$bm->id}}">{{$brand[0]}}</option>
-                                                        @if ($bm->id == $brand[$key_m])
-                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                        @endif
-                                                    @endif
-                                                    @endforeach --}}
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>
-                                                <select name="" id="" class="form-control w-24">
+                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2">
+                                                <select name="unit_id[]" class="form-control w-24">
                                                     @foreach ($catagories2 as $cat2)
                                                     <option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>
                                                     @endforeach
@@ -253,27 +239,14 @@
 
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
-        <script src="/dist/js/app.js"></script>
+        {{-- <script src="/dist/js/app.js"></script> --}}
+        <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
-
-            //
-            jQuery(document).ready(function () {
-                jQuery('.select-state').selectize({
-                    sortField: 'text'
-                });
-            });
 
             // remove subwork w/ btn
             jQuery(document).on('click', "#delSubBtn", function(){
                 jQuery(this).closest('#addsub').remove();
             });
-
-
-            // remove mainwork w/ btn
-            // jQuery(document).on('click', "#delMain", function(){
-            //     jQuery(this).closest('#main1').remove();
-            // });
-
 
             // remove subwork w/ checkbox
             $("#checkDel").on('click', function() {
@@ -287,7 +260,7 @@
             // btn add subwork
             jQuery(document).ready(function()
             {
-
+                var x = 1;
                 jQuery.ajax({
                 url: "/addformBoq/select-catagory",
                 type: "GET",
@@ -298,19 +271,25 @@
                     jQuery.each(response.data, function(key, value){
                         // console.log(response);
                         var sub_num = key + 1;
+
+                        new TomSelect(".tom-select-code-"+sub_num);
+                        new TomSelect(".tom-select-sub-"+sub_num);
+
                         $("#btnAddsub" + sub_num).on('click', function(){
                             var html = '';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select name="unit_id[]" class="tom-select w-32">';
+                            html += '<select name="code_id[]" class="sub_select2-'+x+' tom-select w-32">';
+                            html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
                                     html += '<option value="'+value3.id+'">'+value3.code+'</option>';
                                 }
                             });
-                            // html += '@foreach ($cat->catagory_sub as $cat_s)<option value="{{$cat_s->id}}">{{$cat_s->code}}</option>@endforeach</select>';
+
                             html += '</select>';
-                            html += '<select name="sub_id[]" class="tom-select w-full" required>';
+                            html += '<select name="sub_id[]" class="sub_select-'+x+' tom-select w-full">';
+                            html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
                                     html += '<option value="'+value2.id+'">'+value2.name+'</option>';
@@ -318,20 +297,27 @@
                             });
                             html += '</select>';
                             html += '<input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>';
-                            html += '<select name="" id="" class="form-control w-24">';
+                            html += '<select name="unit_id[]" class="form-control w-24">';
                             html += '@foreach ($catagories2 as $cat2)<option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 
                             // console.log(sub_num);
-                        $('#newRowsub' + sub_num).append(html);
+                        $("#newRowsub" + sub_num).append(html);
+
+                        // Tom select
+
+                        new TomSelect(".sub_select2-"+x);
+                        new TomSelect(".sub_select-"+x);
+                        x++;
 
                          });
                     });
                 }
                 });
             });
+
 
         </script>
         <!-- END: JS Assets-->

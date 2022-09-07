@@ -24,7 +24,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
         <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{{ asset('select2/select2.min.js') }}"></script>
 
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
@@ -174,7 +174,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="{{ $catagories->name }}" disabled>
                                                 <input type="text" class="form-control mb-2" name="code" placeholder="Ex: GG001" required>
                                                 <input type="text" class="form-control mb-2" name="name" placeholder="ชื่องานย่อย">
-                                                <select id="" class="tom-select" name="brand_id[]" multiple placeholder="Select a state..." autocomplete="off" required>
+                                                <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select a state..." autocomplete="off" required>
                                                     @foreach ($data_brand as $value)
                                                         <option value="{{ $value->id }}">{{ $value->brand_name }}</option>
                                                     @endforeach
@@ -268,7 +268,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <input type="text" class="form-control mb-2" name="name" id="name" placeholder="{{$catagories->name}}" disabled>
                                             <input type="text" class="form-control mb-2" name="code" id="get_code" required>
                                             <input type="text" class="form-control mb-2" name="name" id="sub_name" placeholder="ชื่องานย่อย" value="">
-                                            <select id="get_brand_edit" name="brand_id[]" class="form-control test" style="z-index: -1 !important;">
+                                            <select id="get_brand_edit" name="brand_id[]" class="form-control select_brand" style="z-index: -1 !important;">
                                             </select>
 
                                             <input type="hidden" class="form-control mb-2" name="update_by" id="update_by" value="admin" >
@@ -295,21 +295,17 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="../dist/js/app.js"></script>
         <script>
-            jQuery("#test").select2({
-                multiple: true
-            });
-
             jQuery(document).ready(function() {
-            jQuery(".test").select2({
+            jQuery(".select_brand").select2({
                 multiple: true
             });
-            jQuery('.select2-selection').on('click', function (){
-                // alert()
-                if (jQuery('.test').hasClass("select2-hidden-accessible")) {
-                // alert()
-                jQuery('select2-dropdown').css('z-index', '9000000');
-            }
-            })
+            // jQuery('.select2-selection').on('click', function (){
+            //     // alert()
+            //     if (jQuery('.test').hasClass("select2-hidden-accessible")) {
+            //     // alert()
+            //     jQuery('select2-dropdown').css('z-index', '9000000');
+            // }
+            // })
 
         });
 
