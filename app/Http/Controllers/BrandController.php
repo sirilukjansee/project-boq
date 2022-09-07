@@ -52,9 +52,28 @@ class BrandController extends Controller
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');
     }
 
-    public function softdelete($id)
+    // public function softdelete($id)
+    // {
+    //     $delete = Brand::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus($id)
     {
-        $delete = Brand::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        // return "dd";
+        $data = Brand::find($id);
+
+        if ($data->is_active == "1") {
+            Brand::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            Brand::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 }

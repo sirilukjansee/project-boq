@@ -15,6 +15,7 @@ class design_and_pm extends Model
         'name',
         'email',
         'tel',
+        'is_active',
         'create_by',
         'update_by'
     ];

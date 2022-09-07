@@ -23,6 +23,7 @@ class DesignerPMController extends Controller
         $design_pm->name = $request->name;
         $design_pm->email = $request->email;
         $design_pm->tel = $request->tel;
+        $design_pm->is_active = "1";
         $design_pm->create_by = $request->create_by;
         $design_pm->update_by = $request->update_by;
         $design_pm->save();
@@ -57,9 +58,28 @@ class DesignerPMController extends Controller
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');
     }
 
-    public function softdelete($id)
+    // public function softdelete($id)
+    // {
+    //     $delete = design_and_pm::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus($id)
     {
-        $delete = design_and_pm::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        // return "dd";
+        $data = design_and_pm::find($id);
+
+        if ($data->is_active == "1") {
+            design_and_pm::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            design_and_pm::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 }

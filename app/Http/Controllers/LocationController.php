@@ -20,6 +20,7 @@ class LocationController extends Controller
         // dd($request);
         $location = new Location;
         $location->location_name = $request->location_name;
+        $location->is_active = "1";
         $location->create_by = $request->create_by;
         $location->update_by = $request->update_by;
         $location->save();
@@ -52,9 +53,28 @@ class LocationController extends Controller
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');
     }
 
-    public function softdelete($id)
+    // public function softdelete($id)
+    // {
+    //     $delete = Location::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus($id)
     {
-        $delete = Location::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        // return "dd";
+        $data = Location::find($id);
+
+        if ($data->is_active == "1") {
+            Location::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            Location::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 }
