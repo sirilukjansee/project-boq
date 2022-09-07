@@ -90,12 +90,12 @@ class MasterController extends Controller
         $data = catagory::find($id);
 
         if ($data->is_active == "1") {
-            catagory::find($data->id)->update([
+            catagory::where('id',$data->id)->update([
                 'is_active' => "0",
                 'update_by' => 1
             ]);
         }else {
-            catagory::find($data->id)->update([
+            catagory::where('id',$data->id)->update([
                 'is_active' => "1",
                 'update_by' => 1
             ]);
