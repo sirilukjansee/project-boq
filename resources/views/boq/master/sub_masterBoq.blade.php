@@ -207,7 +207,7 @@
                                                 data-tw-target="#large-modal-size-preview_edit_sub"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
                                             <!-- END: Large Modal Toggle -->
                                             <a href="{{ url('/sub_masterBoq/changeStatus', $cat->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
-                                            {{-- <a href="{{ url('/sub_masterBoq/softdelete', $cat->id) }}" class="btn btn-pending gap-w"><i data-lucide="activity" class="w-4 h-4 mr-2"></i></a> --}}
+                                            {{-- x<a href="{{ url('/sub_masterBoq/softdelete', $cat->id) }}" class="btn btn-pending gap-w"><i data-lucide="activity" class="w-4 h-4 mr-2"></i></a> --}}
                                         </td>
                                     </tr>
                                     @endforeach
