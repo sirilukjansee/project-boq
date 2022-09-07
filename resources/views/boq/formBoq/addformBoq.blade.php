@@ -199,7 +199,7 @@
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select id="sub_id{{$cat->id}}" name="sub_id[][{{ $cat->id }}]" class="tom-select-sub-{{$key + 1}} tom-select w-full">
+                                                <select id="" name="sub_id[][{{ $cat->id }}]" class="sub_selected{{ $cat->id }} tom-select-sub-{{$key + 1}} tom-select w-full">
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
@@ -276,8 +276,9 @@
 
                         $('#code_id'+sub_num).on('change', function(){
                             console.log($(this).val());
-                            $('#sub_id'+sub_num).append('<option selected value="1">abc</option>');
-                            new TomSelect("#sub_id"+sub_num);
+                            $('.sub_selected'+sub_num).append('<option selected value="1">EEEEE</option>');
+                            // $('.sub_selected'+sub_num).val("rrrrr");
+                            // new TomSelect(".sub_id"+sub_num);
                         });
 
                         new TomSelect(".tom-select-code-"+sub_num);
