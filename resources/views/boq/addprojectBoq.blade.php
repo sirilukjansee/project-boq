@@ -9,10 +9,10 @@
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
-        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/css/tom-select.css" rel="stylesheet">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/css/tom-select.css" rel="stylesheet"> --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/js/tom-select.complete.min.js"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/tom-select@2.1.0/dist/js/tom-select.complete.min.js"></script> --}}
+        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -144,7 +144,8 @@
                                             Brand
                                         </label>
                                         {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
-                                        <select id="select-beast-empty" name="brand" data-placeholder="Select a brand..." class="w-full" required>
+                                        <select name="brand" data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
+                                            <option value="">Select a brand...</option>
                                             @foreach ($project1 as $pro1)
                                             <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
                                             @endforeach
@@ -155,7 +156,7 @@
                                             Location
                                         </label>
                                         {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
-                                        <select id="select-beast-empty1" name="location" data-placeholder="Select a location..."  autocomplete="off" class="form-control w-full" required>
+                                        <select id="select-beast-empty1" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full" required>
                                             <option selected value="">Select a location...</option>
                                             @foreach ($project2 as $pro2)
                                             <option value="{{$pro2->id}}">{{$pro2->location_name}}</option>
@@ -187,7 +188,7 @@
                                                 Task Type
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
-                                            <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="form-control w-full" required>
+                                            <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="tom-select form-control w-full" required>
                                                 <option selected value="">Select a task type...</option>
                                                 @foreach ($project3 as $pro3)
                                                 <option value="{{$pro3->id}}">{{$pro3->task_type_name}}</option>
@@ -201,7 +202,7 @@
                                                 Task Name
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
-                                            <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="form-control w-full" required>
+                                            <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="tom-select form-control w-full" required>
                                                 <option selected value="">Select a task name...</option>
                                                 @foreach ($project4 as $pro4)
                                                 <option value="{{$pro4->id}}">{{$pro4->task_name}}</option>
@@ -250,7 +251,8 @@
                                             Designer Name
                                         </label>
                                         {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
-                                        <select id="select-beast-empty4" name="ds_name" data-placeholder="Select a designer..."  autocomplete="off" class="w-full" required>
+                                        <select name="ds_name" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full" required>
+                                            <option value="">Select a designer...</option>
                                             @foreach ($project5 as $pro5)
                                             <option value="{{$pro5->id}}">{{$pro5->name}}</option>
                                             @endforeach
@@ -319,30 +321,30 @@
             });
 
             //select brand
-            new TomSelect("#select-beast-empty",{
-                allowEmptyOption: true,
-                create: true
-            });
+            // new TomSelect("#select-beast-empty",{
+            //     allowEmptyOption: true,
+            //     create: true
+            // });
             //select location
-            new TomSelect("#select-beast-empty1",{
-                allowEmptyOption: true,
-                create: true
-            });
+            // new TomSelect("#select-beast-empty1",{
+            //     allowEmptyOption: true,
+            //     create: true
+            // });
             //select task type
-            new TomSelect("#select-beast-empty2",{
-                allowEmptyOption: true,
-                create: true
-            });
+            // new TomSelect("#select-beast-empty2",{
+            //     allowEmptyOption: true,
+            //     create: true
+            // });
             //select task name
-            new TomSelect("#select-beast-empty3",{
-                allowEmptyOption: true,
-                create: true
-            });
+            // new TomSelect("#select-beast-empty3",{
+            //     allowEmptyOption: true,
+            //     create: true
+            // });
             //select designer
-            new TomSelect("#select-beast-empty4",{
-                allowEmptyOption: true,
-                create: true
-            });
+            // new TomSelect("#select-beast-empty4",{
+            //     allowEmptyOption: true,
+            //     create: true
+            // });
 
             // Date Choose - Check
             // $(document).on('change', '[name="startDate"]', function() {
