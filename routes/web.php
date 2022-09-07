@@ -104,13 +104,15 @@ Route::get('/masterUnit/softdelete/{id}',[UnitController::class,'softdelete']);
 Route::post('/masterBoq/add', [MasterController::class, 'store'])->name('add_masterBoq');
 Route::get('/master/edit/{id}', [MasterController::class, 'edit'])->name('/master/edit/{id}');
 Route::post('/masterBoq/update', [MasterController::class, 'update']);
-Route::get('/master/softdelete/{id}',[MasterController::class,'softdelete']);
+// Route::get('/master/softdelete/{id}',[MasterController::class,'softdelete']);
+Route::get('/masterBoq/changeStatus/{id}',[MasterController::class, 'changeStatus']);
 
 //sub
 Route::post('/sub_masterBoq/add_sub', [MasterController::class, 'store_sub'])->name('add_sub_masterBoq');
 Route::get('/sub_masterBoq/edit/{id}', [MasterController::class, 'edit_sub'])->name('/sub_masterBoq/edit/{id}');
 Route::post('/sub_masterBoq/update', [MasterController::class, 'update_sub']);
-Route::get('/sub_masterBoq/softdelete/{id}',[MasterController::class,'softdelete_sub']);
+// Route::get('/sub_masterBoq/softdelete/{id}',[MasterController::class,'softdelete_sub']);
+Route::get('/sub_masterBoq/changeStatus/{id}',[MasterController::class,'changeStatus_sub']);
 
 
 //project

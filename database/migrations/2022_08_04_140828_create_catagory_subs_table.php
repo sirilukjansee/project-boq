@@ -15,11 +15,11 @@ class CreateCatagorySubsTable extends Migration
     {
         Schema::create('catagory_subs', function (Blueprint $table) {
             $table->id();
-            $table->integer('catagory_id');
-            $table->string('name');
-            $table->integer('is_active');
-            $table->string('create_by');
-            $table->string('update_by');
+            $table->foreignId('catagory_id')->comment('รหัสงานหลัก');
+            $table->string('name')->nullable('ชื่องานย่อย');
+            $table->enum('is_active',['0','1'])->default('1')->comment('0 = InActive, 1 = Active');
+            $table->foreignId('create_by')->nullable();
+            $table->foreignId('update_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

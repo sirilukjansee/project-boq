@@ -74,30 +74,46 @@ class MasterController extends Controller
             'name' => $request->name,
             'update_by' => $request->update_by,
         ]);
-        // $update->name = $request->input('name');
-        // $update->update_by = $request->input('update_by');
-        // $update->update();
 
         return back()->with('success', '!!! Edit Complete !!!');
     }
 
-    public function softdelete($id)
+    // public function softdelete($id)
+    // {
+    //     $delete = catagory::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus($id)
     {
-        $delete = catagory::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        // return "dd";
+        $data = catagory::find($id);
+
+        if ($data->is_active == "1") {
+            catagory::find($data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            catagory::find($data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 
     public function store_sub(Request $request)
     {
         // dd($request);
        $catagory_sub = new catagory_sub;
-       $catagory_sub->code = $request->code;
+       $catagory_sub->code = $request->code1.$request->code2.$request->code3;
        $catagory_sub->catagory_id = $request->catagory_id;
        $catagory_sub->name = $request->name;
        $catagory_sub->brand_id = implode( ',', $request->brand_id);
-       $catagory_sub->create_by = $request->create_by;
-       $catagory_sub->update_by = $request->update_by;
-       $catagory_sub->is_active = $request->is_active;
+       $catagory_sub->create_by = 1;
+       $catagory_sub->update_by = 1;
+       $catagory_sub->is_active = "1";
        $catagory_sub->save();
 
         return redirect()->back()->with('success', '!!! ADD_SUB Complete !!!');
@@ -105,8 +121,6 @@ class MasterController extends Controller
 
     public function edit_sub($id)
     {
-        // $edit = catagory_sub::find($id);
-        // return response()->json($edit);
         $id2 = catagory_sub::find($id);
 
         return response()->json([
@@ -118,27 +132,37 @@ class MasterController extends Controller
 
     public function update_sub(Request $request)
     {
-        // dd($request);
-        // $request->validate([
-        //     'name' => 'unique:catagory_subs'
-        // ],
-        // [
-        //     'name.unique' => "error"
-        // ]);
-
         $update_sub = catagory_sub::find($request->id)->update([
-            'code' => $request->code,
+            'code' => $request->code1.$request->code2.$request->code3,
             'name' => $request->name,
             'brand_id' => implode( ',', $request->brand_id),
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
         return back()->with('success', '!!! Edit_SUB Complete !!!');
     }
 
-    public function softdelete_sub($id)
+    // public function softdelete_sub($id)
+    // {
+    //     $delete = catagory_sub::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus_sub($id)
     {
-        $delete = catagory_sub::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        $data = catagory_sub::find($id);
+
+        if ($data->is_active == "1") {
+            catagory_sub::find($data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            catagory_sub::find($data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 
 }
