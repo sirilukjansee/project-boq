@@ -166,6 +166,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="top-menu__title"> Master Unit </div>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url('/masterVender') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Vender </div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

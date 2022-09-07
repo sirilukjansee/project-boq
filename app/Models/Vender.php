@@ -4,20 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Boq extends Model
+class Vender extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected   $fillable = [
-        'template_boq_id',
-        'main_id',
-        'sub_id',
-        'amount',
-        'unit_id',
-        'desc',
-        'total',
+        'first_name',
+        'last_name',
         'create_by',
         'update_by'
     ];
+
+    protected $guarded = [];
+
 }

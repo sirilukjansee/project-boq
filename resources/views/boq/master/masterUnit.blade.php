@@ -145,9 +145,21 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url('/masterLocation') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Location </div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/masterBrand') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                                 <div class="top-menu__title"> Master Brand </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/masterVender') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Vender </div>
                             </a>
                         </li>
                     </ul>
@@ -224,7 +236,6 @@
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $un->unit_name }}</td>
-
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->
                                             <a href="javascript:;" data-tw-toggle="modal" onclick="edit_modal({{ $un->id }})" data-tw-target="#large-modal-size-preview_edit" class="btn btn-secondary mr-1 edit">Edit</a>

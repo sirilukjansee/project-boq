@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!--
-Template Name: Icewall - HTML Admin Dashboard Template
-Author: Left4code
-Website: http://www.left4code.com/
-Contact: muhammadrizki@left4code.com
-Purchase: https://themeforest.net/user/left4code/portfolio
-Renew Support: https://themeforest.net/user/left4code/portfolio
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en" class="light">
     <!-- BEGIN: Head -->
     <head>
@@ -154,6 +145,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             </a>
                         </li>
                         <li>
+                            <a href="{{ url('/masterLocation') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Location </div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ url('/masterBrand') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                                 <div class="top-menu__title"> Master Brand </div>
@@ -163,12 +160,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             <a href="{{ url('/masterUnit') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
                                 <div class="top-menu__title"> Master Unit </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/masterVender') }}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Vender </div>
                             </a>
                         </li>
                     </ul>
@@ -183,12 +174,12 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="content">
                     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                         <h2 class="text-lg font-medium mr-auto">
-                            Master Location
+                            Master Vender
                         </h2>
                         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                             <div class="text-center">
                                 <!-- BEGIN: Large Modal Toggle -->
-                                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Location </a>
+                                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Vender </a>
                                 <!-- END: Large Modal Toggle -->
                             </div>
                             <!-- BEGIN: Large Modal Content -->
@@ -200,12 +191,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </a>
                                         <div class="modal-body p-10">
                                             <div class="mb-4">
-                                                เพิ่ม Location
+                                                เพิ่ม Vender
                                             </div>
-                                            <form action="{{ url('/masterLocation/add') }}" method="post">
+                                            <form action="{{url('/masterVender/add')}}" method="post">
                                                 @csrf
                                                 <div class="form-group mb-4">
-                                                    <input type="text" class="form-control mb-2" name="location_name" placeholder="Location_name" required>
+                                                    <input type="text" class="form-control mb-2" name="first_name" placeholder="First Name" required>
+                                                    <input type="text" class="form-control mb-2" name="last_name" placeholder="Last Name" required>
                                                     <input type="hidden" class="form-control mb-2" name="create_by" value="admin">
                                                     <input type="hidden" class="form-control mb-2" name="update_by" value="admin">
                                                 </div>
@@ -236,20 +228,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <thead>
                                   <tr>
                                     <th scope="col" class="text-center">ID</th>
-                                    <th scope="col">Location_Name</th>
+                                    <th scope="col">Vender_Name</th>
                                     <th scope="col"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($locations as $key => $lo)
+                                    @foreach ($venders as $key => $vd)
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
-                                        <td>{{ $lo->location_name }}</td>
-
+                                        <td>{{ $vd->first_name }}   {{ $vd->last_name }}</td>
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->
-                                            <a href="javascript:;" data-tw-toggle="modal" onclick="edit_modal({{ $lo->id }})" data-tw-target="#large-modal-size-preview_edit" class="btn btn-secondary mr-1 edit">Edit</a>
-                                            <a href="{{ url('/masterLocation/softdelete', $lo->id) }}" class="btn btn-dark gap-w"> Delete </a>
+                                            <a href="javascript:;" data-tw-toggle="modal" onclick="edit_modal({{ $vd->id }})" data-tw-target="#large-modal-size-preview_edit" class="btn btn-secondary mr-1 edit">Edit</a>
+                                            <a href="{{ url('/masterVender/softdelete', $vd->id) }}" class="btn btn-dark gap-w"> Delete </a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -267,11 +258,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="mb-4">
                                             แก้ไข
                                         </div>
-                                        <form action="{{ url('/masterLocation/update') }}" method="post">
+                                        <form action="{{ url('/masterVender/update') }}" method="post">
                                             @csrf
                                             <div class="form-group mb-4">
                                                 <input type="hidden" name="id" id="get_id">
-                                                <input type="text" class="form-control mb-2" name="location_name" id="location_name" placeholder="Location_name" value="">
+                                                <input type="text" class="form-control mb-2" name="first_name" id="first_name" placeholder="First_name" value="">
+                                                <input type="text" class="form-control mb-2" name="last_name" id="last_name" placeholder="Last_name" value="">
                                                 <input type="text" class="form-control mb-2" name="update_by" id="update_by" placeholder="อัพเดทโดย" value="">
                                             </div>
                                             <input type="submit" id="Edit" value="Edit" class="btn btn-primary">
@@ -305,12 +297,13 @@ License: You must have a valid license purchased only from themeforest(the above
                 console.log(id);
                 jQuery.ajax({
                     type:   "GET",
-                    url:    "{!! url('masterLocation/edit/"+id+"') !!}",
+                    url:    "{!! url('masterVender/edit/"+id+"') !!}",
                     datatype:   "JSON",
                     async:  false,
                     success: function(data) {
                         $('#get_id').val(data.dataEdit.id);
-                        $('#location_name').val(data.dataEdit.location_name);
+                        $('#first_name').val(data.dataEdit.first_name);
+                        $('#last_name').val(data.dataEdit.last_name);
                         $('#update_by').val(data.dataEdit.update_by);
                         jQuery('#Delete').children().remove().end();
 

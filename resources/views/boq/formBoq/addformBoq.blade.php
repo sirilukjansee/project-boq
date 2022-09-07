@@ -182,8 +182,9 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
-                            <form action=""  method="POST">
+                            <form action="{{ route('add_Boq') }}" method="post" >
                                 @csrf
+                                <input type="hidden" value="{{ $project->id }}" name="project_id">
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
@@ -192,24 +193,33 @@
                                         <div class="input-form">
                                             <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                 <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+<<<<<<< HEAD
+                                                <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32">
+                                                    <option selected value=""></option>
+=======
                                                 <select name="code_id[]" class="tom-select-code-{{$key + 1}} tom-select w-32">
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
+<<<<<<< HEAD
+                                                <select id="sub_id{{$cat->id}}" name="sub_id[][{{ $cat->id }}]" class="tom-select-sub-{{$key + 1}} tom-select w-full">
+=======
                                                 <select name="sub_id[]" class="tom-select-sub-{{$key + 1}} tom-select w-full">
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2">
-                                                <select name="unit_id[]" class="form-control w-24">
+                                                <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
+                                                <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                                     @foreach ($catagories2 as $cat2)
-                                                    <option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>
+                                                    <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                                <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
                                                 <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                             </div>
                                             <div id="newRowsub{{$key + 1}}"></div>
@@ -227,10 +237,10 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                <input type="submit" value="บันทึก" class="btn btn-primary">
+                                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">ย้อนกลับ</a>
                             </form>
                         </div>
-                    <input type="submit" value="บันทึก" class="btn btn-primary">
-                    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">ย้อนกลับ</a>
                     <!-- END: Validation Form -->
                 </div>
                 <!-- END: Content -->
@@ -271,6 +281,15 @@
                     jQuery.each(response.data, function(key, value){
                         // console.log(response);
                         var sub_num = key + 1;
+<<<<<<< HEAD
+
+                        $('#code_id'+sub_num).on('change', function(){
+                            console.log($(this).val());
+                            $('#sub_id'+sub_num).append('<option selected value="1">abc</option>');
+                            new TomSelect("#sub_id"+sub_num);
+                        });
+=======
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
 
                         new TomSelect(".tom-select-code-"+sub_num);
                         new TomSelect(".tom-select-sub-"+sub_num);
@@ -279,7 +298,11 @@
                             var html = '';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
+<<<<<<< HEAD
+                            html += '<select name="code_id[]['+sub_num+']" class="sub_select2-'+x+' tom-select w-32">';
+=======
                             html += '<select name="code_id[]" class="sub_select2-'+x+' tom-select w-32">';
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -288,7 +311,11 @@
                             });
 
                             html += '</select>';
+<<<<<<< HEAD
+                            html += '<select name="sub_id[]['+sub_num+']" class="sub_select-'+x+' tom-select w-full">';
+=======
                             html += '<select name="sub_id[]" class="sub_select-'+x+' tom-select w-full">';
+>>>>>>> 5e35febb1bd076c895bf01534f22fe9f0d6757b3
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
@@ -296,14 +323,14 @@
                                 }
                             });
                             html += '</select>';
-                            html += '<input type="number" class="form-control w-24" placeholder="จำนวน" aria-label="default input inline 2" required>';
-                            html += '<select name="unit_id[]" class="form-control w-24">';
-                            html += '@foreach ($catagories2 as $cat2)<option value="{{$cat2->unit_name}}">{{$cat2->unit_name}}</option>@endforeach</select>';
-                            html += '<input type="text" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
+                            html += '<input type="number" name="amount[]['+sub_num+']" class="form-control w-24" placeholder="จำนวน" >';
+                            html += '<select name="unit_id[]['+sub_num+']" class="form-control w-24">';
+                            html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
+                            html += '<input type="text" name="desc[]['+sub_num+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 
-                            // console.log(sub_num);
+                            console.log(sub_num);
                         $("#newRowsub" + sub_num).append(html);
 
                         // Tom select
