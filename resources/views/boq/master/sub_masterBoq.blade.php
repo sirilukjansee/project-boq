@@ -365,6 +365,9 @@
                         jQuery('#Delete').children().remove().end();
                         jQuery('#get_brand_edit').children().remove().end();
                         // console.log(data.dataBrand);
+                        if (condition) {
+
+                        }
                         let rows_tags = data.dataEdit.brand_id.split(",");
                         jQuery.each(rows_tags, function(tkey, tvalue){
                             jQuery.each(data.dataBrand, function(key, value){
