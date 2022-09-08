@@ -13,12 +13,12 @@
  *
  */
 
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { getDom } from '../../vanilla';
 import { preventDefault } from '../../utils';
 import { DHOptions } from './types';
 
-export default function(this:TomSelect, userOptions:DHOptions) {
+TomSelect.define('dropdown_header',function(this:TomSelect, userOptions:DHOptions) {
 	const self = this;
 
 	const options = Object.assign({
@@ -54,4 +54,4 @@ export default function(this:TomSelect, userOptions:DHOptions) {
 		self.dropdown.insertBefore(header, self.dropdown.firstChild);
 	});
 
-};
+});

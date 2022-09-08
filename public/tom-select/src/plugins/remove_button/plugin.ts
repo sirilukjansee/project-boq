@@ -12,14 +12,14 @@
  * governing permissions and limitations under the License.
  *
  */
-
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { getDom } from '../../vanilla';
 import { escape_html, preventDefault, addEvent } from '../../utils';
-import { TomOption, TomItem } from '../../types/index';
+import { TomOption } from '../../types/index';
 import { RBOptions } from './types';
 
-export default function(this:TomSelect, userOptions:RBOptions) {
+
+TomSelect.define('remove_button',function(this:TomSelect, userOptions:RBOptions ){
 
 	const options = Object.assign({
 			label     : '&times;',
@@ -45,10 +45,10 @@ export default function(this:TomSelect, userOptions:RBOptions) {
 
 		self.settings.render.item = (data:TomOption, escape:typeof escape_html) => {
 
-			var item = getDom(orig_render_item.call(self, data, escape)) as TomItem;
+			var rendered = getDom(orig_render_item.call(self, data, escape));
 
 			var close_button = getDom(html);
-			item.appendChild(close_button);
+			rendered.appendChild(close_button);
 
 			addEvent(close_button,'mousedown',(evt) => {
 				preventDefault(evt,true);
@@ -59,18 +59,17 @@ export default function(this:TomSelect, userOptions:RBOptions) {
 				// propagating will trigger the dropdown to show for single mode
 				preventDefault(evt,true);
 
-				if( self.isLocked ) return;
-				if( !self.shouldDelete([item],evt as MouseEvent) ) return;
+				if (self.isLocked) return;
 
-				self.removeItem(item);
+				var value = rendered.dataset.value;
+				self.removeItem(value);
 				self.refreshOptions(false);
-				self.inputState();
 			});
 
-			return item;
+			return rendered;
 		};
 
 	});
 
 
-};
+});

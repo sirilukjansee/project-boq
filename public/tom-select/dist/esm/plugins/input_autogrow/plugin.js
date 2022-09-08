@@ -1,7 +1,9 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
+
+import TomSelect from '../../tom-select.js';
 
 /**
  * Converts a scalar to its best string representation
@@ -39,7 +41,7 @@ const addEvent = (target, type, callback, options) => {
  * governing permissions and limitations under the License.
  *
  */
-function plugin () {
+TomSelect.define('input_autogrow', function () {
   var self = this;
   self.on('initialize', () => {
     var test_input = document.createElement('span');
@@ -59,8 +61,12 @@ function plugin () {
 
 
     var resize = () => {
-      test_input.textContent = control.value;
-      control.style.width = test_input.clientWidth + 'px';
+      if (self.items.length > 0) {
+        test_input.textContent = control.value;
+        control.style.width = test_input.clientWidth + 'px';
+      } else {
+        control.style.width = '';
+      }
     };
 
     resize();
@@ -70,7 +76,5 @@ function plugin () {
     addEvent(control, 'blur', resize);
     addEvent(control, 'update', resize);
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

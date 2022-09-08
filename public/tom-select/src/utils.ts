@@ -88,10 +88,8 @@ export const debounce_events = ( self:TomSelect, types:string[], fn:() => void )
 	self.trigger = trigger;
 
 	// trigger queued events
-	for( type of types ){
-		if( type in event_args ){
-			trigger.apply(self, event_args[type]);
-		}
+	for (type in event_args) {
+		trigger.apply(self, event_args[type]);
 	}
 };
 

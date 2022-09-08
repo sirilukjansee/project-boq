@@ -1,12 +1,7 @@
 import TomSelect from '../tom-select';
 import { escape_html } from '../utils';
-export interface TomInput extends HTMLElement {
+export interface TomInput extends HTMLInputElement {
     tomselect?: TomSelect;
-    disabled: boolean;
-    required: boolean;
-    value: string;
-    type: string;
-    validity: ValidityState;
 }
 export declare type TomArgObject = {
     silent?: boolean;
@@ -42,4 +37,3 @@ export declare type TomTemplates = {
     'no_more_results': TomTemplateNull;
 };
 export declare type TomTemplateNames = keyof TomTemplates;
-export declare type TomClearFilter = (option: TomOption, value: string) => boolean;

@@ -1,5 +1,5 @@
 import Sifter from '@orchidjs/sifter/lib/sifter';
-import { TomInput, TomArgObject, TomOption, TomOptions, TomCreateCallback, TomItem, TomSettings, TomTemplateNames, TomClearFilter } from './types/index';
+import { TomInput, TomArgObject, TomOption, TomOptions, TomCreateCallback, TomItem, TomSettings, TomTemplateNames } from './types/index';
 declare const TomSelect_base: {
     new (): {
         [x: string]: any;
@@ -15,7 +15,12 @@ declare const TomSelect_base: {
                 [key: string]: any;
             };
         };
-        initializePlugins(plugins: string[] | import("./contrib/microplugin").TPluginHash | import("./contrib/microplugin").TPluginItem[]): void;
+        initializePlugins(plugins: string[] | {
+            [key: string]: {};
+        } | {
+            name: string;
+            options: {};
+        }[]): void;
         loadPlugin(name: string): void;
         require(name: string): any;
     };
@@ -30,7 +35,6 @@ export default class TomSelect extends TomSelect_base {
     dropdown: HTMLElement;
     control: HTMLElement;
     dropdown_content: HTMLElement;
-    focus_node: HTMLElement;
     order: number;
     settings: TomSettings;
     input: TomInput;
@@ -40,17 +44,16 @@ export default class TomSelect extends TomSelect_base {
     private inputId;
     private _destroy;
     sifter: Sifter;
+    tab_key: boolean;
     isOpen: boolean;
     isDisabled: boolean;
     isRequired: boolean;
     isInvalid: boolean;
-    isValid: boolean;
     isLocked: boolean;
     isFocused: boolean;
     isInputHidden: boolean;
     isSetup: boolean;
     ignoreFocus: boolean;
-    ignoreHover: boolean;
     hasOptions: boolean;
     currentResults?: ReturnType<Sifter['search']>;
     lastValue: string;
@@ -67,9 +70,14 @@ export default class TomSelect extends TomSelect_base {
         [key: string]: boolean;
     };
     items: string[];
-    constructor(input_arg: string | TomInput, user_settings: Partial<TomSettings>);
+    renderCache: {
+        [key: string]: {
+            [key: string]: HTMLElement;
+        };
+    };
+    constructor(input_arg: string | TomInput, settings: TomSettings);
     /**
-     * set up event bindings.
+     * @deprecated v1.7.6
      *
      */
     setup(): void;
@@ -87,11 +95,6 @@ export default class TomSelect extends TomSelect_base {
      * in the settings used when creating the control.
      */
     setupCallbacks(): void;
-    /**
-     * Sync the Tom Select instance with the original input or select
-     *
-     */
-    sync(get_settings?: boolean): void;
     /**
      * Triggered when the main control element
      * has a click event.
@@ -128,13 +131,7 @@ export default class TomSelect extends TomSelect_base {
      * Triggered on <input> keyup.
      *
      */
-    onInput(e: MouseEvent | KeyboardEvent): void;
-    /**
-     * Triggered when the user rolls over
-     * an option in the autocomplete dropdown menu.
-     *
-     */
-    onOptionHover(evt: MouseEvent | KeyboardEvent, option: HTMLElement): void;
+    onKeyUp(e: MouseEvent | KeyboardEvent): void;
     /**
      * Triggered on <input> focus.
      *
@@ -144,18 +141,13 @@ export default class TomSelect extends TomSelect_base {
      * Triggered on <input> blur.
      *
      */
-    onBlur(e?: FocusEvent): void;
+    onBlur(): void;
     /**
      * Triggered when the user clicks on an option
      * in the autocomplete dropdown menu.
      *
      */
     onOptionSelect(evt: MouseEvent | KeyboardEvent, option: HTMLElement): void;
-    /**
-     * Return true if the given option can be selected
-     *
-     */
-    canSelect(option: HTMLElement | null): boolean;
     /**
      * Triggered when the user clicks on an item
      * that has been selected.
@@ -189,7 +181,6 @@ export default class TomSelect extends TomSelect_base {
      *
      */
     loadCallback(options: TomOption[], optgroups: TomOption[]): void;
-    preload(): void;
     /**
      * Sets the input field of the control to the specified value.
      *
@@ -238,7 +229,7 @@ export default class TomSelect extends TomSelect_base {
      * of available options.
      *
      */
-    setActiveOption(option: null | HTMLElement, scroll?: boolean): void;
+    setActiveOption(option: null | HTMLElement): void;
     /**
      * Sets the dropdown_content scrollTop to display the option
      *
@@ -305,7 +296,7 @@ export default class TomSelect extends TomSelect_base {
     getSearchOptions(): {
         fields: string[];
         conjunction: string;
-        sort: string | import("@orchidjs/sifter/lib/types").SortFn | import("@orchidjs/sifter/lib/types").Sort[];
+        sort: string | any[];
         nesting: boolean;
     };
     /**
@@ -336,14 +327,10 @@ export default class TomSelect extends TomSelect_base {
      *   this.addOption(data)
      *
      */
-    addOption(data: TomOption, user_created?: boolean): false | string;
+    addOption(data: TomOption | TomOption[]): void;
     /**
-     * Add multiple options
+     * Registers an option to the pool of options.
      *
-     */
-    addOptions(data: TomOption[], user_created?: boolean): void;
-    /**
-     * @deprecated 1.7.7
      */
     registerOption(data: TomOption): false | string;
     /**
@@ -382,13 +369,12 @@ export default class TomSelect extends TomSelect_base {
     /**
      * Clears all options.
      */
-    clearOptions(filter?: TomClearFilter): void;
+    clearOptions(): void;
     /**
-     * Used by clearOptions() to decide whether or not an option should be removed
-     * Return true to keep an option, false to remove
+     * Removes a value from item and option caches
      *
      */
-    clearFilter(option: TomOption, value: string): boolean;
+    uncacheValue(value: string, remove_node?: boolean): void;
     /**
      * Returns the dom element of the option
      * matching the given value.
@@ -499,10 +485,6 @@ export default class TomSelect extends TomSelect_base {
      */
     deleteSelection(e: KeyboardEvent): boolean;
     /**
-     * Return true if the items should be deleted
-     */
-    shouldDelete(items: TomItem[], evt: MouseEvent | KeyboardEvent): boolean;
-    /**
      * Selects the previous / next item (depending on the `direction` argument).
      *
      * > 0 - right
@@ -510,7 +492,6 @@ export default class TomSelect extends TomSelect_base {
      *
      */
     advanceSelection(direction: number, e?: MouseEvent | KeyboardEvent): void;
-    moveCaret(direction: number): void;
     /**
      * Get the last active item
      *
@@ -567,17 +548,17 @@ export default class TomSelect extends TomSelect_base {
      */
     _render(templateName: TomTemplateNames, data?: any): HTMLElement;
     /**
+     * Return the previously rendered item or option
+     *
+     */
+    rendered(templateName: TomTemplateNames, value: null | string): null | HTMLElement;
+    /**
      * Clears the render cache for a template. If
      * no template is given, clears all render
      * caches.
      *
      */
-    clearCache(): void;
-    /**
-     * Removes a value from item and option caches
-     *
-     */
-    uncacheValue(value: string): void;
+    clearCache(templateName?: 'item' | 'option'): void;
     /**
      * Determines whether or not to display the
      * create item prompt, given a user input.

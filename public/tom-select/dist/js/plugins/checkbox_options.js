@@ -1,13 +1,17 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.checkbox_options = factory());
-})(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../../tom-select.js')) :
+	typeof define === 'function' && define.amd ? define(['../../tom-select'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.TomSelect));
+}(this, (function (TomSelect) { 'use strict';
+
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var TomSelect__default = /*#__PURE__*/_interopDefaultLegacy(TomSelect);
 
 	/**
 	 * Converts a scalar to its best string representation
@@ -46,21 +50,12 @@
 	  }
 	};
 
-	// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-	const latin_convert = {
-	  'æ': 'ae',
-	  'ⱥ': 'a',
-	  'ø': 'o'
-	};
-	new RegExp(Object.keys(latin_convert).join('|'), 'gu');
-
 	/**
 	 * Return a dom element from either a dom query string, jQuery object, a dom element or html string
 	 * https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
 	 *
 	 * param query should be {}
 	 */
-
 	const getDom = query => {
 	  if (query.jquery) {
 	    return query[0];
@@ -70,7 +65,7 @@
 	    return query;
 	  }
 
-	  if (isHtmlString(query)) {
+	  if (query.indexOf('<') > -1) {
 	    let div = document.createElement('div');
 	    div.innerHTML = query.trim(); // Never return a text node of whitespace as the result
 
@@ -78,13 +73,6 @@
 	  }
 
 	  return document.querySelector(query);
-	};
-	const isHtmlString = arg => {
-	  if (typeof arg === 'string' && arg.indexOf('<') > -1) {
-	    return true;
-	  }
-
-	  return false;
 	};
 
 	/**
@@ -101,7 +89,7 @@
 	 * governing permissions and limitations under the License.
 	 *
 	 */
-	function plugin () {
+	TomSelect__default['default'].define('checkbox_options', function () {
 	  var self = this;
 	  var orig_onOptionSelect = self.onOptionSelect;
 	  self.settings.hideSelected = false; // update the checkbox for an option
@@ -110,12 +98,10 @@
 	    setTimeout(() => {
 	      var checkbox = option.querySelector('input');
 
-	      if (checkbox instanceof HTMLInputElement) {
-	        if (option.classList.contains('selected')) {
-	          checkbox.checked = true;
-	        } else {
-	          checkbox.checked = false;
-	        }
+	      if (option.classList.contains('selected')) {
+	        checkbox.checked = true;
+	      } else {
+	        checkbox.checked = false;
 	      }
 	    }, 1);
 	  }; // add checkbox to option template
@@ -151,15 +137,6 @@
 
 	      UpdateCheckbox(option);
 	    }
-	  }); // check when item added
-
-	  self.on('item_add', value => {
-	    var option = self.getOption(value);
-
-	    if (option) {
-	      // if dropdown hasn't been opened yet, the option won't exist
-	      UpdateCheckbox(option);
-	    }
 	  }); // remove items when selected option is clicked
 
 	  self.hook('instead', 'onOptionSelect', (evt, option) => {
@@ -174,9 +151,7 @@
 	    orig_onOptionSelect.call(self, evt, option);
 	    UpdateCheckbox(option);
 	  });
-	}
+	});
 
-	return plugin;
-
-}));
+})));
 //# sourceMappingURL=checkbox_options.js.map

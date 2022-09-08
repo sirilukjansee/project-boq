@@ -22,7 +22,7 @@ export default {
 	selectOnTab: false,
 	preload: null,
 	allowEmptyOption: false,
-	//closeAfterSelect: false,
+	closeAfterSelect: false,
 
 	loadThrottle: 300,
 	loadingClass: 'loading',
@@ -41,17 +41,17 @@ export default {
 	searchConjunction: 'and',
 
 	mode: null,
-	wrapperClass: 'ts-wrapper',
-	controlClass: 'ts-control',
+	wrapperClass: 'ts-control',
+	inputClass: 'ts-input',
 	dropdownClass: 'ts-dropdown',
 	dropdownContentClass: 'ts-dropdown-content',
 	itemClass: 'item',
 	optionClass: 'option',
 
 	dropdownParent: null,
-	controlInput: '<input type="text" autocomplete="off" size="1" />',
+	controlInput: null,
 
-	copyClassesToDropdown: false,
+	copyClassesToDropdown: true,
 
 	placeholder: null,
 	hidePlaceholder: null,

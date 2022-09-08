@@ -1,13 +1,17 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.no_backspace_delete = factory());
-})(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../../tom-select.js')) :
+	typeof define === 'function' && define.amd ? define(['../../tom-select'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.TomSelect));
+}(this, (function (TomSelect) { 'use strict';
+
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var TomSelect__default = /*#__PURE__*/_interopDefaultLegacy(TomSelect);
 
 	/**
 	 * Plugin: "input_autogrow" (Tom Select)
@@ -22,7 +26,7 @@
 	 * governing permissions and limitations under the License.
 	 *
 	 */
-	function plugin () {
+	TomSelect__default['default'].define('no_backspace_delete', function () {
 	  var self = this;
 	  var orig_deleteSelection = self.deleteSelection;
 	  this.hook('instead', 'deleteSelection', evt => {
@@ -32,9 +36,7 @@
 
 	    return false;
 	  });
-	}
+	});
 
-	return plugin;
-
-}));
+})));
 //# sourceMappingURL=no_backspace_delete.js.map

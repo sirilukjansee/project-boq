@@ -1,12 +1,10 @@
 import { TomCreateFilter, TomCreate, TomLoadCallback } from './index';
 import { escape_html } from '../utils';
-import { TPluginItem, TPluginHash } from '../contrib/microplugin';
-import * as SifterTypes from '@orchidjs/sifter/lib/types';
 export declare type TomSettings = {
     options?: any[];
     optgroups?: any[];
-    items?: string[];
-    plugins: string[] | TPluginItem[] | TPluginHash;
+    items: any[];
+    plugins: any[];
     delimiter: string;
     splitOn: RegExp | string;
     persist: boolean;
@@ -36,19 +34,19 @@ export declare type TomSettings = {
     optgroupLabelField: string;
     optgroupValueField: string;
     lockOptgroupOrder: boolean;
-    sortField: string | SifterTypes.Sort[] | SifterTypes.SortFn;
+    sortField: string | any[];
     searchField: string[];
     searchConjunction: string;
     nesting: boolean;
     mode: string;
     wrapperClass: string;
-    controlClass: string;
+    inputClass: string;
     dropdownClass: string;
     dropdownContentClass: string;
     itemClass: string;
     optionClass: string;
     dropdownParent: string;
-    controlInput: string | HTMLInputElement;
+    controlInput: HTMLInputElement;
     copyClassesToDropdown: boolean;
     placeholder: string;
     hidePlaceholder: boolean;
@@ -77,5 +75,4 @@ export declare type TomSettings = {
         [key: string]: (data: any, escape: typeof escape_html) => string | HTMLElement;
     };
     firstUrl: (query: string) => any;
-    shouldLoadMore: () => boolean;
 };

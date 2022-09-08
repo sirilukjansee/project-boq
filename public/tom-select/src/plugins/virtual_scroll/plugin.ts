@@ -12,12 +12,12 @@
  * governing permissions and limitations under the License.
  *
  */
-
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { TomOption } from '../../types/index';
 import { addClasses } from '../../vanilla';
 
-export default function(this:TomSelect) {
+
+TomSelect.define('virtual_scroll',function(this:TomSelect) {
 	const self							= this;
 	const orig_canLoad					= self.canLoad;
 	const orig_clearActiveOption		= self.clearActiveOption;
@@ -26,30 +26,6 @@ export default function(this:TomSelect) {
 	var pagination:{[key:string]:any}	= {};
 	var dropdown_content:HTMLElement;
 	var loading_more					= false;
-	var load_more_opt:HTMLElement;
-	var default_values: string[]		= [];
-
-	if( !self.settings.shouldLoadMore ){
-
-		// return true if additional results should be loaded
-		self.settings.shouldLoadMore = ():boolean=>{
-
-			const scroll_percent = dropdown_content.clientHeight / (dropdown_content.scrollHeight - dropdown_content.scrollTop);
-			if( scroll_percent > 0.9 ){
-				return true;
-			}
-
-			if( self.activeOption ){
-				var selectable	= self.selectable();
-				var index		= [...selectable].indexOf(self.activeOption);
-				if( index >= (selectable.length-2) ){
-					return true;
-				}
-			}
-
-			return false;
-		}
-	}
 
 
 	if( !self.settings.firstUrl ){
@@ -64,7 +40,7 @@ export default function(this:TomSelect) {
 
 
 	// can we load more results for given query?
-	const canLoadMore = (query:string):boolean => {
+	function canLoadMore(query:string):boolean{
 
 		if( typeof self.settings.maxOptions === 'number' && dropdown_content.children.length >= self.settings.maxOptions ){
 			return false;
@@ -75,23 +51,16 @@ export default function(this:TomSelect) {
 		}
 
 		return false;
-	};
-
-	const clearFilter = (option:TomOption, value:string):boolean => {
-		if( self.items.indexOf(value) >= 0 || default_values.indexOf(value) >= 0 ){
-			return true;
-		}
-		return false;
-	};
+	}
 
 
 	// set the next url that will be
-	self.setNextUrl = (value:string,next_url:any):void => {
+	self.setNextUrl = function(value:string,next_url:any):void{
 		pagination[value] = next_url;
 	};
 
 	// getUrl() to be used in settings.load()
-	self.getUrl = (query:string):any =>{
+	self.getUrl = function(query:string):any{
 
 		if( query in pagination ){
 			const next_url = pagination[query];
@@ -103,9 +72,8 @@ export default function(this:TomSelect) {
 		// we need to load the first page again
 		pagination = {};
 
-		return self.settings.firstUrl.call(self,query);
+		return self.settings.firstUrl(query);
 	};
-
 
 	// don't clear the active option (and cause unwanted dropdown scroll)
 	// while loading more results
@@ -134,9 +102,7 @@ export default function(this:TomSelect) {
 	self.hook('instead','loadCallback',( options:TomOption[], optgroups:TomOption[])=>{
 
 		if( !loading_more ){
-			self.clearOptions(clearFilter);
-		}else if( load_more_opt && options.length > 0 ){
-			load_more_opt.dataset.value		= options[0][self.settings.valueField];
+			self.clearOptions();
 		}
 
 		orig_loadCallback.call( self, options, optgroups);
@@ -154,12 +120,8 @@ export default function(this:TomSelect) {
 		var option;
 
 		if( canLoadMore(query) ){
-
 			option = self.render('loading_more',{query:query});
-			if( option ){
-				option.setAttribute('data-selectable',''); // so that navigating dropdown with [down] keypresses can navigate to this node
-				load_more_opt = option;
-			}
+			if( option ) option.setAttribute('data-selectable',''); // so that navigating dropdown with [down] keypresses can navigate to this node
 
 		}else if( (query in pagination) && !dropdown_content.querySelector('.no-results') ){
 			option = self.render('no_more_results',{query:query});
@@ -175,24 +137,24 @@ export default function(this:TomSelect) {
 
 	// add scroll listener and default templates
 	self.on('initialize',()=>{
-		default_values = Object.keys(self.options);
 		dropdown_content = self.dropdown_content;
 
 		// default templates
 		self.settings.render = Object.assign({}, {
-			loading_more:() => {
+			loading_more:function(){
 				return `<div class="loading-more-results">Loading more results ... </div>`;
 			},
-			no_more_results:() =>{
+			no_more_results:function(){
 				return `<div class="no-more-results">No more results</div>`;
 			}
 		},self.settings.render);
 
 
 		// watch dropdown content scroll position
-		dropdown_content.addEventListener('scroll',()=>{
+		dropdown_content.addEventListener('scroll',function(){
 
-			if( !self.settings.shouldLoadMore.call(self) ){
+			const scroll_percent = dropdown_content.clientHeight / (dropdown_content.scrollHeight - dropdown_content.scrollTop);
+			if( scroll_percent < 0.95 ){
 				return;
 			}
 
@@ -210,4 +172,4 @@ export default function(this:TomSelect) {
 		});
 	});
 
-};
+});

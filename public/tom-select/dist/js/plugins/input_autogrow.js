@@ -1,13 +1,17 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.input_autogrow = factory());
-})(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../../tom-select.js')) :
+	typeof define === 'function' && define.amd ? define(['../../tom-select'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.TomSelect));
+}(this, (function (TomSelect) { 'use strict';
+
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var TomSelect__default = /*#__PURE__*/_interopDefaultLegacy(TomSelect);
 
 	/**
 	 * Converts a scalar to its best string representation
@@ -45,7 +49,7 @@
 	 * governing permissions and limitations under the License.
 	 *
 	 */
-	function plugin () {
+	TomSelect__default['default'].define('input_autogrow', function () {
 	  var self = this;
 	  self.on('initialize', () => {
 	    var test_input = document.createElement('span');
@@ -65,8 +69,12 @@
 
 
 	    var resize = () => {
-	      test_input.textContent = control.value;
-	      control.style.width = test_input.clientWidth + 'px';
+	      if (self.items.length > 0) {
+	        test_input.textContent = control.value;
+	        control.style.width = test_input.clientWidth + 'px';
+	      } else {
+	        control.style.width = '';
+	      }
 	    };
 
 	    resize();
@@ -76,9 +84,7 @@
 	    addEvent(control, 'blur', resize);
 	    addEvent(control, 'update', resize);
 	  });
-	}
+	});
 
-	return plugin;
-
-}));
+})));
 //# sourceMappingURL=input_autogrow.js.map

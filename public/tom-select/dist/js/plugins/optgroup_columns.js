@@ -1,27 +1,29 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.optgroup_columns = factory());
-})(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../../tom-select.js')) :
+	typeof define === 'function' && define.amd ? define(['../../tom-select'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.TomSelect));
+}(this, (function (TomSelect) { 'use strict';
+
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var TomSelect__default = /*#__PURE__*/_interopDefaultLegacy(TomSelect);
 
 	const KEY_LEFT = 37;
 	const KEY_RIGHT = 39;
 	typeof navigator === 'undefined' ? false : /Mac/.test(navigator.userAgent);
 	 // ctrl key or apple key for ma
 
-	// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-	const latin_convert = {
-	  'æ': 'ae',
-	  'ⱥ': 'a',
-	  'ø': 'o'
-	};
-	new RegExp(Object.keys(latin_convert).join('|'), 'gu');
-
+	/**
+	 * Return a dom element from either a dom query string, jQuery object, a dom element or html string
+	 * https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
+	 *
+	 * param query should be {}
+	 */
 	/**
 	 * Get the closest node to the evt.target matching the selector
 	 * Stops at wrapper
@@ -74,7 +76,7 @@
 	 * governing permissions and limitations under the License.
 	 *
 	 */
-	function plugin () {
+	TomSelect__default['default'].define('optgroup_columns', function () {
 	  var self = this;
 	  var orig_keydown = self.onKeyDown;
 	  self.hook('instead', 'onKeyDown', evt => {
@@ -84,7 +86,6 @@
 	      return orig_keydown.call(self, evt);
 	    }
 
-	    self.ignoreHover = true;
 	    optgroup = parentMatch(self.activeOption, '[data-group]');
 	    index = nodeIndex(self.activeOption, '[data-selectable]');
 
@@ -109,9 +110,7 @@
 	      self.setActiveOption(option);
 	    }
 	  });
-	}
+	});
 
-	return plugin;
-
-}));
+})));
 //# sourceMappingURL=optgroup_columns.js.map

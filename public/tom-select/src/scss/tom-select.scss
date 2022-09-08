@@ -49,12 +49,11 @@ $select-opacity-disabled:						0.5 !default;
 
 $select-shadow-input:							none !default;
 $select-shadow-input-focus:						none !default;
-$select-border-width:							1px !default;
-$select-border:									$select-border-width solid $select-color-border !default;
+$select-border:									1px solid $select-color-border !default;
 $select-dropdown-border:						1px solid $select-color-dropdown-border !default;
 $select-border-radius:							3px !default;
 
-$select-width-item-border:						0px !default;
+$select-width-item-border:						0 !default;
 $select-max-height-dropdown:					200px !default;
 
 $select-padding-x:								8px !default;
@@ -70,8 +69,8 @@ $select-arrow-size:								5px !default;
 $select-arrow-color:								#808080 !default;
 $select-arrow-offset:							15px !default;
 
-$select-caret-margin:							0px 4px !default;
-$select-caret-margin-rtl:						0px 4px 0px -2px !default;
+$select-caret-margin:							0 4px !default;
+$select-caret-margin-rtl:						0 4px 0 -2px !default;
 
 $select-spinner-size:							30px !default;
 $select-spinner-border-size:					5px !default;
@@ -84,48 +83,32 @@ $select-spinner-border-color:					$select-color-border !default;
 }
 
 
-.#{$select-ns}-wrapper.single{
-	.#{$select-ns}-control {
-		&, input {
-			cursor: pointer;
-		}
-	}
-}
-
-
 @mixin ts-caret(){
 
-	.#{$select-ns}-wrapper.single{
+	.#{$select-ns}-control.single .#{$select-ns}-input {
+		padding-right: 2rem;
+		
+		&, input { cursor: pointer; }
+		&.input-active, &.input-active input { cursor: text; }
 
-		.#{$select-ns}-control {
-			padding-right: 2rem;
-
-			&:after {
-				content: ' ';
-				display: block;
-				position: absolute;
-				top: 50%;
-				right: $select-arrow-offset;
-				margin-top: round(-0.5 * $select-arrow-size);
-				width: 0;
-				height: 0;
-				border-style: solid;
-				border-width: $select-arrow-size $select-arrow-size 0 $select-arrow-size;
-				border-color: $select-arrow-color transparent transparent transparent;
-			}
+		&:after {
+			content: ' ';
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: $select-arrow-offset;
+			margin-top: round((-1 * $select-arrow-size / 2));
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: $select-arrow-size $select-arrow-size 0 $select-arrow-size;
+			border-color: $select-arrow-color transparent transparent transparent;
 		}
-
-		&.dropdown-active .#{$select-ns}-control::after {
+		&.dropdown-active:after {
 			margin-top: $select-arrow-size * -0.8;
 			border-width: 0 $select-arrow-size $select-arrow-size $select-arrow-size;
 			border-color: transparent transparent $select-arrow-color transparent;
 		}
-
-		&.input-active .#{$select-ns}-control,
-		&.input-active .#{$select-ns}-control input {
-			cursor: text;
-		}
-
 	}
 }
 
@@ -139,13 +122,13 @@ $select-spinner-border-color:					$select-color-border !default;
 @import "../plugins/remove_button/plugin.scss";
 
 
-.#{$select-ns}-wrapper {
+.#{$select-ns}-control {
 	position: relative;
 }
 
 .#{$select-ns}-dropdown,
-.#{$select-ns}-control,
-.#{$select-ns}-control input {
+.#{$select-ns}-input,
+.#{$select-ns}-input input {
 	color: $select-color-text;
 	font-family: $select-font-family;
 	font-size: $select-font-size;
@@ -153,23 +136,11 @@ $select-spinner-border-color:					$select-color-border !default;
 	font-smoothing: $select-font-smoothing;
 }
 
-.#{$select-ns}-control,
-.#{$select-ns}-wrapper.single.input-active .#{$select-ns}-control {
+.#{$select-ns}-input,
+.#{$select-ns}-control.single .#{$select-ns}-input.input-active {
 	background: $select-color-input;
 	cursor: text;
 }
 
 @import 'items';
 @import 'dropdown';
-
-.ts-hidden-accessible{
-	border: 0 !important;
-    clip: rect(0 0 0 0) !important;
-    clip-path: inset(50%) !important;
-    //height: 1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-    white-space: nowrap !important;
-}

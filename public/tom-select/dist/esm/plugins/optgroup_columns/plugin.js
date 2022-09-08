@@ -1,21 +1,21 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
+
+import TomSelect from '../../tom-select.js';
 
 const KEY_LEFT = 37;
 const KEY_RIGHT = 39;
 typeof navigator === 'undefined' ? false : /Mac/.test(navigator.userAgent);
  // ctrl key or apple key for ma
 
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-const latin_convert = {
-  'æ': 'ae',
-  'ⱥ': 'a',
-  'ø': 'o'
-};
-new RegExp(Object.keys(latin_convert).join('|'), 'gu');
-
+/**
+ * Return a dom element from either a dom query string, jQuery object, a dom element or html string
+ * https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
+ *
+ * param query should be {}
+ */
 /**
  * Get the closest node to the evt.target matching the selector
  * Stops at wrapper
@@ -68,7 +68,7 @@ const nodeIndex = (el, amongst) => {
  * governing permissions and limitations under the License.
  *
  */
-function plugin () {
+TomSelect.define('optgroup_columns', function () {
   var self = this;
   var orig_keydown = self.onKeyDown;
   self.hook('instead', 'onKeyDown', evt => {
@@ -78,7 +78,6 @@ function plugin () {
       return orig_keydown.call(self, evt);
     }
 
-    self.ignoreHover = true;
     optgroup = parentMatch(self.activeOption, '[data-group]');
     index = nodeIndex(self.activeOption, '[data-selectable]');
 
@@ -103,7 +102,5 @@ function plugin () {
       self.setActiveOption(option);
     }
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

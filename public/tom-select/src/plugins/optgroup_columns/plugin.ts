@@ -13,11 +13,11 @@
  *
  */
 
-import TomSelect from '../../tom-select';
-import * as constants from '../../constants';
+import TomSelect from '../../tom-select.js';
+import * as constants from '../../constants.js';
 import { parentMatch, nodeIndex } from '../../vanilla';
 
-export default function(this:TomSelect) {
+TomSelect.define('optgroup_columns', function(this:TomSelect) {
 	var self = this;
 
 	var orig_keydown = self.onKeyDown;
@@ -29,7 +29,6 @@ export default function(this:TomSelect) {
 			return orig_keydown.call(self,evt);
 		}
 
-		self.ignoreHover	= true;
 		optgroup			= parentMatch(self.activeOption,'[data-group]');
 		index				= nodeIndex(self.activeOption,'[data-selectable]');
 
@@ -56,4 +55,4 @@ export default function(this:TomSelect) {
 
 	});
 
-};
+});

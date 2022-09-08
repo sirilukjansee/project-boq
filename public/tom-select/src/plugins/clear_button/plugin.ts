@@ -13,11 +13,11 @@
  *
  */
 
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { getDom } from '../../vanilla';
 import { CBOptions } from './types';
 
-export default function(this:TomSelect, userOptions:CBOptions) {
+TomSelect.define('clear_button',function(this:TomSelect, userOptions:CBOptions) {
 	const self = this;
 
 	const options = Object.assign({
@@ -31,21 +31,11 @@ export default function(this:TomSelect, userOptions:CBOptions) {
 	self.on('initialize',()=>{
 		var button = getDom(options.html(options));
 		button.addEventListener('click',(evt)=>{
-
-			if( self.isDisabled ){
-				return;
-			}
-
 			self.clear();
-
-			if( self.settings.mode === 'single' && self.settings.allowEmptyOption ){
-				self.addItem('');
-			}
-
 			evt.preventDefault();
 			evt.stopPropagation();
 		});
 		self.control.appendChild(button);
 	});
 
-};
+});

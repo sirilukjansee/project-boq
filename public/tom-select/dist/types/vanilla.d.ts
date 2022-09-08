@@ -5,7 +5,6 @@
  * param query should be {}
  */
 export declare const getDom: (query: any) => HTMLElement;
-export declare const isHtmlString: (arg: any) => boolean;
 export declare const escapeQuery: (query: string) => string;
 /**
  * Dispatch an event
