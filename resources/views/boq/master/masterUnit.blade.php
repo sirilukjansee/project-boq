@@ -228,7 +228,8 @@
                                   <tr>
                                     <th scope="col" class="text-center">ID</th>
                                     <th scope="col">Unit</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" align="center">Active</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -236,10 +237,21 @@
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $un->unit_name }}</td>
+                                        <td>
+                                            @if ($un->is_active == "1")
+                                                Active
+                                            @else
+                                                Inactive
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->
-                                            <a href="javascript:;" data-tw-toggle="modal" onclick="edit_modal({{ $un->id }})" data-tw-target="#large-modal-size-preview_edit" class="btn btn-secondary mr-1 edit">Edit</a>
-                                            <a href="{{ url('/masterUnit/softdelete', $un->id) }}" class="btn btn-dark gap-w"> Delete </a>
+                                            <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$un->id}})" data-tw-toggle="modal"
+                                                data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
+
+                                            <a href="{{ url('/masterUnit/changeStatus', $un->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+
+                                            {{-- <a href="{{ url('/masterUnit/softdelete', $un->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

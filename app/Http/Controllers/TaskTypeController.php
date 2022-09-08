@@ -53,9 +53,28 @@ class TaskTypeController extends Controller
         return back()->with('success', '!!! Edit TASK NAME Complete !!!');
     }
 
-    public function softdelete($id)
+    // public function softdelete($id)
+    // {
+    //     $delete = task_type::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus($id)
     {
-        $delete = task_type::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        // return "dd";
+        $data = task_type::find($id);
+
+        if ($data->is_active == "1") {
+            task_type::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            task_type::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 }

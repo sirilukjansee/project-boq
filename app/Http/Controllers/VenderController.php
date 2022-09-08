@@ -21,6 +21,7 @@ class VenderController extends Controller
         $vend = new vender;
         $vend->first_name = $request->first_name;
         $vend->last_name = $request->last_name;
+        $vend->is_active = "1";
         $vend->create_by = $request->create_by;
         $vend->update_by = $request->update_by;
         $vend->save();
@@ -52,9 +53,28 @@ class VenderController extends Controller
         return back()->with('success', '!!! Edit VENDER Complete !!!');
     }
 
-    public function softdelete($id)
+    // public function softdelete($id)
+    // {
+    //     $delete = vender::find($id)->delete();
+    //     return redirect()->back()->with('success','!!! Delete-Complete !!!');
+    // }
+
+    public function changeStatus($id)
     {
-        $delete = vender::find($id)->delete();
-        return redirect()->back()->with('success','!!! Delete-Complete !!!');
+        // return "dd";
+        $data = vender::find($id);
+
+        if ($data->is_active == "1") {
+            vender::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            vender::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 }

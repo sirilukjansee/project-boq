@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!--
-Template Name: Icewall - HTML Admin Dashboard Template
-Author: Left4code
-Website: http://www.left4code.com/
-Contact: muhammadrizki@left4code.com
-Purchase: https://themeforest.net/user/left4code/portfolio
-Renew Support: https://themeforest.net/user/left4code/portfolio
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en" class="light">
     <!-- BEGIN: Head -->
     <head>
@@ -237,7 +228,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                   <tr>
                                     <th scope="col" class="text-center">ID</th>
                                     <th scope="col">Location_Name</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" align="center">Active</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -245,11 +237,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td>{{ $lo->location_name }}</td>
-
+                                        <td>
+                                            @if ($lo->is_active == "1")
+                                                Active
+                                            @else
+                                                Inactive
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <!-- BEGIN: Large Modal Toggle -->
-                                            <a href="javascript:;" data-tw-toggle="modal" onclick="edit_modal({{ $lo->id }})" data-tw-target="#large-modal-size-preview_edit" class="btn btn-secondary mr-1 edit">Edit</a>
-                                            <a href="{{ url('/masterLocation/softdelete', $lo->id) }}" class="btn btn-dark gap-w"> Delete </a>
+                                            <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$lo->id}})" data-tw-toggle="modal"
+                                                data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
+
+                                            <a href="{{ url('/masterLocation/changeStatus', $lo->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                                            {{-- <a href="{{ url('/masterLocation/softdelete', $lo->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

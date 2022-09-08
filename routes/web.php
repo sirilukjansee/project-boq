@@ -13,7 +13,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VenderController;
-use App\Http\Controllers\ExcelController;
+// use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -62,49 +62,56 @@ Route::get('/masterTaskName', [TaskNameController::class, 'index'])->name('maste
 Route::post('/masterTaskName/add', [TaskNameController::class, 'store'])->name('add_masterTaskName');
 Route::get('/masterTaskName/edit/{id}', [TaskNameController::class, 'edit'])->name('/masterTaskName/edit/{id}');
 Route::post('/masterTaskName/update', [TaskNameController::class, 'update']);
-Route::get('/masterTaskName/softdelete/{id}',[TaskNameController::class,'softdelete']);
+// Route::get('/masterTaskName/softdelete/{id}',[TaskNameController::class,'softdelete']);
+Route::get('/masterTaskName/changeStatus/{id}',[TaskNameController::class,'changeStatus']);
 
 //master task_type
 Route::get('/masterTaskType', [TaskTypeController::class, 'index'])->name('masterTaskType');
 Route::post('/masterTaskType/add', [TaskTypeController::class, 'store'])->name('add_masterTaskType');
 Route::get('/masterTaskType/edit/{id}', [TaskTypeController::class, 'edit'])->name('/masterTaskType/edit/{id}');
 Route::post('/masterTaskType/update', [TaskTypeController::class, 'update']);
-Route::get('/masterTaskType/softdelete/{id}',[TaskTypeController::class,'softdelete']);
+// Route::get('/masterTaskType/softdelete/{id}',[TaskTypeController::class,'softdelete']);
+Route::get('/masterTaskType/changeStatus/{id}',[TaskTypeController::class,'changeStatus']);
 
 //master design_pm
 Route::get('/masterDesignPM', [DesignerPMController::class, 'index'])->name('masterDesignPM');
 Route::post('/masterDesignPM/add', [DesignerPMController::class, 'store'])->name('add_masterDesignPM');
 Route::get('/masterDesignPM/edit/{id}', [DesignerPMController::class, 'edit'])->name('/masterDesignPM/edit/{id}');
 Route::post('/masterDesignPM/update', [DesignerPMController::class, 'update']);
-Route::get('/masterDesignPM/softdelete/{id}',[DesignerPMController::class,'softdelete']);
+// Route::get('/masterDesignPM/softdelete/{id}',[DesignerPMController::class,'softdelete']);
+Route::get('/masterDesignPM/changeStatus/{id}',[DesignerPMController::class,'changeStatus']);
 
 //master brand
 Route::get('/masterBrand', [BrandController::class, 'index'])->name('masterBrand');
 Route::post('/masterBrand/add', [BrandController::class, 'store'])->name('add_masterBrand');
 Route::get('/masterBrand/edit/{id}', [BrandController::class, 'edit'])->name('/masterBrand/edit/{id}');
 Route::post('/masterBrand/update', [BrandController::class, 'update']);
-Route::get('/masterBrand/softdelete/{id}',[BrandController::class,'softdelete']);
+// Route::get('/masterBrand/softdelete/{id}',[BrandController::class,'softdelete']);
+Route::get('/masterBrand/changeStatus/{id}',[BrandController::class,'changeStatus']);
 
 //master location
 Route::get('/masterLocation', [LocationController::class, 'index'])->name('masterLocation');
 Route::post('/masterLocation/add', [LocationController::class, 'store'])->name('add_masterLocation');
 Route::get('/masterLocation/edit/{id}', [LocationController::class, 'edit'])->name('/masterLocation/edit/{id}');
 Route::post('/masterLocation/update', [LocationController::class, 'update']);
-Route::get('/masterLocation/softdelete/{id}',[LocationController::class,'softdelete']);
+// Route::get('/masterLocation/softdelete/{id}',[LocationController::class,'softdelete']);
+Route::get('/masterLocation/changeStatus/{id}',[LocationController::class,'changeStatus']);
 
 //master unit
 Route::get('/masterUnit', [UnitController::class, 'index'])->name('masterUnit');
 Route::post('/masterUnit/add', [UnitController::class, 'store'])->name('add_masterUnit');
 Route::get('/masterUnit/edit/{id}', [UnitController::class, 'edit'])->name('/masterUnit/edit/{id}');
 Route::post('/masterUnit/update', [UnitController::class, 'update']);
-Route::get('/masterUnit/softdelete/{id}',[UnitController::class,'softdelete']);
+// Route::get('/masterUnit/softdelete/{id}',[UnitController::class,'softdelete']);
+Route::get('/masterUnit/changeStatus/{id}',[UnitController::class,'changeStatus']);
 
 //master vender
 Route::get('/masterVender', [VenderController::class, 'index'])->name('masterVender');
 Route::post('/masterVender/add', [VenderController::class, 'store'])->name('add_masterVender');
 Route::get('/masterVender/edit/{id}', [VenderController::class, 'edit'])->name('/masterVender/edit/{id}');
 Route::post('/masterVender/update', [VenderController::class, 'update']);
-Route::get('/masterVender/softdelete/{id}',[VenderController::class,'softdelete']);
+// Route::get('/masterVender/softdelete/{id}',[VenderController::class,'softdelete']);
+Route::get('/masterVender/changeStatus/{id}',[VenderController::class,'changeStatus']);
 
 
 //main

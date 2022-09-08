@@ -14,11 +14,12 @@ class Location extends Model
 
     protected $filable = [
         'location_name',
+        'is_active',
         'create_by',
         'update_by'
     ];
 
     protected $guarded = [];
 
-    
+
 }

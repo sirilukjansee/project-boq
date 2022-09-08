@@ -14,6 +14,7 @@ class Vender extends Model
     protected   $fillable = [
         'first_name',
         'last_name',
+        'is_active',
         'create_by',
         'update_by'
     ];

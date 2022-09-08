@@ -13,7 +13,7 @@ class catagory extends Model
     use SoftDeletes;
 
     Protected $table = 'catagories';
-    protected $filable = [
+    protected $fillable = [
         'name',
         'create_by',
         'update_by',
