@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class BoqController extends Controller
 {
     public function index($id)
@@ -91,7 +92,7 @@ class BoqController extends Controller
 
     public function export()
     {
-        return Excel::download(new BoqsExport, 'all_project.xlsx');
+        return Excel::download(new BoqsExport, 'Project.xlsx');
     }
 
 

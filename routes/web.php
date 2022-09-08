@@ -137,7 +137,7 @@ Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_cat
 Route::get('projects/export/', [BoqController::class, 'export']);
 
 
-Route::get('/addminorBoq', [ExcelController::class, 'index']);
-Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
+// Route::get('/addminorBoq', [ExcelController::class, 'index']);
+// Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
 
 
