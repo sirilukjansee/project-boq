@@ -16,8 +16,9 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="description" content="Icewall admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
-        <title>{{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</title>
+        <title>Boq - </title>
         <!-- BEGIN: CSS Assets-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
         <!-- END: CSS Assets-->
     </head>
@@ -158,7 +159,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </form>
                             <div class="sm:flex items-center mt-2 xl:mt-0">
-                                <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
+                                @php
+                                    $data_chk = App\Models\template_boqs::where('project_id', $project->id)
+                                    ->where('name', "Master BOQ")
+                                    ->first();
+                                @endphp
+                                @if ( $data_chk )
+                                    @if ( $data_chk->status == "2" )
+                                        <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
+                                        @else
+                                        <a href="#" class="btn btn-secondary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
+                                    @endif
+                                    @else
+                                    <a href="{{ url('/createformBoq', $project->id) }}" class="btn btn-primary mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i>New BOQ</a>
+                                @endif
                             </div>
                         </div>
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
@@ -205,7 +219,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <div class="btn-group text-center flex justify-center">
                                                 <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
                                                 <a href="{{ url('/editFormBoq/edit', $tb->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
-                                                <a href="{{ url("checkBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="send" class="w-4 h-4 mr-2"></i> Sent </a>
+                                                <button type="button" id="change_status_boq" value="{{ $tb->id }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false" data-tw-toggle="modal" data-tw-target="#send-modal-preview">
+                                                    <i data-lucide="send" class="w-4 h-4 mr-2"></i> Send </button>
                                                 <a href="{{ url('projects/export/') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                                             </div>
                                         </td>
@@ -249,6 +264,29 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END: Content -->
             </div>
         </div>
+        <!-- BEGIN: Modal Content -->
+        <div id="send-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <form action="{{ url('/change_status_boq') }}" method="post">
+                            @csrf
+                            <div class="p-5 text-center">
+                                <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
+                                <div class="text-3xl mt-5">Send to Manager??</div>
+                                <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                            </div>
+                            <input type="hidden" id="boq_id" name="boq_id">
+                            <div class="px-5 pb-8 text-center">
+                                <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                                <button type="submit" name="send" class="btn btn-primary w-28">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Modal Content -->
         <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
@@ -256,5 +294,12 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="/dist/js/app.js"></script>
         <!-- END: JS Assets-->
+        <script type="text/javascript">
+            jQuery(document).on('click', '#change_status_boq', function()   {
+                var boq_id = $(this).val();
+                $('#boq_id').val(boq_id);
+                jQuery('#send-modal-preview').show();
+            });
+        </script>
     </body>
 </html>

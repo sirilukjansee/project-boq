@@ -183,7 +183,7 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
-                            <form action="{{ route('add_Boq') }}" method="post" >
+                            <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" value="{{ $project->id }}" name="project_id">
                                 <div id="addmain" class="input-form mt-3">
@@ -232,8 +232,10 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                <input type="submit" value="บันทึก" class="btn btn-primary">
-                                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">ย้อนกลับ</a>
+                                <input type="hidden" id="is_btn" name="btn_send">
+                                <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
+                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                             </form>
                         </div>
                     <!-- END: Validation Form -->
@@ -241,7 +243,25 @@
                 <!-- END: Content -->
             </div>
         </div>
-
+        <!-- BEGIN: Modal Content -->
+        <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="p-5 text-center">
+                            <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
+                            <div class="text-3xl mt-5">Send to Manager??</div>
+                            <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                        </div>
+                        <div class="px-5 pb-8 text-center">
+                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                            <button type="button" id="btn_send" name="send" class="btn btn-primary w-28">Save & Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Modal Content -->
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
 
@@ -249,6 +269,16 @@
         <script src="/dist/js/app.js"></script>
         <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
+
+            //
+            jQuery(document).on('click', "#btn_send1", function(){
+                $('#is_btn').val("btn_send");
+            });
+
+            //save & send
+            jQuery(document).on('click', "#btn_send", function(){
+                document.getElementById("form1").submit();
+            });
 
             // remove subwork w/ btn
             jQuery(document).on('click', "#delSubBtn", function(){
@@ -279,19 +309,19 @@
                         // console.log(response);
                         var sub_num = key + 1;
 
-                        $('#code_id'+sub_num).on('change', function(){
-                            console.log($(this).val());
-                            jQuery('.sub_selected'+sub_num).children().remove().end();
-                            document.getElementById('sub1').style.display = 'none';
-                            $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
+                        // $('#code_id'+sub_num).on('change', function(){
+                        //     console.log($(this).val());
+                        //     jQuery('.sub_selected'+sub_num).children().remove().end();
+                        //     document.getElementById('sub1').style.display = 'none';
+                        //     $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
 
-                            let options = {
-                                plugins: {
-                                    dropdown_input: {},
-                                }
-                            };
-                            new TomSelect(".tom-select-sub-"+sub_num);
-                        });
+                        //     let options = {
+                        //         plugins: {
+                        //             dropdown_input: {},
+                        //         }
+                        //     };
+                        //     new TomSelect(".tom-select-sub-"+sub_num);
+                        // });
 
 
 

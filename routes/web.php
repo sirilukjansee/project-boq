@@ -138,6 +138,8 @@ Route::post('/addprojectBoq/add', [ProjectController::class, 'store'])->name('/a
 Route::get('/allBoq/{id}', [BoqController::class, 'index'])->name('allBoq');
 Route::post('/addBoq/add', [BoqController::class, 'store'])->name('add_Boq');
 Route::get('/editFormBoq/edit/{id}', [BoqController::class, 'edit'])->name('editformBoq');
+Route::post('/formBoq/update', [BoqController::class, 'update']);
+Route::post('/change_status_boq', [BoqController::class, 'change_status_boq'])->name('change_status_boq');
 
 
 Route::get('/createformBoq/{id}', [FormboqController::class, 'index'])->name('createformboq');

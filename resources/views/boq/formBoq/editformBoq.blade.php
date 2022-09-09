@@ -128,7 +128,12 @@
                 <div class="content">
                     <div class="intro-y flex sm:flex-row items-center mt-3">
                         <h2 class="text-lg font-medium mr-auto">
-                            <b>Create BOQ of </b>
+                            <b>Edit BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
+                            @if ( $project_id->name == 'Master BOQ' )
+                                [Master BOQ]
+                                @else
+                                [Additional BOQ]
+                            @endif</b>
                         </h2>
                         <div class="text-center">
                             <!-- BEGIN: Super Large Modal Toggle -->
@@ -182,11 +187,11 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
-                            <form action="{{ route('add_Boq') }}" method="post" >
+                            <form action="{{ url('/formBoq/update') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
-                                    {{-- <input type="hidden" value="{{ $project->id }}" name="project_id"> --}}
+                                    <input type="hidden" value="{{ $id }}" name="id">
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                                     <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                                     <div class="intro-y input-form mt-3 ml-2">
@@ -194,23 +199,25 @@
                                             @foreach ( $editboq as $eb )
                                             {{-- {{ $eb->main_id }} --}}
                                             @if ( $eb->main_id == $cat->id)
+                                                <input type="hidden" value="{{ $eb->id }}" name="boq_id">
+                                                <input type="hidden" value="{{ $project_id->project_id }}" name="project_id">
                                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                                     <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
-                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_id }}</option>
+                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->code }}</option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
                                                         <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                         @endforeach
                                                     </select>
                                                     <select id="" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full" placeholder="Please Select...">
-                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_id }}</option>
+                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_cata->name }}</option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
                                                         <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
                                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
-                                                        <option selected value="{{ $eb->unit_id }}">{{ $eb->unit_id }}</option>
+                                                        <option selected value="{{ $eb->unit_id }}">{{ $eb->unit_u->unit_name }}</option>
                                                         @foreach ($catagories2 as $cat2)
                                                         <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
                                                         @endforeach
@@ -220,6 +227,38 @@
                                                 </div>
                                             @endif
                                             @endforeach
+                                            @php
+                                                $data_chk = App\Models\Boq::where('main_id', $cat->id)
+                                                    ->where('template_boq_id', $project_id->id)
+                                                    ->first();
+                                            @endphp
+                                            @if ( $data_chk == '')
+                                                <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
+                                                        <option selected value=""></option>
+                                                        @foreach ($cat->catagory_sub as $cat_s)
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full">
+                                                        <option selected value=""></option>
+                                                        @foreach ($cat->catagory_sub as $cat_s)
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <span class="sub_selected{{ $cat->id }}"></span>
+                                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
+                                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                                        <option selected value=""></option>
+                                                        @foreach ($catagories2 as $cat2)
+                                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                                </div>
+                                            @endif
                                             <div id="newRowsub{{$key + 1}}"></div>
                                             <input type="hidden" id="number_s" rel="{{$key + 1}}">
                                         </div>
@@ -235,7 +274,9 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                <input type="submit" value="บันทึก" class="btn btn-primary">
+                                <input type="hidden" id="is_btn" name="btn_send">
+                                <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
+                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
                                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">ย้อนกลับ</a>
                             </form>
                         </div>
@@ -244,12 +285,40 @@
                 <!-- END: Content -->
             </div>
         </div>
-
+        <!-- BEGIN: Modal Content -->
+        <div id="delete-modal-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="p-5 text-center">
+                            <i data-lucide="send" class="w-16 h-16 text-warning mx-auto mt-3"></i>
+                            <div class="text-3xl mt-5">Send to Manager??</div>
+                            <div class="text-slate-500 mt-2">?????????????? <br>???????????.</div>
+                        </div>
+                        <div class="px-5 pb-8 text-center">
+                            <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                            <button type="button" id="btn_send" name="send" class="btn btn-primary w-28">Save & Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Modal Content -->
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
         <script src="/dist/js/app.js"></script>
-        <script src="../tom-select/dist/js/tom-select.complete.js"></script>
+        <script src="/tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
+
+            //
+            jQuery(document).on('click', "#btn_send1", function(){
+                $('#is_btn').val("btn_send");
+            });
+
+            //save & send
+            jQuery(document).on('click', "#btn_send", function(){
+                document.getElementById("form1").submit();
+            });
 
             // remove subwork w/ btn
             jQuery(document).on('click', "#delSubBtn", function(){

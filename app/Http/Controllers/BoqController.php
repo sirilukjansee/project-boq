@@ -7,7 +7,6 @@ use App\Models\Project;
 use App\Models\Boq;
 use App\Models\template_boqs;
 use App\Models\catagory;
-use App\Models\catagory_sub;
 use App\Models\Unit;
 use App\Models\Brand;
 use Carbon\Carbon;
@@ -35,11 +34,17 @@ class BoqController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
+        if( $request->btn_send == "btn_send" )
+        {
+            $send_form = "1";
+        }else
+        {
+            $send_form = "0";
+        }
+
         $data_number = Project::where('id', $request->project_id)
             ->first();
-            // return $data_number->number_id;
-        // $project_y = Carbon::today()->format('Y');
-        // $project_y_cut = substr($project_y, -2);
 
         $data = template_boqs::where('project_id', $request->project_id)
             ->count();
@@ -52,7 +57,7 @@ class BoqController extends Controller
                     'project_id' => $request->project_id,
                     'name'  =>  "Additional BOQ",
                     'date'  =>  Carbon::now(),
-                    'status'    =>  "0",
+                    'status'    =>  $send_form,
                     'create_by' =>  1,
                     'update_by' =>  1
                 ])->id;
@@ -64,7 +69,7 @@ class BoqController extends Controller
                     'project_id' => $request->project_id,
                     'name'  =>  "Master BOQ",
                     'date'  =>  Carbon::now(),
-                    'status'    =>  "0",
+                    'status'    =>  $send_form,
                     'create_by' =>  1,
                     'update_by' =>  1
                 ])->id;
@@ -84,7 +89,7 @@ class BoqController extends Controller
                     $boq->unit_id = ($request->unit_id[$key][$key2]);
                     $boq->desc = ($request->desc[$key][$key2]);
                     $boq->total = $request->total;
-                    $boq->status = "0";
+                    $boq->status = $send_form;
                     $boq->comment = $request->comment;
                     $boq->create_by = 1;
                     $boq->update_by = 1;
@@ -100,8 +105,66 @@ class BoqController extends Controller
         $catagories = catagory::all();
         $brand_master = Brand::all();
         $catagories2 = Unit::all();
-        // return $id;
-        return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2'));
+        $project_id = template_boqs::where('id' ,$id)->first();
+        return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id'));
+    }
+    public function update(Request $request)
+    {
+        // dd($request);
+
+        if( $request->btn_send == "btn_send" )
+        {
+            $send_form = "1";
+        }else
+        {
+            $send_form = "0";
+        }
+
+        template_boqs::where('id', $request->id)->update([
+            'status' => $send_form
+        ]);
+
+        Boq::where('template_boq_id', $request->id)->delete();      //*******************ลบข้อมูลเดิมมออกก่อน แล้วค่อยเพิ่มใหม่************************
+
+        foreach($request->main_id as $key => $value)
+        {
+            // return $request->code_id[2];
+            if(!empty($request->code_id[$key]))
+            {
+                foreach($request->code_id[$key] as $key2 => $value2)
+                {
+                    if( $value2 )
+                    {
+                        $boq = new Boq;
+                        $boq->template_boq_id = $request->id;
+                        $boq->main_id = ($key2);
+                        $boq->sub_id = ($value2);
+                        $boq->amount = ($request->amount[$key][$key2]);
+                        $boq->unit_id = ($request->unit_id[$key][$key2]);
+                        $boq->desc = ($request->desc[$key][$key2]);
+                        $boq->total = $request->total;
+                        $boq->status = $send_form;
+                        $boq->comment = $request->comment;
+                        $boq->create_by = 1;
+                        $boq->update_by = 1;
+                        $boq->save();
+                    }
+                }
+            }
+        }
+        return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! Edit BOQ Complete !!!');
+    }
+
+    public function change_status_boq(Request $request)
+    {
+        // dd($request);
+        template_boqs::where('id', $request->boq_id)->update([
+            'status' => "1"
+
+        ]);
+
+        return back()->with('Yay');
+
     }
 
     public function export()

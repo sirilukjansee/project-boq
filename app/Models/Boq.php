@@ -20,4 +20,16 @@ class Boq extends Model
         'create_by',
         'update_by'
     ];
+
+    public function main_cata(){
+        return $this->hasOne(catagory::class,'id','main_id');
+    }
+    public function sub_cata(){
+        return $this->hasOne(catagory_sub::class,'id','sub_id');
+    }
+    public function unit_u(){
+        return $this->hasOne(Unit::class,'id','unit_id');
+    }
 }
+
+

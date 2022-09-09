@@ -21,4 +21,8 @@ class template_boqs extends Model
         'create_by',
         'update_by'
     ];
+
+    public function project(){
+        return $this->hasOne(Project::class,'id','project_id');
+    }
 }
