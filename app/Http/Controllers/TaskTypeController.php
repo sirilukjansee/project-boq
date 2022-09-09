@@ -21,8 +21,8 @@ class TaskTypeController extends Controller
         // dd($request);
         $tasktype = new task_type;
         $tasktype->task_type_name = $request->task_type_name;
-        $tasktype->create_by = $request->create_by;
-        $tasktype->update_by = $request->update_by;
+        $tasktype->create_by = 1;
+        $tasktype->update_by = 1;
         $tasktype->save();
 
         return redirect()->back()->with('success', '!!! ADD TASK_TYPE Complete !!!');
@@ -47,7 +47,7 @@ class TaskTypeController extends Controller
 
         $tasktype = task_type::find($request->id)->update([
             'task_type_name' => $request->task_type_name,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit TASK NAME Complete !!!');

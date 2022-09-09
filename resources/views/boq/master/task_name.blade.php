@@ -179,35 +179,10 @@
                         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                             <div class="text-center">
                                 <!-- BEGIN: Large Modal Toggle -->
-                                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Task-Name </a>
+                                <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Task Name </a>
                                 <!-- END: Large Modal Toggle -->
                             </div>
-                            <!-- BEGIN: Large Modal Content -->
-                            <div id="large-modal-size-preview_add" class="modal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <a data-tw-dismiss="modal" href="javascript:;">
-                                            <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                        </a>
-                                        <div class="modal-body p-10">
-                                            <div class="mb-4">
-                                                เพิ่ม Task Name
-                                            </div>
-                                            <form action="{{ url('/masterTaskName/add') }}" method="post">
-                                                @csrf
-                                                <div class="form-group mb-4">
-                                                    <input type="text" class="form-control mb-2" name="task_name" placeholder="Task Name" required>
-                                                    <input type="hidden" class="form-control mb-2" name="create_by" value="admin" required>
-                                                    <input type="hidden" class="form-control mb-2" name="update_by" value="admin" required>
-                                                </div>
 
-                                                <input type="submit" value="Save" class="btn btn-primary">
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END: Large Modal Content -->
                         </div>
                     </div>
                     <!-- BEGIN: HTML Table Data -->
@@ -257,27 +232,57 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- BEGIN: Large Modal Content -->
+                        <div id="large-modal-size-preview_add" class="modal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="font-medium text-base mr-auto">Add Task Name</h2>
+                                    </div> <!-- END: Modal Header -->
+                                    <!-- BEGIN: Modal Body -->
+                                    <form action="{{ url('/masterTaskName/add') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                            <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                                <input type="text" class="form-control mb-2" name="task_name" placeholder="Please add a Task name..." required>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN: Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" data-tw-dismiss="modal"
+                                                class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                            <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                        </div> <!-- END: Modal Footer -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Large Modal Content -->
+
                         <!-- BEGIN: Large Modal Content -->
                         <div id="large-modal-size-preview_edit" class="modal" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
-                                    <a data-tw-dismiss="modal" href="javascript:;">
-                                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                    </a>
-                                    <div class="modal-body p-10">
-                                        <div class="mb-4">
-                                            แก้ไข
-                                        </div>
-                                        <form action="{{ url('/masterTaskName/update') }}" method="post">
-                                            @csrf
-                                            <div class="form-group mb-4">
-                                                <input type="hidden" name="id" id="get_id">
-                                                <input type="text" class="form-control mb-2" name="task_name" id="task_name" placeholder="ชื่องาน" value="">
-                                                <input type="text" class="form-control mb-2" name="update_by" id="update_by" placeholder="อัพเดทโดย" value="">
+                                    <div class="modal-header">
+                                        <h2 class="font-medium text-base mr-auto">Edit Task Name</h2>
+                                    </div> <!-- END: Modal Header -->
+                                    <!-- BEGIN: Modal Body -->
+                                    <form action="{{ url('/masterTaskName/update') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                            <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                                <input type="text" class="form-control mb-2" name="task_name" id="task_name" required>
                                             </div>
-                                            <input type="submit" id="Edit" value="Edit" class="btn btn-primary">
-                                        </form>
-                                    </div>
+                                            <input type="hidden" name="id" id="get_id">
+                                        </div>
+                                        <!-- BEGIN: Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" data-tw-dismiss="modal"
+                                                class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                            <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                        </div> <!-- END: Modal Footer -->
+                                    </form>
                                 </div>
                             </div>
                         </div>

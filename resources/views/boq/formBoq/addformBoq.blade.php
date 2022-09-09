@@ -8,6 +8,7 @@
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
@@ -199,12 +200,13 @@
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select id="" name="sub_id[][{{ $cat->id }}]" class="sub_selected{{ $cat->id }} tom-select-sub-{{$key + 1}} tom-select w-full">
+                                                <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full">
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
                                                     @endforeach
                                                 </select>
+                                                <span class="sub_selected{{ $cat->id }}"></span>
                                                 <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
                                                 <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                                     @foreach ($catagories2 as $cat2)
@@ -241,6 +243,8 @@
 
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
+
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
         <script src="/dist/js/app.js"></script>
         <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
@@ -276,13 +280,22 @@
 
                         $('#code_id'+sub_num).on('change', function(){
                             console.log($(this).val());
-                            $('.sub_selected'+sub_num).append('<option selected value="1">EEEEE</option>');
-                            // $('.sub_selected'+sub_num).val("rrrrr");
-                            // new TomSelect(".sub_id"+sub_num);
+                            jQuery('.sub_selected'+sub_num).children().remove().end();
+                            document.getElementById('sub1').style.display = 'none';
+                            $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
+
+                            let options = {
+                                plugins: {
+                                    dropdown_input: {},
+                                }
+                            };
+                            new TomSelect(".tom-select-sub-"+sub_num);
                         });
 
-                        new TomSelect(".tom-select-code-"+sub_num);
-                        new TomSelect(".tom-select-sub-"+sub_num);
+
+
+                        // new TomSelect(".tom-select-code-"+sub_num);
+                        // new TomSelect(".tom-select-sub-"+sub_num);
 
                         $("#btnAddsub" + sub_num).on('click', function(){
                             var html = '';
@@ -312,11 +325,10 @@
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 
-                            console.log(sub_num);
+                            // console.log(sub_num);
                         $("#newRowsub" + sub_num).append(html);
 
                         // Tom select
-
                         new TomSelect(".sub_select2-"+x);
                         new TomSelect(".sub_select-"+x);
                         x++;

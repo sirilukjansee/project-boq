@@ -238,7 +238,7 @@
                                             <input type="text" class="form-control" name="code2" minlength="3" maxlength="3" placeholder="Ex: 001" required>
                                         </div>
                                         <div class="col-span-12 sm:col-span-4">
-                                            <input type="text" class="form-control" name="code3" minlength="2" maxlength="2" value="- -">
+                                            <input type="text" class="form-control" name="code3" minlength="2" maxlength="2" placeholder="- -">
                                         </div>
                                         <div class="col-span-12 sm:col-span-12">
                                             <input type="text" class="form-control" name="name" placeholder="Name">
@@ -284,7 +284,7 @@
                                             <input type="text" class="form-control" id="get_code2" name="code2" minlength="3" maxlength="3" required>
                                         </div>
                                         <div class="col-span-12 sm:col-span-4">
-                                            <input type="text" class="form-control" id="get_code3" name="code3" minlength="2" maxlength="2">
+                                            <input type="text" class="form-control" id="get_code3" placeholder="- -" name="code3" minlength="2" maxlength="2">
                                         </div>
                                         <div class="col-span-12 sm:col-span-12">
                                             <input type="text" class="form-control" id="sub_name" name="name">
@@ -353,10 +353,7 @@
                         var result3 = text.substring(5, 7);
                         $('#get_code1').val(result1);
                         $('#get_code2').val(result2);
-                        if (result3 == '') {
-                            $('#get_code3').val("- -");
-                        }else
-                        {
+                        if (result3 != '') {
                             $('#get_code3').val(result3);
                         }
 
@@ -365,11 +362,10 @@
                         jQuery('#Delete').children().remove().end();
                         jQuery('#get_brand_edit').children().remove().end();
                         // console.log(data.dataBrand);
-                        if (condition) {
 
-                        }
-                        let rows_tags = data.dataEdit.brand_id.split(",");
-                        jQuery.each(rows_tags, function(tkey, tvalue){
+                        if (data.dataEdit.brand_id) {
+                            let rows_tags = data.dataEdit.brand_id.split(",");
+                            jQuery.each(rows_tags, function(tkey, tvalue){
                             jQuery.each(data.dataBrand, function(key, value){
                                 if(value.id == rows_tags[tkey]){
                                     $('#get_brand_edit').append('<option value='+value.id+' selected>'+value.brand_name+'</option>');
@@ -378,6 +374,12 @@
                                 }
                             });
                         });
+                        }else{
+                            jQuery.each(data.dataBrand, function(key, value){
+                                $('#get_brand_edit').append('<option value='+value.id+'>'+value.brand_name+'</option>');
+                            });
+                        }
+
 
                     }
                 });

@@ -38,9 +38,9 @@ class MasterController extends Controller
         // dd($request);
         $data = array();
         $data['name'] = $request->name;
-        $data['create_by'] = $request->create_by;
-        $data['update_by'] = $request->update_by;
-        $data['is_active'] = $request->is_active;
+        $data['create_by'] = 1;
+        $data['update_by'] = 1;
+        $data['is_active'] = "1";
 
         DB::table('catagories')->insert($data);
 
@@ -72,7 +72,7 @@ class MasterController extends Controller
 
         $update = DB::table('catagories')->where('id', $request->id)->update([
             'name' => $request->name,
-            'update_by' => $request->update_by,
+            'update_by' => 1,
         ]);
 
         return back()->with('success', '!!! Edit Complete !!!');
