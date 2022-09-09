@@ -13,6 +13,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VenderController;
+use App\Http\Controllers\ManagerController;
 // use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
 
@@ -36,9 +37,7 @@ Route::get('/allBoq', function () {
 Route::get('/loginBoq', function () {
     return view('boq.loginBoq');
 });
-Route::get('/checkBoq', function () {
-    return view('boq.checkBoq');
-});
+
 // Route::get('/addminorBoq', function () {
 //     return view('boq.formBoq.addminorBoq');
 // });
@@ -147,6 +146,9 @@ Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_cat
 
 Route::get('projects/export/', [BoqController::class, 'export']);
 
+//manager_approve
+Route::get('/checkBoq', [ManagerController::class, 'index']);
+Route::post('/approve_store',[ManagerController::class, 'store']);
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
