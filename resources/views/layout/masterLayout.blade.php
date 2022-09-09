@@ -65,7 +65,7 @@
         <div class="top-bar-boxed h-[70px] z-[51] relative border-b border-white/[0.08] -mt-7 md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 md:pt-0 mb-12">
             <div class="h-full flex items-center">
                 <!-- BEGIN: Logo -->
-                <a href="{{ url('#') }}" class="-intro-x hidden md:flex">
+                <a href="{{ url('index') }}" class="-intro-x hidden md:flex">
                     <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg')}}">
                     <span class="text-white text-lg ml-3">Test</span>
                 </a>
@@ -112,12 +112,12 @@
         <!-- BEGIN: Top Menu -->
         <nav class="top-nav">
             <ul>
-                {{-- <li>
+                <li>
                     <a href="{{ url('index')}}" class="top-menu">
                         <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
                         <div class="top-menu__title"> Project  <i data-lucide="chevron-down" class="top-menu__sub-icon"></i></div>
                     </a>
-                </li> --}}
+                </li>
                 <li>
                     <a href="#" class="top-menu top-menu--active">
                         <div class="top-menu__icon"> <i data-lucide="clipboard"></i> </div>

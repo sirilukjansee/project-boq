@@ -280,7 +280,6 @@
 
                         $('#code_id'+sub_num).on('change', function(){
                             console.log($(this).val());
-<<<<<<< HEAD
                             jQuery('.sub_selected'+sub_num).children().remove().end();
                             document.getElementById('sub1').style.display = 'none';
                             $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
@@ -291,11 +290,6 @@
                                 }
                             };
                             new TomSelect(".tom-select-sub-"+sub_num);
-=======
-                            // $('.sub_selected'+sub_num).append('<option selected value="1">EEEEE</option>');
-                            // $('.sub_selected'+sub_num).val("rrrrr");
-                            // new TomSelect(".sub_id"+sub_num);
->>>>>>> c77ac53746c5ece7f211c6f072134cdbe5ec83f0
                         });
 
 
