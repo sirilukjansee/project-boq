@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class BoqController extends Controller
 {
     public function index($id)
@@ -22,6 +23,7 @@ class BoqController extends Controller
         ->first();
 
         $temp_boq = template_boqs::where('project_id', $id)
+            // ->paginate(5)
             ->get();
 
         return view('boq.allBoq', compact('project','temp_boq'));
@@ -91,7 +93,7 @@ class BoqController extends Controller
 
     public function export()
     {
-        return Excel::download(new BoqsExport, 'all_project.xlsx');
+        return Excel::download(new BoqsExport, 'Project.xlsx');
     }
 
 
