@@ -16,8 +16,10 @@ $select-color-text: $gray-800 !default;
 $select-color-highlight: rgba(255,237,40,0.4) !default;
 $select-color-input: $input-bg !default;
 $select-color-input-full: $input-bg !default;
+$select-color-input-error: map-get($state-invalid,'color') !default;
 
 
+$select-color-input-error-focus: darken($select-color-input-error, 10%) !default;
 $select-color-disabled: $input-disabled-bg !default;
 $select-color-item: #efefef !default;
 $select-color-item-border: $border-color !default;
@@ -38,8 +40,8 @@ $select-border: 1px solid $input-border-color !default;
 $select-border-radius: $input-border-radius !default;
 
 $select-width-item-border: 0px !default;
-$select-padding-x: $input-padding-x !default;
-$select-padding-y: $input-padding-y !default;
+$select-padding-x: $input-btn-padding-x !default;
+$select-padding-y: $input-btn-padding-y !default;
 $select-padding-dropdown-item-x: $input-btn-padding-x !default;
 $select-padding-dropdown-item-y: 3px !default;
 $select-padding-item-x: 5px !default;
@@ -54,49 +56,9 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 
 @import "tom-select";
 
-
-@mixin ts-form-validation-state-selector($state) {
-
-	$state-map: map-get($form-validation-states,$state);
-
-	.#{$select-ns}-wrapper.is-#{$state},
-	.was-validated .#{$state},
-	.was-validated :#{$state} + .#{$select-ns}-wrapper{
-
-		$color: map-get($state-map,'color');
-		$icon: map-get($state-map,'icon');
-
-		border-color: $color;
-
-		&:not(.single){
-			background-image: escape-svg($icon);
-			background-position: right $input-height-inner-quarter center;
-			background-size: $input-height-inner-half $input-height-inner-half;
-			background-repeat: no-repeat;
-		}
-
-		&.single{
-			background-image: escape-svg($form-select-indicator), escape-svg($icon);
-			background-position: $form-select-bg-position, $form-select-feedback-icon-position;
-			background-size: $form-select-bg-size, $form-select-feedback-icon-size;
-			background-repeat: no-repeat;
-		}
-
-		&.focus .#{$select-ns}-control{
-			border-color: $color;
-	        box-shadow: 0 0 $input-btn-focus-blur $input-focus-width rgba($color, $input-btn-focus-color-opacity);
-		}
-
-	}
-}
-
-
 .#{$select-ns}-wrapper.form-control,
 .#{$select-ns}-wrapper.form-select{
 	padding:0 !important;
-	height: auto;
-	box-shadow: none;
-	display: flex;
 }
 
 .#{$select-ns}-dropdown,
@@ -139,7 +101,8 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 	padding: 5px 0;
 }
 
-.#{$select-ns}-control {
+.#{$select-ns}-input {
+	min-height: $input-height;
 	@include box-shadow($input-box-shadow);
 	@include transition($input-transition);
 	display:flex;
@@ -148,8 +111,10 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 	&.dropdown	-active {
 		border-radius: $select-border-radius;
 	}
-
-	.focus &{
+	&.dropdown-active::before {
+		display: none;
+	}
+	&.focus {
 		border-color: $input-focus-border-color;
 		outline: 0;
 		@if $enable-shadows {
@@ -165,38 +130,52 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 	}
 }
 
+.is-invalid .#{$select-ns}-input,
+.was-validated .#{$select-ns}-input.invalid{
+	border-color: $select-color-input-error;
 
-@include ts-form-validation-state-selector('invalid');
-@include ts-form-validation-state-selector('valid');
+	&.focus {
+		border-color: $select-color-input-error-focus;
+		box-shadow: 0 0 0 $input-focus-width rgba($select-color-input-error, .25);
+	}
+}
 
+.is-valid .#{$select-ns}-input{
+	$_color: map-get($state-valid,'color');
+	border-color: $_color;
 
-.#{$select-ns}-wrapper {
-	min-height: $input-height;
-	display:flex;
+	&.focus{
+		border-color: $_color;
+		box-shadow: 0 0 0 $input-focus-width rgba($_color, .25);
+	}
+}
+
+.#{$select-ns}-control {
 
 	.input-group-sm > &,
 	&.form-select-sm,
 	&.form-control-sm{
-		min-height: $input-height-sm;
 
-		.#{$select-ns}-control{
+		.#{$select-ns}-input{
+			min-height: $input-height-sm;
 			padding: 0 .75rem;
 				//padding: $input-padding-y-sm $input-padding-x-sm;
 			@include border-radius($input-border-radius-sm);
 			@include font-size($input-font-size-sm);
 		}
 
-		&.has-items .#{$select-ns}-control{
+		.#{$select-ns}-input.has-items{
+			min-height: $input-height-sm !important;
 			font-size: $input-font-size-sm;
 			padding-bottom: 0;
 		}
 	}
 
 
-	.input-group-sm > &.multi.has-items,
-	&.form-select-sm.multi.has-items,
-	&.form-control-sm.multi.has-items{
-		.#{$select-ns}-control{
+	.input-group-sm > &.multi,
+	&.form-select-sm.multi,
+	&.form-control-sm.multi{
+		.#{$select-ns}-input.has-items{
 			// padding-top = ($input-height-sm - border-width - item-height) / 2;
 			// item-height = ($select-line-height * $input-font-size-sm) + ($select-padding-item-y * 2)
 			$border-and-padding: add($input-border-width,$select-padding-item-y) * 2;
@@ -207,20 +186,20 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 
 
 	&.multi {
-		&.has-items .#{$select-ns}-control {
+		.#{$select-ns}-input.has-items {
 			padding-left: calc(#{$select-padding-x} - #{$select-padding-item-x});
 			padding-right: calc(#{$select-padding-x} - #{$select-padding-item-x});
 		}
-		.#{$select-ns}-control > div {
+		.#{$select-ns}-input > div {
 			border-radius: calc(#{$select-border-radius} - 1px);
 		}
 	}
 
-	.input-group-lg > &,
+	.input-group-lg > & >,
 	&.form-control-lg,
 	&.form-select-lg{
-		min-height: $input-height-lg;
-		.#{$select-ns}-control{
+	.#{$select-ns}-input{
+			min-height: $input-height-lg;
 			@include border-radius($input-border-radius-lg);
 			@include font-size($input-font-size-lg);
 		}
@@ -228,14 +207,14 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 }
 
 
-.#{$select-ns}-wrapper:not(.form-control):not(.form-select){
+.#{$select-ns}-control:not(.form-select){
 	padding: 0;
 		border: none;
 		height: auto;
 		box-shadow: none;
 		background: none;
 
-	&.single .#{$select-ns}-control{
+	&.single .#{$select-ns}-input{
 		background-image: escape-svg($form-select-indicator);
 		background-repeat: no-repeat;
 		background-position: $form-select-bg-position;
@@ -245,11 +224,13 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 
 }
 
-.#{$select-ns}-wrapper.form-control,
-.#{$select-ns}-wrapper.form-select{
+.#{$select-ns}-control.form-select{
+	padding: 0;
+	height: auto;
+	box-shadow: none;
 
-	.#{$select-ns}-control,
-	&.single.input-active .#{$select-ns}-control{
+	.#{$select-ns}-input,
+	&.single .#{$select-ns}-input.input-active {
 		border:		none !important;
 		background: transparent !important; // let the background of .form-select show through
 	}
@@ -258,16 +239,16 @@ $select-arrow-offset: calc(#{$select-padding-x} + 5px) !default;
 
 .input-group{
 
-	& > .#{$select-ns}-wrapper{
+	& > .#{$select-ns}-control{
 		flex-grow: 1;
 	}
 
-	& > .#{$select-ns}-wrapper:not(:nth-child(2)) > .#{$select-ns}-control{
+	& > .#{$select-ns}-control:not(:nth-child(2)) > .#{$select-ns}-input{
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 	}
 
-	& > .#{$select-ns}-wrapper:not(:last-child) > .#{$select-ns}-control{
+	& > .#{$select-ns}-control:not(:last-child) > .#{$select-ns}-input{
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 	}

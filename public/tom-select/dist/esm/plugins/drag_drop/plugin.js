@@ -1,7 +1,9 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
+
+import TomSelect from '../../tom-select.js';
 
 /**
  * Plugin: "drag_drop" (Tom Select)
@@ -17,7 +19,7 @@
  * governing permissions and limitations under the License.
  *
  */
-function plugin () {
+TomSelect.define('drag_drop', function () {
   var self = this;
   if (!$.fn.sortable) throw new Error('The "drag_drop" plugin requires jQuery UI "sortable".');
   if (self.settings.mode !== 'multi') return;
@@ -56,7 +58,5 @@ function plugin () {
       }
     });
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

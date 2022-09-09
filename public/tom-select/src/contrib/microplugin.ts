@@ -25,8 +25,8 @@ type TPlugins = {
 	loaded: {[key:string]:any}
 };
 
-export type TPluginItem = {name:string,options:{}};
-export type TPluginHash = {[key:string]:{}};
+type TPluginItem = {name:string,options:{}};
+type TPluginHash = {[key:string]:{}};
 
 
 

@@ -4,17 +4,13 @@ import {
 	escape_html,
 } from '../utils';
 
-import { TPluginItem, TPluginHash } from '../contrib/microplugin';
-import * as SifterTypes from '@orchidjs/sifter/lib/types';
-
-
 
 export type TomSettings = {
 	options					?: any[],
 	optgroups				?: any[],
-	items					?: string[],
+	items					: any[],
 
-	plugins					: string[]|TPluginItem[]|TPluginHash,
+	plugins					: any[],
 	delimiter				: string,
 	splitOn					: RegExp|string, // regexp or string for splitting up values from a paste command
 	persist					: boolean,
@@ -47,21 +43,21 @@ export type TomSettings = {
 	optgroupValueField		: string,
 	lockOptgroupOrder		: boolean,
 
-	sortField				: string|SifterTypes.Sort[]|SifterTypes.SortFn,
+	sortField				: string|any[],
 	searchField				: string[],
 	searchConjunction		: string,
 	nesting					: boolean,
 
 	mode					: string,
 	wrapperClass			: string,
-	controlClass			: string,
+	inputClass				: string,
 	dropdownClass			: string,
 	dropdownContentClass	: string,
 	itemClass				: string,
 	optionClass				: string,
 
 	dropdownParent			: string,
-	controlInput			: string|HTMLInputElement,
+	controlInput			: HTMLInputElement,
 
 	copyClassesToDropdown	: boolean,
 
@@ -96,5 +92,4 @@ export type TomSettings = {
 
 	// virtual scroll plugin
 	firstUrl				: (query:string)=>any
-	shouldLoadMore			: () => boolean,
 };

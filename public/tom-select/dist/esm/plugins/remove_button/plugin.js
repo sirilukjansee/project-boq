@@ -1,15 +1,9 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-const latin_convert = {
-  'æ': 'ae',
-  'ⱥ': 'a',
-  'ø': 'o'
-};
-new RegExp(Object.keys(latin_convert).join('|'), 'gu');
+import TomSelect from '../../tom-select.js';
 
 /**
  * Return a dom element from either a dom query string, jQuery object, a dom element or html string
@@ -17,7 +11,6 @@ new RegExp(Object.keys(latin_convert).join('|'), 'gu');
  *
  * param query should be {}
  */
-
 const getDom = query => {
   if (query.jquery) {
     return query[0];
@@ -27,7 +20,7 @@ const getDom = query => {
     return query;
   }
 
-  if (isHtmlString(query)) {
+  if (query.indexOf('<') > -1) {
     let div = document.createElement('div');
     div.innerHTML = query.trim(); // Never return a text node of whitespace as the result
 
@@ -35,13 +28,6 @@ const getDom = query => {
   }
 
   return document.querySelector(query);
-};
-const isHtmlString = arg => {
-  if (typeof arg === 'string' && arg.indexOf('<') > -1) {
-    return true;
-  }
-
-  return false;
 };
 
 /**
@@ -103,7 +89,7 @@ const addEvent = (target, type, callback, options) => {
  * governing permissions and limitations under the License.
  *
  */
-function plugin (userOptions) {
+TomSelect.define('remove_button', function (userOptions) {
   const options = Object.assign({
     label: '&times;',
     title: 'Remove',
@@ -122,9 +108,9 @@ function plugin (userOptions) {
     var orig_render_item = self.settings.render.item;
 
     self.settings.render.item = (data, escape) => {
-      var item = getDom(orig_render_item.call(self, data, escape));
+      var rendered = getDom(orig_render_item.call(self, data, escape));
       var close_button = getDom(html);
-      item.appendChild(close_button);
+      rendered.appendChild(close_button);
       addEvent(close_button, 'mousedown', evt => {
         preventDefault(evt, true);
       });
@@ -132,15 +118,12 @@ function plugin (userOptions) {
         // propagating will trigger the dropdown to show for single mode
         preventDefault(evt, true);
         if (self.isLocked) return;
-        if (!self.shouldDelete([item], evt)) return;
-        self.removeItem(item);
+        var value = rendered.dataset.value;
+        self.removeItem(value);
         self.refreshOptions(false);
-        self.inputState();
       });
-      return item;
+      return rendered;
     };
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

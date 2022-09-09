@@ -12,5 +12,4 @@
  * governing permissions and limitations under the License.
  *
  */
-import TomSelect from '../../tom-select';
-export default function (this: TomSelect): void;
+export {};

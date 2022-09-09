@@ -1,4 +1,4 @@
-.#{$select-ns}-wrapper.plugin-remove_button{
+.#{$select-ns}-control.plugin-remove_button{
 
 	.item{
 		display:		inline-flex;
@@ -11,7 +11,7 @@
 		text-decoration:	none;
 		vertical-align:		middle;
 		display:			inline-block;
-		padding:			0 $select-padding-item-x;
+		padding:			$select-padding-item-y $select-padding-item-x;
 		border-left:		1px solid $select-color-item-border;
 		border-radius:		0 2px 2px 0;
 		box-sizing:			border-box;
@@ -26,11 +26,11 @@
 		border-left-color: $select-color-item-active-border;
 	}
 
-	&.disabled .item .remove:hover {
+	.disabled .item .remove:hover {
 		background: none;
 	}
 
-	&.disabled .item .remove {
+	.disabled .item .remove {
 		border-left-color: lighten(desaturate($select-color-item-border, 100%), $select-lighten-disabled-item-border);
 	}
 

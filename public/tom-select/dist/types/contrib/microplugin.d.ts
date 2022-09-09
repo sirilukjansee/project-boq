@@ -26,11 +26,11 @@ declare type TPlugins = {
         [key: string]: any;
     };
 };
-export declare type TPluginItem = {
+declare type TPluginItem = {
     name: string;
     options: {};
 };
-export declare type TPluginHash = {
+declare type TPluginHash = {
     [key: string]: {};
 };
 export default function MicroPlugin(Interface: any): {

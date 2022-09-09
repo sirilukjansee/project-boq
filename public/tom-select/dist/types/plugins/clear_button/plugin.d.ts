@@ -12,6 +12,4 @@
  * governing permissions and limitations under the License.
  *
  */
-import TomSelect from '../../tom-select';
-import { CBOptions } from './types';
-export default function (this: TomSelect, userOptions: CBOptions): void;
+export {};

@@ -12,13 +12,12 @@
  * governing permissions and limitations under the License.
  *
  */
-
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { preventDefault, hash_key } from '../../utils';
 import { getDom } from '../../vanilla';
 
 
-export default function(this:TomSelect) {
+TomSelect.define('checkbox_options',function(this:TomSelect) {
 	var self = this;
 	var orig_onOptionSelect = self.onOptionSelect;
 
@@ -28,13 +27,11 @@ export default function(this:TomSelect) {
 	// update the checkbox for an option
 	var UpdateCheckbox = function(option:HTMLElement){
 		setTimeout(()=>{
-			var checkbox = option.querySelector('input');
-			if( checkbox instanceof HTMLInputElement ){
-				if( option.classList.contains('selected') ){
-					checkbox.checked = true;
-				}else{
-					checkbox.checked = false;
-				}
+			var checkbox = option.querySelector('input') as HTMLInputElement;
+			if( option.classList.contains('selected') ){
+				checkbox.checked = true;
+			}else{
+				checkbox.checked = false;
 			}
 		},1);
 	};
@@ -74,15 +71,6 @@ export default function(this:TomSelect) {
 		}
 	});
 
-	// check when item added
-	self.on('item_add',(value:string) => {
-		var option = self.getOption(value);
-
-		if( option ){ // if dropdown hasn't been opened yet, the option won't exist
-			UpdateCheckbox(option);
-		}
-	});
-
 
 	// remove items when selected option is clicked
 	self.hook('instead','onOptionSelect',( evt:KeyboardEvent, option:HTMLElement )=>{
@@ -100,4 +88,5 @@ export default function(this:TomSelect) {
 		UpdateCheckbox(option);
 	});
 
-};
+
+});

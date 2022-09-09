@@ -1,7 +1,9 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
+
+import TomSelect from '../../tom-select.js';
 
 /**
  * Plugin: "restore_on_backspace" (Tom Select)
@@ -17,7 +19,7 @@
  * governing permissions and limitations under the License.
  *
  */
-function plugin (userOptions) {
+TomSelect.define('restore_on_backspace', function (userOptions) {
   const self = this;
   const options = Object.assign({
     text: option => {
@@ -25,10 +27,6 @@ function plugin (userOptions) {
     }
   }, userOptions);
   self.on('item_remove', function (value) {
-    if (!self.isFocused) {
-      return;
-    }
-
     if (self.control_input.value.trim() === '') {
       var option = self.options[value];
 
@@ -37,7 +35,5 @@ function plugin (userOptions) {
       }
     }
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

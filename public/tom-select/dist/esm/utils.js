@@ -1,5 +1,5 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
@@ -80,10 +80,8 @@ const debounce_events = (self, types, fn) => {
   fn.apply(self, []);
   self.trigger = trigger; // trigger queued events
 
-  for (type of types) {
-    if (type in event_args) {
-      trigger.apply(self, event_args[type]);
-    }
+  for (type in event_args) {
+    trigger.apply(self, event_args[type]);
   }
 };
 /**

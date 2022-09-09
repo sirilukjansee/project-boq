@@ -1,10 +1,12 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
+import TomSelect from '../../tom-select.js';
+
 /**
- * Plugin: "no_active_items" (Tom Select)
+ * Plugin: "input_autogrow" (Tom Select)
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
@@ -16,10 +18,8 @@
  * governing permissions and limitations under the License.
  *
  */
-function plugin () {
+TomSelect.define('no_active_items', function () {
   this.hook('instead', 'setActiveItem', () => {});
   this.hook('instead', 'selectAll', () => {});
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

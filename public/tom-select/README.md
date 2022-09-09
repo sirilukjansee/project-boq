@@ -6,12 +6,13 @@
 <a href="https://github.com/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/orchidjs/tom-select?label=GitHub%20stars&color=007ec6"></a>
 <a href="https://www.jsdelivr.com/package/npm/tom-select" class="m-1 d-inline-block"><img alt="jsDelivr hits (npm)" src="https://img.shields.io/jsdelivr/npm/hm/tom-select?label=jsDelivr%20hits&color=007ec6"></a>
 <a href="https://www.npmjs.com/package/tom-select" class="m-1 d-inline-block"><img alt="npmjs.org" src="https://img.shields.io/npm/v/tom-select.svg?color=007ec6"></a>
-<a href="https://travis-ci.com/github/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="travis-ci.com" src="https://img.shields.io/travis/com/orchidjs/tom-select?color=4c1"></a>
+<a href="https://travis-ci.com/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="travis-ci.com" src="https://img.shields.io/travis/com/orchidjs/tom-select?color=4c1"></a>
 <a href="https://coveralls.io/github/orchidjs/tom-select" class="m-1 d-inline-block"><img alt="Coveralls Coverage" src="https://img.shields.io/coveralls/github/orchidjs/tom-select?color=4c1"></a>
 <a href="https://github.com/orchidjs/tom-select/issues" class="m-1 d-inline-block"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/orchidjs/tom-select"></a>
 </p>
 
-Tom Select is a dynamic, framework agnostic, and lightweight (~16kb gzipped) &lt;select&gt; UI control.
+
+Tom Select is an extensible and dynamic &lt;select&gt; UI control.
 With autocomplete and native-feeling keyboard navigation, it's useful for tagging, contact lists, country selectors, and so on.
 Tom Select was forked from [selectize.js](https://tom-select.js.org/docs/selectize.js/) with the goal of modernizing the code base, decoupling from jQuery, and expanding functionality.
 
@@ -19,7 +20,7 @@ Tom Select was forked from [selectize.js](https://tom-select.js.org/docs/selecti
 ### Features
 
 - **Smart Option Searching / Ranking**<br>Options are efficiently scored and sorted on-the-fly (using [sifter](https://github.com/orchidjs/sifter.js)). Want to search an item's title *and* description? No problem.
-- **Caret between items**<br>Order matters sometimes. With the <a href="https://tom-select.js.org/plugins/caret-position">Caret Position Plugin</a>, you can use the <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> arrow keys to move between selected items</li>
+- **Caret between items**<br>Order matters sometimes. Use the <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> arrow keys to move between selected items.</li>
 - **Select &amp; delete multiple items at once**<br>Hold down <kbd>command</kbd> on Mac or <kbd>ctrl</kbd> on Windows to select more than one item to delete.
 - **Díåcritîçs supported**<br>Great for international environments.
 - **Item creation**<br>Allow users to create items on the fly (async saving is supported; the control locks until the callback is fired).
@@ -52,13 +53,9 @@ All pre-built files needed to use Tom Select can be found in the "dist" folder v
 		<th class="border-top-0"></th>
 	</tr>
 	<tr>
-		<td><a href="https://www.jsdelivr.com/package/npm/tom-select?path=dist">jsDelivr</a></td>
-		<td>
-		The fastest way to add Tom Select into your project is to just include the js and css from jsDelivr.
-<pre>
-&lt;link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet"&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
-</pre>
+		<td><a href="https://github.com/orchidjs/tom-select/">GitHub</a></td>
+		<td>Clone or <a href="https://github.com/orchidjs/tom-select/archive/master.zip">download</a> the full repo.
+			All production files (js, css, scss) can be found in the <a href="https://github.com/orchidjs/tom-select/tree/master/dist">/dist folder</a>
 		</td>
 	</tr>
 	<tr>
@@ -68,25 +65,37 @@ All pre-built files needed to use Tom Select can be found in the "dist" folder v
 		</td>
 	</tr>
 	<tr>
-		<td><a href="https://github.com/orchidjs/tom-select/">GitHub</a></td>
-		<td>Clone or <a href="https://github.com/orchidjs/tom-select/archive/master.zip">download</a> the full repo.
-		Use <code>npm run build</code> <a href="/docs/contribute">and other commands</a> to build from source, test and start the doc server.
+		<td><a href="https://www.jsdelivr.com/package/npm/tom-select?path=dist">jsDelivr</a></td>
+		<td>Include the js and css files in your project directly from jsDelivr:
+<pre>
+&lt;link href="https://cdn.jsdelivr.net/npm/tom-select@1.1/dist/css/tom-select.css" rel="stylesheet"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/tom-select@1.1/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
+</pre>
 		</td>
 	</tr>
 </table>
 
 
 ## Files
-- [tom-select.complete.js](https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.js) — Includes dependencies and plugins
-- [tom-select.base.js](https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.base.js) — Does not include any plugins
-- [CSS](https://www.jsdelivr.com/package/npm/tom-select?path=dist%2Fcss) — Compiled themes
-- [SCSS](https://www.jsdelivr.com/package/npm/tom-select?path=dist%2Fscss) — Uncompiled theme sources
+- [tom-select.complete.js](https://github.com/orchidjs/tom-select/tree/master/dist/js/tom-select.complete.js) — Includes dependencies and plugins
+- [tom-select.base.js](https://github.com/orchidjs/tom-select/tree/master/dist/js/tom-select.base.js) — Does not include any plugins
+- [CSS](https://github.com/orchidjs/tom-select/tree/master/dist/css) — Compiled themes
+- [SCSS](https://github.com/orchidjs/tom-select/tree/master/dist/scss) — Uncompiled theme sources
 
 
-## Sponsors
+## Platinum Sponsors
 <p>
 Many thanks to all our sponsors who help make development possible. <a href="https://opencollective.com/tom-select">Become a sponsor</a>.
 </p>
+<br>
+<p>
+<a href="http://www.peopleforce.io"><img src="https://raw.githubusercontent.com/orchidjs/tom-select/master/doc_src/img/peopleforce.png"></a>
+</p>
+<br>
+
+
+## Sponsors
+<br>
 <p>
 <a href="https://opencollective.com/tom-select/sponsor/0/website"><img src="https://opencollective.com/tom-select/sponsor/0/avatar.svg" alt="Trust My Paper Logo"></a>
 </p>

@@ -11,7 +11,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
-        <link rel="stylesheet" href="../tom-select/dist/css/tom-select.css" defer/>
+        {{-- <link rel="stylesheet" href="../tom-select/dist/css/tom-select.css" defer/> --}}
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -241,7 +241,7 @@
 
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
-        {{-- <script src="/dist/js/app.js"></script> --}}
+        <script src="/dist/js/app.js"></script>
         <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
 

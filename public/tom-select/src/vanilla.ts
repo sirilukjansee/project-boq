@@ -1,6 +1,4 @@
 
-import { iterate } from '@orchidjs/sifter/lib/utils';
-
 /**
  * Return a dom element from either a dom query string, jQuery object, a dom element or html string
  * https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
@@ -17,7 +15,7 @@ export const getDom = ( query:any ):HTMLElement => {
 		return query;
 	}
 
-	if( isHtmlString(query) ){
+	if( query.indexOf('<') > -1 ){
 		let div = document.createElement('div');
 		div.innerHTML = query.trim(); // Never return a text node of whitespace as the result
 		return div.firstChild as HTMLElement;
@@ -25,13 +23,6 @@ export const getDom = ( query:any ):HTMLElement => {
 
 	return document.querySelector(query);
 };
-
-export const isHtmlString = (arg:any): boolean => {
-	if( typeof arg === 'string' && arg.indexOf('<') > -1 ){
-		return true;
-	}
-	return false;
-}
 
 export const escapeQuery = (query:string):string => {
 	return query.replace(/['"\\]/g, '\\$&');
@@ -95,14 +86,14 @@ export const addClasses = ( elmts:HTMLElement|HTMLElement[], ...classes:string[]
  */
 export const classesArray = (args:string[]|string[][]):string[] => {
 	var classes:string[] = [];
-	iterate( args, (_classes) =>{
+	for( let _classes of args ){
 		if( typeof _classes === 'string' ){
 			_classes = _classes.trim().split(/[\11\12\14\15\40]/);
 		}
 		if( Array.isArray(_classes) ){
 			classes = classes.concat(_classes);
 		}
-	});
+	}
 
 	return classes.filter(Boolean);
 }
@@ -192,13 +183,14 @@ export const nodeIndex = ( el:null|Element, amongst?:string ):number => {
  *
  */
 export const setAttr = (el:Element,attrs:{ [key: string]: null|string|number }) => {
-	iterate( attrs,(val,attr) => {
+	for( const attr in attrs ){
+		let val = attrs[attr];
 		if( val == null ){
-			el.removeAttribute(attr as string);
+			el.removeAttribute(attr);
 		}else{
-			el.setAttribute(attr as string, ''+val);
+			el.setAttribute(attr, ''+val);
 		}
-	});
+	}
 }
 
 

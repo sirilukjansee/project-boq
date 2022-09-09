@@ -1,50 +1,21 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.dropdown_input = factory());
-})(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../../tom-select.js')) :
+	typeof define === 'function' && define.amd ? define(['../../tom-select'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.TomSelect));
+}(this, (function (TomSelect) { 'use strict';
 
-	const KEY_ESC = 27;
-	const KEY_TAB = 9;
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var TomSelect__default = /*#__PURE__*/_interopDefaultLegacy(TomSelect);
+
+	const KEY_RETURN = 13;
 	typeof navigator === 'undefined' ? false : /Mac/.test(navigator.userAgent);
 	 // ctrl key or apple key for ma
-
-	// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-	const latin_convert = {
-	  'æ': 'ae',
-	  'ⱥ': 'a',
-	  'ø': 'o'
-	};
-	new RegExp(Object.keys(latin_convert).join('|'), 'gu');
-
-	// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-	/**
-	 * Iterates over arrays and hashes.
-	 *
-	 * ```
-	 * iterate(this.items, function(item, id) {
-	 *    // invoked for each item
-	 * });
-	 * ```
-	 *
-	 */
-
-	const iterate = (object, callback) => {
-	  if (Array.isArray(object)) {
-	    object.forEach(callback);
-	  } else {
-	    for (var key in object) {
-	      if (object.hasOwnProperty(key)) {
-	        callback(object[key], key);
-	      }
-	    }
-	  }
-	};
 
 	/**
 	 * Return a dom element from either a dom query string, jQuery object, a dom element or html string
@@ -52,7 +23,6 @@
 	 *
 	 * param query should be {}
 	 */
-
 	const getDom = query => {
 	  if (query.jquery) {
 	    return query[0];
@@ -62,7 +32,7 @@
 	    return query;
 	  }
 
-	  if (isHtmlString(query)) {
+	  if (query.indexOf('<') > -1) {
 	    let div = document.createElement('div');
 	    div.innerHTML = query.trim(); // Never return a text node of whitespace as the result
 
@@ -71,56 +41,21 @@
 
 	  return document.querySelector(query);
 	};
-	const isHtmlString = arg => {
-	  if (typeof arg === 'string' && arg.indexOf('<') > -1) {
-	    return true;
-	  }
-
-	  return false;
-	};
 	/**
-	 * Add css classes
+	 * Set attributes of an element
 	 *
 	 */
 
-	const addClasses = (elmts, ...classes) => {
-	  var norm_classes = classesArray(classes);
-	  elmts = castAsArray(elmts);
-	  elmts.map(el => {
-	    norm_classes.map(cls => {
-	      el.classList.add(cls);
-	    });
-	  });
-	};
-	/**
-	 * Return arguments
-	 *
-	 */
+	const setAttr = (el, attrs) => {
+	  for (const attr in attrs) {
+	    let val = attrs[attr];
 
-	const classesArray = args => {
-	  var classes = [];
-	  iterate(args, _classes => {
-	    if (typeof _classes === 'string') {
-	      _classes = _classes.trim().split(/[\11\12\14\15\40]/);
+	    if (val == null) {
+	      el.removeAttribute(attr);
+	    } else {
+	      el.setAttribute(attr, '' + val);
 	    }
-
-	    if (Array.isArray(_classes)) {
-	      classes = classes.concat(_classes);
-	    }
-	  });
-	  return classes.filter(Boolean);
-	};
-	/**
-	 * Create an array from arg if it's not already an array
-	 *
-	 */
-
-	const castAsArray = arg => {
-	  if (!Array.isArray(arg)) {
-	    arg = [arg];
 	  }
-
-	  return arg;
 	};
 
 	/**
@@ -137,20 +72,6 @@
 	 *   1         -> '1'
 	 *
 	 */
-	/**
-	 * Prevent default
-	 *
-	 */
-
-	const preventDefault = (evt, stop = false) => {
-	  if (evt) {
-	    evt.preventDefault();
-
-	    if (stop) {
-	      evt.stopPropagation();
-	    }
-	  }
-	};
 	/**
 	 * Prevent default
 	 *
@@ -174,67 +95,59 @@
 	 * governing permissions and limitations under the License.
 	 *
 	 */
-	function plugin () {
-	  const self = this;
+	TomSelect__default['default'].define('dropdown_input', function () {
+	  var self = this;
+	  var input = self.settings.controlInput || '<input type="text" autocomplete="off" class="dropdown-input" />';
+	  input = getDom(input);
+
+	  if (self.settings.placeholder) {
+	    setAttr(input, {
+	      placeholder: self.settings.placeholder
+	    });
+	  }
+
+	  self.settings.controlInput = input;
 	  self.settings.shouldOpen = true; // make sure the input is shown even if there are no options to display in the dropdown
 
-	  self.hook('before', 'setup', () => {
-	    self.focus_node = self.control;
-	    addClasses(self.control_input, 'dropdown-input');
-	    const div = getDom('<div class="dropdown-input-wrap">');
-	    div.append(self.control_input);
-	    self.dropdown.insertBefore(div, self.dropdown.firstChild); // set a placeholder in the select control
-
-	    const placeholder = getDom('<input class="items-placeholder" tabindex="-1" />');
-	    placeholder.placeholder = self.settings.placeholder || '';
-	    self.control.append(placeholder);
-	  });
 	  self.on('initialize', () => {
-	    // set tabIndex on control to -1, otherwise [shift+tab] will put focus right back on control_input
-	    self.control_input.addEventListener('keydown', evt => {
-	      //addEvent(self.control_input,'keydown' as const,(evt:KeyboardEvent) =>{
-	      switch (evt.keyCode) {
-	        case KEY_ESC:
-	          if (self.isOpen) {
-	            preventDefault(evt, true);
-	            self.close();
-	          }
+	    // open/close dropdown when tabbing focus on wrapper
+	    addEvent(self.wrapper, 'focus', evt => {
+	      self.onFocus(evt);
+	    });
 
-	          self.clearActiveItems();
-	          return;
+	    const setTabIndex = () => {
+	      setAttr(self.wrapper, {
+	        tabindex: self.input.disabled ? '-1' : self.tabIndex
+	      });
+	    };
 
-	        case KEY_TAB:
-	          self.focus_node.tabIndex = -1;
-	          break;
+	    self.on('dropdown_close', setTabIndex);
+	    self.on('dropdown_open', () => setAttr(self.wrapper, {
+	      tabindex: '-1'
+	    }));
+	    setTabIndex(); // keyboard navigation
+
+	    addEvent(self.wrapper, 'keypress', evt => {
+	      if (self.control.contains(evt.target)) {
+	        return;
 	      }
 
-	      return self.onKeyDown.call(self, evt);
-	    });
-	    self.on('blur', () => {
-	      self.focus_node.tabIndex = self.isDisabled ? -1 : self.tabIndex;
-	    }); // give the control_input focus when the dropdown is open
+	      if (self.dropdown.contains(evt.target)) {
+	        return;
+	      } // open dropdown on enter when wrapper is tab-focused
 
-	    self.on('dropdown_open', () => {
-	      self.control_input.focus();
-	    }); // prevent onBlur from closing when focus is on the control_input
 
-	    const orig_onBlur = self.onBlur;
-	    self.hook('instead', 'onBlur', evt => {
-	      if (evt && evt.relatedTarget == self.control_input) return;
-	      return orig_onBlur.call(self);
+	      switch (evt.keyCode) {
+	        case KEY_RETURN:
+	          self.onClick();
+	          return;
+	      }
 	    });
-	    addEvent(self.control_input, 'blur', () => self.onBlur()); // return focus to control to allow further keyboard input
-
-	    self.hook('before', 'close', () => {
-	      if (!self.isOpen) return;
-	      self.focus_node.focus({
-	        preventScroll: true
-	      });
-	    });
+	    let div = getDom('<div class="dropdown-input-wrap">');
+	    div.appendChild(input);
+	    self.dropdown.insertBefore(div, self.dropdown.firstChild);
 	  });
-	}
+	});
 
-	return plugin;
-
-}));
+})));
 //# sourceMappingURL=dropdown_input.js.map

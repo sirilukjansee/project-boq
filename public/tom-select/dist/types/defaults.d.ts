@@ -20,6 +20,7 @@ declare const _default: {
     selectOnTab: boolean;
     preload: null;
     allowEmptyOption: boolean;
+    closeAfterSelect: boolean;
     loadThrottle: number;
     loadingClass: string;
     dataAttr: null;
@@ -35,13 +36,13 @@ declare const _default: {
     searchConjunction: string;
     mode: null;
     wrapperClass: string;
-    controlClass: string;
+    inputClass: string;
     dropdownClass: string;
     dropdownContentClass: string;
     itemClass: string;
     optionClass: string;
     dropdownParent: null;
-    controlInput: string;
+    controlInput: null;
     copyClassesToDropdown: boolean;
     placeholder: null;
     hidePlaceholder: null;

@@ -12,14 +12,14 @@
  * governing permissions and limitations under the License.
  *
  */
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { TomOption } from '../../types/index';
 
 type TPluginOptions = {
 	text?:(option:TomOption)=>string,
 };
 
-export default function(this:TomSelect, userOptions:TPluginOptions) {
+TomSelect.define('restore_on_backspace',function(this:TomSelect, userOptions:TPluginOptions) {
 	const self = this;
 
 	const options = Object.assign({
@@ -29,10 +29,6 @@ export default function(this:TomSelect, userOptions:TPluginOptions) {
 	},userOptions);
 
 	self.on('item_remove',function(value:string){
-		if( !self.isFocused ){
-			return;
-		}
-
 		if( self.control_input.value.trim() === '' ){
 			var option = self.options[value];
 			if( option ){
@@ -41,4 +37,4 @@ export default function(this:TomSelect, userOptions:TPluginOptions) {
 		}
 	});
 
-};
+});

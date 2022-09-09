@@ -1,40 +1,16 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-const latin_convert = {
-  'æ': 'ae',
-  'ⱥ': 'a',
-  'ø': 'o'
-};
-new RegExp(Object.keys(latin_convert).join('|'), 'gu');
+import TomSelect from '../../tom-select.js';
 
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
 /**
- * Iterates over arrays and hashes.
+ * Return a dom element from either a dom query string, jQuery object, a dom element or html string
+ * https://stackoverflow.com/questions/494143/creating-a-new-dom-element-from-an-html-string-using-built-in-dom-methods-or-pro/35385518#35385518
  *
- * ```
- * iterate(this.items, function(item, id) {
- *    // invoked for each item
- * });
- * ```
- *
+ * param query should be {}
  */
-
-const iterate = (object, callback) => {
-  if (Array.isArray(object)) {
-    object.forEach(callback);
-  } else {
-    for (var key in object) {
-      if (object.hasOwnProperty(key)) {
-        callback(object[key], key);
-      }
-    }
-  }
-};
-
 /**
  * Add css classes
  *
@@ -56,7 +32,8 @@ const addClasses = (elmts, ...classes) => {
 
 const classesArray = args => {
   var classes = [];
-  iterate(args, _classes => {
+
+  for (let _classes of args) {
     if (typeof _classes === 'string') {
       _classes = _classes.trim().split(/[\11\12\14\15\40]/);
     }
@@ -64,7 +41,8 @@ const classesArray = args => {
     if (Array.isArray(_classes)) {
       classes = classes.concat(_classes);
     }
-  });
+  }
+
   return classes.filter(Boolean);
 };
 /**
@@ -94,7 +72,7 @@ const castAsArray = arg => {
  * governing permissions and limitations under the License.
  *
  */
-function plugin () {
+TomSelect.define('virtual_scroll', function () {
   const self = this;
   const orig_canLoad = self.canLoad;
   const orig_clearActiveOption = self.clearActiveOption;
@@ -102,30 +80,6 @@ function plugin () {
   var pagination = {};
   var dropdown_content;
   var loading_more = false;
-  var load_more_opt;
-  var default_values = [];
-
-  if (!self.settings.shouldLoadMore) {
-    // return true if additional results should be loaded
-    self.settings.shouldLoadMore = () => {
-      const scroll_percent = dropdown_content.clientHeight / (dropdown_content.scrollHeight - dropdown_content.scrollTop);
-
-      if (scroll_percent > 0.9) {
-        return true;
-      }
-
-      if (self.activeOption) {
-        var selectable = self.selectable();
-        var index = [...selectable].indexOf(self.activeOption);
-
-        if (index >= selectable.length - 2) {
-          return true;
-        }
-      }
-
-      return false;
-    };
-  }
 
   if (!self.settings.firstUrl) {
     throw 'virtual_scroll plugin requires a firstUrl() method';
@@ -139,7 +93,7 @@ function plugin () {
     field: '$score'
   }]; // can we load more results for given query?
 
-  const canLoadMore = query => {
+  function canLoadMore(query) {
     if (typeof self.settings.maxOptions === 'number' && dropdown_content.children.length >= self.settings.maxOptions) {
       return false;
     }
@@ -149,23 +103,15 @@ function plugin () {
     }
 
     return false;
-  };
-
-  const clearFilter = (option, value) => {
-    if (self.items.indexOf(value) >= 0 || default_values.indexOf(value) >= 0) {
-      return true;
-    }
-
-    return false;
-  }; // set the next url that will be
+  } // set the next url that will be
 
 
-  self.setNextUrl = (value, next_url) => {
+  self.setNextUrl = function (value, next_url) {
     pagination[value] = next_url;
   }; // getUrl() to be used in settings.load()
 
 
-  self.getUrl = query => {
+  self.getUrl = function (query) {
     if (query in pagination) {
       const next_url = pagination[query];
       pagination[query] = false;
@@ -175,7 +121,7 @@ function plugin () {
 
 
     pagination = {};
-    return self.settings.firstUrl.call(self, query);
+    return self.settings.firstUrl(query);
   }; // don't clear the active option (and cause unwanted dropdown scroll)
   // while loading more results
 
@@ -199,9 +145,7 @@ function plugin () {
 
   self.hook('instead', 'loadCallback', (options, optgroups) => {
     if (!loading_more) {
-      self.clearOptions(clearFilter);
-    } else if (load_more_opt && options.length > 0) {
-      load_more_opt.dataset.value = options[0][self.settings.valueField];
+      self.clearOptions();
     }
 
     orig_loadCallback.call(self, options, optgroups);
@@ -218,12 +162,7 @@ function plugin () {
       option = self.render('loading_more', {
         query: query
       });
-
-      if (option) {
-        option.setAttribute('data-selectable', ''); // so that navigating dropdown with [down] keypresses can navigate to this node
-
-        load_more_opt = option;
-      }
+      if (option) option.setAttribute('data-selectable', ''); // so that navigating dropdown with [down] keypresses can navigate to this node
     } else if (query in pagination && !dropdown_content.querySelector('.no-results')) {
       option = self.render('no_more_results', {
         query: query
@@ -237,20 +176,21 @@ function plugin () {
   }); // add scroll listener and default templates
 
   self.on('initialize', () => {
-    default_values = Object.keys(self.options);
     dropdown_content = self.dropdown_content; // default templates
 
     self.settings.render = Object.assign({}, {
-      loading_more: () => {
+      loading_more: function () {
         return `<div class="loading-more-results">Loading more results ... </div>`;
       },
-      no_more_results: () => {
+      no_more_results: function () {
         return `<div class="no-more-results">No more results</div>`;
       }
     }, self.settings.render); // watch dropdown content scroll position
 
-    dropdown_content.addEventListener('scroll', () => {
-      if (!self.settings.shouldLoadMore.call(self)) {
+    dropdown_content.addEventListener('scroll', function () {
+      const scroll_percent = dropdown_content.clientHeight / (dropdown_content.scrollHeight - dropdown_content.scrollTop);
+
+      if (scroll_percent < 0.95) {
         return;
       } // !important: this will get checked again in load() but we still need to check here otherwise loading_more will be set to true
 
@@ -265,7 +205,5 @@ function plugin () {
       self.load.call(self, self.lastValue);
     });
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map

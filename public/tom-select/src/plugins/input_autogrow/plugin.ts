@@ -11,11 +11,11 @@
  * governing permissions and limitations under the License.
  *
  */
-
-import TomSelect from '../../tom-select';
+import TomSelect from '../../tom-select.js';
 import { addEvent } from '../../utils';
 
-export default function(this:TomSelect) {
+TomSelect.define('input_autogrow', function(this:TomSelect) {
+
 	var self					= this;
 
 	self.on('initialize',()=>{
@@ -41,8 +41,13 @@ export default function(this:TomSelect) {
 		 *
 		 */
 		var resize = ()=>{
-			test_input.textContent	= control.value;
-			control.style.width		= test_input.clientWidth+'px';
+			if( self.items.length > 0 ){
+				test_input.textContent	= control.value;
+				control.style.width		= test_input.clientWidth+'px';
+			}else{
+				control.style.width		= '';
+			}
+
 		};
 
 		resize();
@@ -53,4 +58,4 @@ export default function(this:TomSelect) {
 		addEvent(control,'update', resize );
 	});
 
-};
+});

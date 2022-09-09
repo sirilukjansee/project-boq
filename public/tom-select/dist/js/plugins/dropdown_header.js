@@ -1,21 +1,17 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.dropdown_header = factory());
-})(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('../../tom-select.js')) :
+	typeof define === 'function' && define.amd ? define(['../../tom-select'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.TomSelect));
+}(this, (function (TomSelect) { 'use strict';
 
-	// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-	const latin_convert = {
-	  'æ': 'ae',
-	  'ⱥ': 'a',
-	  'ø': 'o'
-	};
-	new RegExp(Object.keys(latin_convert).join('|'), 'gu');
+	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+	var TomSelect__default = /*#__PURE__*/_interopDefaultLegacy(TomSelect);
 
 	/**
 	 * Return a dom element from either a dom query string, jQuery object, a dom element or html string
@@ -23,7 +19,6 @@
 	 *
 	 * param query should be {}
 	 */
-
 	const getDom = query => {
 	  if (query.jquery) {
 	    return query[0];
@@ -33,7 +28,7 @@
 	    return query;
 	  }
 
-	  if (isHtmlString(query)) {
+	  if (query.indexOf('<') > -1) {
 	    let div = document.createElement('div');
 	    div.innerHTML = query.trim(); // Never return a text node of whitespace as the result
 
@@ -41,13 +36,6 @@
 	  }
 
 	  return document.querySelector(query);
-	};
-	const isHtmlString = arg => {
-	  if (typeof arg === 'string' && arg.indexOf('<') > -1) {
-	    return true;
-	  }
-
-	  return false;
 	};
 
 	/**
@@ -93,7 +81,7 @@
 	 * governing permissions and limitations under the License.
 	 *
 	 */
-	function plugin (userOptions) {
+	TomSelect__default['default'].define('dropdown_header', function (userOptions) {
 	  const self = this;
 	  const options = Object.assign({
 	    title: 'Untitled',
@@ -118,9 +106,7 @@
 
 	    self.dropdown.insertBefore(header, self.dropdown.firstChild);
 	  });
-	}
+	});
 
-	return plugin;
-
-}));
+})));
 //# sourceMappingURL=dropdown_header.js.map

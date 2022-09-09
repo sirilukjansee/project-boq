@@ -1,11 +1,8 @@
-import defaults from './defaults';
+import defaults from './defaults.js';
 import { hash_key } from './utils';
 import { TomOption, TomSettings } from './types/index';
-import { iterate } from '@orchidjs/sifter/lib/utils';
-import { TomInput } from './types/index';
 
-
-export default function getSettings( input:TomInput, settings_user:Partial<TomSettings>):TomSettings{
+export default function getSettings( input:HTMLInputElement, settings_user:TomSettings):TomSettings{
 	var settings:TomSettings	= Object.assign({}, defaults, settings_user);
 
 	var attr_data				= settings.dataAttr;
@@ -105,7 +102,7 @@ export default function getSettings( input:TomInput, settings_user:Partial<TomSe
 		};
 
 		var addGroup = ( optgroup:HTMLOptGroupElement ) => {
-			var id:string, optgroup_data
+			var id, optgroup_data
 
 			optgroup_data							= readData(optgroup);
 			optgroup_data[field_optgroup_label]		= optgroup_data[field_optgroup_label] || optgroup.getAttribute('label') || '';
@@ -115,22 +112,22 @@ export default function getSettings( input:TomInput, settings_user:Partial<TomSe
 
 			id = optgroup_data[field_optgroup_value];
 
-			iterate(optgroup.children, (option)=>{
+			for( const option of optgroup.children ){
 				addOption(option as HTMLOptionElement, id);
-			});
+			}
 
 		};
 
 		settings_element.maxItems = input.hasAttribute('multiple') ? null : 1;
 
-		iterate(input.children,(child)=>{
+		for( const child of input.children ){
 			tagName = child.tagName.toLowerCase();
 			if (tagName === 'optgroup') {
 				addGroup(child as HTMLOptGroupElement);
 			} else if (tagName === 'option') {
 				addOption(child as HTMLOptionElement);
 			}
-		});
+		}
 
 	};
 
@@ -147,18 +144,18 @@ export default function getSettings( input:TomInput, settings_user:Partial<TomSe
 			if (!settings.allowEmptyOption && !value.length) return;
 			const values = value.split(settings.delimiter);
 
-			iterate( values, (value) => {
+			for( const value of values ){
 				const option:TomOption = {};
 				option[field_label] = value;
 				option[field_value] = value;
 				settings_element.options.push(option);
-			});
+			}
 			settings_element.items = values;
 		} else {
 			settings_element.options = JSON.parse(data_raw);
-			iterate( settings_element.options, (opt) => {
+			for( const opt of settings_element.options ){
 				settings_element.items.push(opt[field_value]);
-			});
+			}
 		}
 	};
 

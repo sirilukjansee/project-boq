@@ -1,15 +1,9 @@
 /**
-* Tom Select v2.1.0
+* Tom Select v1.7.8
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-const latin_convert = {
-  'æ': 'ae',
-  'ⱥ': 'a',
-  'ø': 'o'
-};
-new RegExp(Object.keys(latin_convert).join('|'), 'gu');
+import TomSelect from '../../tom-select.js';
 
 /**
  * Return a dom element from either a dom query string, jQuery object, a dom element or html string
@@ -17,7 +11,6 @@ new RegExp(Object.keys(latin_convert).join('|'), 'gu');
  *
  * param query should be {}
  */
-
 const getDom = query => {
   if (query.jquery) {
     return query[0];
@@ -27,7 +20,7 @@ const getDom = query => {
     return query;
   }
 
-  if (isHtmlString(query)) {
+  if (query.indexOf('<') > -1) {
     let div = document.createElement('div');
     div.innerHTML = query.trim(); // Never return a text node of whitespace as the result
 
@@ -35,13 +28,6 @@ const getDom = query => {
   }
 
   return document.querySelector(query);
-};
-const isHtmlString = arg => {
-  if (typeof arg === 'string' && arg.indexOf('<') > -1) {
-    return true;
-  }
-
-  return false;
 };
 
 /**
@@ -87,7 +73,7 @@ const preventDefault = (evt, stop = false) => {
  * governing permissions and limitations under the License.
  *
  */
-function plugin (userOptions) {
+TomSelect.define('dropdown_header', function (userOptions) {
   const self = this;
   const options = Object.assign({
     title: 'Untitled',
@@ -112,7 +98,5 @@ function plugin (userOptions) {
 
     self.dropdown.insertBefore(header, self.dropdown.firstChild);
   });
-}
-
-export { plugin as default };
+});
 //# sourceMappingURL=plugin.js.map
