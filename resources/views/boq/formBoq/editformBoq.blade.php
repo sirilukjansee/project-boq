@@ -128,7 +128,7 @@
                 <div class="content">
                     <div class="intro-y flex sm:flex-row items-center mt-3">
                         <h2 class="text-lg font-medium mr-auto">
-                            <b>Create BOQ of {{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</b>
+                            <b>Create BOQ of </b>
                         </h2>
                         <div class="text-center">
                             <!-- BEGIN: Super Large Modal Toggle -->
@@ -184,13 +184,15 @@
                         <div class="group_wrapper">
                             <form action="{{ route('add_Boq') }}" method="post" >
                                 @csrf
-                                <input type="hidden" value="{{ $project->id }}" name="project_id">
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
+                                    {{-- <input type="hidden" value="{{ $project->id }}" name="project_id"> --}}
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                                     <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                                     <div class="intro-y input-form mt-3 ml-2">
                                         <div class="input-form">
+                                            @foreach ( $editboq as $eb )
+                                            {{-- {{ $eb->main_id }} --}}
                                             <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                 <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
                                                 <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
@@ -215,6 +217,7 @@
                                                 <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
                                                 <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                             </div>
+                                            @endforeach
                                             <div id="newRowsub{{$key + 1}}"></div>
                                             <input type="hidden" id="number_s" rel="{{$key + 1}}">
                                         </div>

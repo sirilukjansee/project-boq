@@ -209,7 +209,7 @@
                                         <th class="whitespace-nowrap">ID</th>
                                         <th class="text-center whitespace-nowrap">Brand</th>
                                         <th class="text-center whitespace-nowrap">Location</th>
-                                        <th class="text-center whitespace-nowrap">Area.SQM</th>
+                                        <th class="text-center whitespace-nowrap">Area/Sq.m</th>
                                         <th class="text-center whitespace-nowrap">Task Type</th>
                                         <th class="text-center whitespace-nowrap">Task Name</th>
                                         <th class="text-center whitespace-nowrap">Open date</th>
@@ -258,7 +258,7 @@
                                         </td>
                                         <td class="text-center table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>{{ Carbon\Carbon::parse($pro->open_date)->format('d F Y') }}</p>
+                                                <p>{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
@@ -279,80 +279,6 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                {{-- <tbody>
-                                    <tr class="intro-x cursor-pointer" data-href="{{ url("allBoq") }}">
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <h3>A00001</h3>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap">Uniqlo</a>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Central Westgate</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>109 ตร.ม</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Store</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>4321-8765</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Kemin Pracha</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody> --}}
-                                {{-- <tbody>
-                                    <tr class="intro-x cursor-pointer" data-href="{{ url("allBoq") }}">
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <h3>A00002</h3>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap">Levi's</a>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Central World</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>159 ตร.ม</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Store</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>5678-1234</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Watchara Ratcha</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody> --}}
                             </table>
                         </div>
                     </div>

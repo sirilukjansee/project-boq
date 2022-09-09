@@ -137,6 +137,8 @@ Route::post('/addprojectBoq/add', [ProjectController::class, 'store'])->name('/a
 //BOQ
 Route::get('/allBoq/{id}', [BoqController::class, 'index'])->name('allBoq');
 Route::post('/addBoq/add', [BoqController::class, 'store'])->name('add_Boq');
+Route::get('/editFormBoq/edit/{id}', [BoqController::class, 'edit'])->name('editformBoq');
+
 
 Route::get('/createformBoq/{id}', [FormboqController::class, 'index'])->name('createformboq');
 Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_catagory']);

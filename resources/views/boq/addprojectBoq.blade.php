@@ -168,7 +168,7 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
-                                                Area/SQM
+                                                Area/Sq.m
                                             </label>
                                             <input id="validation-form-3" type="number" name="area" class="form-control" >
                                             {{-- <div class="form-help">ขนาด และ หน่วย</div> --}}

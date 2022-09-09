@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Boq;
 use App\Models\template_boqs;
+use App\Models\catagory;
+use App\Models\catagory_sub;
+use App\Models\Unit;
+use App\Models\Brand;
 use Carbon\Carbon;
 use App\Exports\BoqsExport;
 use Illuminate\Support\Facades\DB;
@@ -40,10 +44,9 @@ class BoqController extends Controller
         $data = template_boqs::where('project_id', $request->project_id)
             ->count();
 
-        $number_id = str_pad($data, 4, '0', STR_PAD_LEFT);
-
             if($data >= 1)
             {
+                $number_id = str_pad($data, 4, '0', STR_PAD_LEFT);
                 $template = template_boqs::create([
                     'number_id' => $data_number->number_id."-".$number_id,
                     'project_id' => $request->project_id,
@@ -55,8 +58,9 @@ class BoqController extends Controller
                 ])->id;
             }else
             {
+                $number_id2 = str_pad(1, 4, '0', STR_PAD_LEFT);
                 $template = template_boqs::create([
-                    'number_id' => $data_number->number_id."-".$number_id,
+                    'number_id' => $data_number->number_id."-".$number_id2,
                     'project_id' => $request->project_id,
                     'name'  =>  "Master BOQ",
                     'date'  =>  Carbon::now(),
@@ -89,6 +93,15 @@ class BoqController extends Controller
             }
         }
         return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! ADD BOQ Complete !!!');
+    }
+    public function edit($id)
+    {
+        $editboq = Boq::where('template_boq_id', $id)->get();
+        $catagories = catagory::all();
+        $brand_master = Brand::all();
+        $catagories2 = Unit::all();
+        // return $id;
+        return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2'));
     }
 
     public function export()

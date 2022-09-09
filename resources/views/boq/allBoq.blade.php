@@ -204,7 +204,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <td class="table-report__action">
                                             <div class="btn-group text-center flex justify-center">
                                                 <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <a href="{{ url("addformBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
+                                                <a href="{{ url('/editFormBoq/edit', $tb->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                                                 <a href="{{ url("checkBoq") }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="send" class="w-4 h-4 mr-2"></i> Sent </a>
                                                 <a href="{{ url('projects/export/') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                                             </div>
