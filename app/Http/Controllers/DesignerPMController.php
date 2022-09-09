@@ -24,8 +24,8 @@ class DesignerPMController extends Controller
         $design_pm->email = $request->email;
         $design_pm->tel = $request->tel;
         $design_pm->is_active = "1";
-        $design_pm->create_by = $request->create_by;
-        $design_pm->update_by = $request->update_by;
+        $design_pm->create_by = 1;
+        $design_pm->update_by = 1;
         $design_pm->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -41,18 +41,18 @@ class DesignerPMController extends Controller
     public function update(Request $request)
     {
         // dd($request);
-        $request->validate([
-            'name' => 'unique:design_and_pms'
-        ],
-        [
-            'name.unique' => "error"
-        ]);
+        // $request->validate([
+        //     'name' => 'unique:design_and_pms'
+        // ],
+        // [
+        //     'name.unique' => "error"
+        // ]);
 
         $design_pm = design_and_pm::find($request->id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'tel' => $request->tel,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');

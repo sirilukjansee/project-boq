@@ -21,8 +21,8 @@ class TaskNameController extends Controller
         // dd($request);
         $taskname = new taskname;
         $taskname->task_name = $request->task_name;
-        $taskname->create_by = $request->create_by;
-        $taskname->update_by = $request->update_by;
+        $taskname->create_by = 1;
+        $taskname->update_by = 1;
         $taskname->save();
 
         return redirect()->back()->with('success', '!!! ADD TASK_NAME Complete !!!');
@@ -47,7 +47,7 @@ class TaskNameController extends Controller
 
         $taskname = taskname::find($request->id)->update([
             'task_name' => $request->task_name,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit TASK NAME Complete !!!');

@@ -21,8 +21,8 @@ class LocationController extends Controller
         $location = new Location;
         $location->location_name = $request->location_name;
         $location->is_active = "1";
-        $location->create_by = $request->create_by;
-        $location->update_by = $request->update_by;
+        $location->create_by = 1;
+        $location->update_by = 1;
         $location->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -47,7 +47,7 @@ class LocationController extends Controller
 
         $location = Location::find($request->id)->update([
             'location_name' => $request->location_name,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');

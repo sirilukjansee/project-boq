@@ -20,8 +20,8 @@ class UnitController extends Controller
         // dd($request);
         $unit = new Unit;
         $unit->unit_name = $request->unit_name;
-        $unit->create_by = $request->create_by;
-        $unit->update_by = $request->update_by;
+        $unit->create_by = 1;
+        $unit->update_by = 1;
         $unit->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -46,7 +46,7 @@ class UnitController extends Controller
 
         $unit = Unit::find($request->id)->update([
             'unit_name' => $request->unit_name,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');

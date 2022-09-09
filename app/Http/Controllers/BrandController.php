@@ -20,8 +20,8 @@ class BrandController extends Controller
         // dd($request);
         $brand = new Brand;
         $brand->brand_name = $request->brand_name;
-        $brand->create_by = $request->create_by;
-        $brand->update_by = $request->update_by;
+        $brand->create_by = 1;
+        $brand->update_by = 1;
         $brand->save();
 
         return redirect()->back()->with('success', '!!! ADD DESIGNER/PM Complete !!!');
@@ -46,7 +46,7 @@ class BrandController extends Controller
 
         $design_pm = Brand::find($request->id)->update([
             'brand_name' => $request->brand_name,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit DESIGNER/PM Complete !!!');

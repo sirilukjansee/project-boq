@@ -22,8 +22,8 @@ class VenderController extends Controller
         $vend->first_name = $request->first_name;
         $vend->last_name = $request->last_name;
         $vend->is_active = "1";
-        $vend->create_by = $request->create_by;
-        $vend->update_by = $request->update_by;
+        $vend->create_by = 1;
+        $vend->update_by = 1;
         $vend->save();
 
         return redirect()->back()->with('success', '!!! ADD VENDER Complete !!!');
@@ -47,7 +47,7 @@ class VenderController extends Controller
         $venders = vender::find($request->id)->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'update_by' => $request->update_by
+            'update_by' => 1
         ]);
 
         return back()->with('success', '!!! Edit VENDER Complete !!!');
