@@ -11,7 +11,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
-        {{-- <link rel="stylesheet" href="../tom-select/dist/css/tom-select.css" defer/> --}}
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -248,7 +247,7 @@
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
         <script src="/dist/js/app.js"></script>
-        <script src="../tom-select/dist/js/tom-select.complete.js"></script>
+        <script src="/tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
 
             // remove subwork w/ btn
@@ -280,12 +279,12 @@
                         // console.log(response);
                         var sub_num = key + 1;
 
-                        $('#code_id'+sub_num).on('change', function(){
-                            console.log($(this).val());
-                            // $('.sub_selected'+sub_num).append('<option selected value="1">EEEEE</option>');
-                            // $('.sub_selected'+sub_num).val("rrrrr");
-                            // new TomSelect(".sub_id"+sub_num);
-                        });
+                        // $('#code_id'+sub_num).on('change', function(){
+                        //     console.log($(this).val());
+                        //     // $('.sub_selected'+sub_num).append('<option selected value="1">EEEEE</option>');
+                        //     // $('.sub_selected'+sub_num).val("rrrrr");
+                        //     // new TomSelect(".sub_id"+sub_num);
+                        // });
 
                         // new TomSelect(".tom-select-code-"+sub_num);
                         // new TomSelect(".tom-select-sub-"+sub_num);

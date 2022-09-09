@@ -279,19 +279,19 @@
                         // console.log(response);
                         var sub_num = key + 1;
 
-                        $('#code_id'+sub_num).on('change', function(){
-                            console.log($(this).val());
-                            jQuery('.sub_selected'+sub_num).children().remove().end();
-                            document.getElementById('sub1').style.display = 'none';
-                            $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
+                        // $('#code_id'+sub_num).on('change', function(){
+                        //     console.log($(this).val());
+                        //     jQuery('.sub_selected'+sub_num).children().remove().end();
+                        //     document.getElementById('sub1').style.display = 'none';
+                        //     $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
 
-                            let options = {
-                                plugins: {
-                                    dropdown_input: {},
-                                }
-                            };
-                            new TomSelect(".tom-select-sub-"+sub_num);
-                        });
+                        //     let options = {
+                        //         plugins: {
+                        //             dropdown_input: {},
+                        //         }
+                        //     };
+                        //     new TomSelect(".tom-select-sub-"+sub_num);
+                        // });
 
 
 

@@ -172,6 +172,12 @@
                                 <div class="top-menu__title"> Master Unit </div>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ url('/masterTOR') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master TOR </div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
