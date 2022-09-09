@@ -193,30 +193,32 @@
                                         <div class="input-form">
                                             @foreach ( $editboq as $eb )
                                             {{-- {{ $eb->main_id }} --}}
-                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
-                                                    <option selected value=""></option>
-                                                    @foreach ($cat->catagory_sub as $cat_s)
-                                                    <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <select id="" name="sub_id[][{{ $cat->id }}]" class="sub_selected{{ $cat->id }} tom-select-sub-{{$key + 1}} tom-select w-full" placeholder="Please Select...">
-                                                    <option selected value=""></option>
-                                                    @foreach ($cat->catagory_sub as $cat_s)
-                                                    <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
-                                                <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
-                                                    <option selected value=""></option>
-                                                    @foreach ($catagories2 as $cat2)
-                                                    <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-                                            </div>
+                                            @if ( $eb->main_id == $cat->id)
+                                                <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
+                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_id }}</option>
+                                                        @foreach ($cat->catagory_sub as $cat_s)
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <select id="" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full" placeholder="Please Select...">
+                                                        <option selected value="{{ $eb->sub_id }}">{{ $eb->sub_id }}</option>
+                                                        @foreach ($cat->catagory_sub as $cat_s)
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน" value="{{ $eb->amount }}">
+                                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                                        <option selected value="{{ $eb->unit_id }}">{{ $eb->unit_id }}</option>
+                                                        @foreach ($catagories2 as $cat2)
+                                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}">
+                                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                                </div>
+                                            @endif
                                             @endforeach
                                             <div id="newRowsub{{$key + 1}}"></div>
                                             <input type="hidden" id="number_s" rel="{{$key + 1}}">
@@ -245,7 +247,7 @@
 
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
-        {{-- <script src="/dist/js/app.js"></script> --}}
+        <script src="/dist/js/app.js"></script>
         <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
 
@@ -285,8 +287,8 @@
                             // new TomSelect(".sub_id"+sub_num);
                         });
 
-                        new TomSelect(".tom-select-code-"+sub_num);
-                        new TomSelect(".tom-select-sub-"+sub_num);
+                        // new TomSelect(".tom-select-code-"+sub_num);
+                        // new TomSelect(".tom-select-sub-"+sub_num);
 
                         $("#btnAddsub" + sub_num).on('click', function(){
                             var html = '';

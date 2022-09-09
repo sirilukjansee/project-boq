@@ -200,11 +200,7 @@
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-<<<<<<< HEAD
-                                                <select id="" name="sub_id[][{{ $cat->id }}]" class="sub_selected{{ $cat->id }} tom-select-sub-{{$key + 1}} tom-select w-full" placeholder="Please Select...">
-=======
                                                 <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full">
->>>>>>> e913e388f044b9175aa55212fdd1f430d3b6735b
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
@@ -248,13 +244,9 @@
 
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
-<<<<<<< HEAD
-        {{-- <script src="/dist/js/app.js"></script> --}}
-=======
 
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
         <script src="/dist/js/app.js"></script>
->>>>>>> e913e388f044b9175aa55212fdd1f430d3b6735b
         <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
 
