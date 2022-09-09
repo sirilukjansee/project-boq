@@ -23,6 +23,7 @@ class BoqController extends Controller
         ->first();
 
         $temp_boq = template_boqs::where('project_id', $id)
+            // ->paginate(5)
             ->get();
 
         return view('boq.allBoq', compact('project','temp_boq'));
