@@ -218,6 +218,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <td class="table-report__action">
                                             <div class="btn-group text-center flex justify-center">
                                                 <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
+
                                                 @if ( $tb->status == "1" || $tb->status == "2" || $tb->status == "3" )
                                                     <button class="btn btn-outline-secondary w-full sm:w-auto mr-2" disabled><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </button>
                                                     @else
@@ -225,7 +226,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
                                                 @endif
 
-                                                @if ( $tb->status == "1" || $tb->status == "2" || $tb->status == "3" )
+                                                @if ($tb->name  == "Master BOQ" )
+                                                    @if ( $tb->status == "1" || $tb->status == "2" || $tb->status == "3" )
                                                     <button type="button" id="change_status_boq" value="{{ $tb->id }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2"
                                                         aria-expanded="false" data-tw-toggle="modal" data-tw-target="#send-modal-preview" disabled>
                                                         <i data-lucide="send" class="w-4 h-4 mr-2"></i> Send </button>
@@ -233,7 +235,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <button type="button" id="change_status_boq" value="{{ $tb->id }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2"
                                                         aria-expanded="false" data-tw-toggle="modal" data-tw-target="#send-modal-preview">
                                                         <i data-lucide="send" class="w-4 h-4 mr-2"></i> Send </button>
+                                                    @endif
                                                 @endif
+
                                                 @if ( $tb->status == "3" )
                                                     <button class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export </button>
                                                     @else

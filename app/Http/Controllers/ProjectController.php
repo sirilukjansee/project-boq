@@ -9,6 +9,7 @@ use App\Models\Location;
 use App\Models\task_type;
 use App\Models\taskname;
 use App\Models\design_and_pm;
+use App\Models\template_boqs;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -16,7 +17,8 @@ class ProjectController extends Controller
 {
     public function index(){
         $project = Project::orderBy('id', 'desc')
-        ->get();
+            ->get();
+
 
         return view('boq.index', compact('project'));
     }
@@ -24,11 +26,11 @@ class ProjectController extends Controller
     public function create()
     {
         $project = Project::all();
-        $project1 = Brand::all();
-        $project2 = Location::all();
-        $project3 = task_type::all();
-        $project4 = taskname::all();
-        $project5 = design_and_pm::all();
+        $project1 = Brand::where('is_active', "1")->get();
+        $project2 = Location::where('is_active', "1")->get();
+        $project3 = task_type::where('is_active', "1")->get();
+        $project4 = taskname::where('is_active', "1")->get();
+        $project5 = design_and_pm::where('is_active', "1")->get();
 
         return view('boq.addprojectBoq', compact('project','project1','project2','project3','project4','project5'));
     }

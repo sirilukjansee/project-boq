@@ -15,7 +15,7 @@ class CreateColumnTemplateBoqsAdd1 extends Migration
     {
         Schema::table('template_boqs', function (Blueprint $table) {
             $table->text('comment')->after('status')->comment('คอมเมนท์จากหัวหน้า')->nullable();
-            $table->foreignId('approve_by')->after('comment')->comment('อนุมัติโดย...');
+            $table->foreignId('approve_by')->after('comment')->comment('อนุมัติโดย...')->nullable();
             $table->dateTime('approve_at')->after('approve_by')->comment('เวลาอนุมัติ')->nullable();
         });
     }

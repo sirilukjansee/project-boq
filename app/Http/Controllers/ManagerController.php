@@ -11,6 +11,7 @@ class ManagerController extends Controller
     public function index()
     {
         $boq_chk  = template_boqs::where('name', "Master BOQ")
+            ->orderBy('id', 'desc')
             ->get();
 
         return view('boq.checkBoq', compact('boq_chk'));

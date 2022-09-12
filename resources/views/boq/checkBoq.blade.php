@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <!-- BEGIN: HTML Table Data -->
                     <div class="intro-y box p-5 mt-5">
-                        <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+                        {{-- <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
                                 <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
                                     <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">โครงการ</label>
@@ -162,12 +162,12 @@ License: You must have a valid license purchased only from themeforest(the above
                             </form>
                             <div class="flex mt-5 sm:mt-0">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                             <table class="table table-hover sm:mt-2">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="text-center whitespace-nowrap">ID</th>
+                                        <th class="whitespace-nowrap">ID</th>
                                         <th class="text-center whitespace-nowrap">Brand</th>
                                         <th class="text-center whitespace-nowrap">Location</th>
                                         <th class="text-center whitespace-nowrap">Task Name</th>
@@ -180,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <tbody>
                                     @foreach ( $boq_chk as $bchk)
                                         <tr class="intro-x">
-                                            <td class="w-40 text-center table-report__action">
+                                            <td class="w-40 table-report__action">
                                                 <div class="flex">
                                                     <h3>{{ $bchk->number_id }}</h3>
                                                 </div>
@@ -220,7 +220,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
                                                     <!-- BEGIN: Modal Toggle -->
                                                     <div class="text-center">
+                                                        @if ($bchk->status == "2")
+                                                        <button id="btn_approve" value="{{ $bchk->id }}" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-secondary" disabled><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit</button>
+                                                        @else
                                                         <button id="btn_approve" value="{{ $bchk->id }}" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-secondary"><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit</button>
+                                                        @endif
                                                     </div>
                                                     <!-- END: Modal Toggle -->
                                                 </div>

@@ -51,7 +51,7 @@ class BoqController extends Controller
 
             if($data >= 1)
             {
-                $number_id = str_pad($data, 4, '0', STR_PAD_LEFT);
+                $number_id = str_pad($data + 1, 4, '0', STR_PAD_LEFT);
                 $template = template_boqs::create([
                     'number_id' => $data_number->number_id."-".$number_id,
                     'project_id' => $request->project_id,
@@ -124,7 +124,7 @@ class BoqController extends Controller
             'status' => $send_form
         ]);
 
-        Boq::where('template_boq_id', $request->id)->delete();      //*******************ลบข้อมูลเดิมมออกก่อน แล้วค่อยเพิ่มใหม่************************
+        Boq::where('template_boq_id', $request->id)->delete();      //*******************จะลบข้อมูลเดิมมออกก่อน แล้วค่อยเพิ่มใหม่************************
 
         foreach($request->main_id as $key => $value)
         {

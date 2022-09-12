@@ -273,7 +273,19 @@
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>Waiting</p>
+                                                @if ( @$pro->project_id1->name == "Master BOQ" )
+                                                    @if ($pro->project_id1->status == "0")
+                                                    Drafted
+                                                    @elseif ($pro->project_id1->status == "1")
+                                                    Waiting Approval
+                                                    @elseif ($pro->project_id1->status == "2")
+                                                    Approval
+                                                    @elseif ($pro->project_id1->status == "3")
+                                                    Reject
+                                                    @elseif ($pro->project_id1->status == "4")
+                                                    Rework
+                                                    @endif
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

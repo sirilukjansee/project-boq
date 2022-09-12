@@ -48,4 +48,8 @@ class Project extends Model
     public function designer_master(){
         return $this->hasOne(design_and_pm::class,'id','designer_name');
     }
+
+    public function project_id1(){
+        return $this->hasOne(template_boqs::class,'project_id','id');
+    }
 }

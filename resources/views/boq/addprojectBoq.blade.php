@@ -135,17 +135,17 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                     <div class="group_wrapper">
-                        <form action="{{ url('/addprojectBoq/add') }}" method="post" >
+                        <form action="{{ url('/addprojectBoq/add') }}" method="post">
                             @csrf
                             <div class="intro-y input-form box p-5">
                                 <div class="grid grid-cols-2 gap-2">
                                     <div class="input-form mt-3">
                                         <label for="validation-form-1" class="form-label w-full flex flex-col sm:flex-row">
-                                            Brand
+                                            Brand <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
-                                        <select name="brand" data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
-                                            <option value="">Select a brand...</option>
+                                        <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
+                                            <option selected value="">Select a brand...</option>
                                             @foreach ($project1 as $pro1)
                                             <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
                                             @endforeach
@@ -153,10 +153,10 @@
                                     </div>
                                     <div class="input-form mt-3">
                                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
-                                            Location
+                                            Location <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
-                                        <select id="select-beast-empty1" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full" required>
+                                        <select id="validation-form-2" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full" required>
                                             <option selected value="">Select a location...</option>
                                             @foreach ($project2 as $pro2)
                                             <option value="{{$pro2->id}}">{{$pro2->location_name}}</option>
@@ -168,9 +168,9 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
-                                                Area/Sq.m
+                                                Area/Sq.m <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-3" type="number" name="area" class="form-control" >
+                                            <input id="validation-form-3" type="number" name="area" class="form-control" required>
                                             {{-- <div class="form-help">ขนาด และ หน่วย</div> --}}
                                         </div>
                                     </div>
@@ -185,7 +185,7 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
-                                                Task Type
+                                                Task Type <span style="color: red">*</span>
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
                                             <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="tom-select form-control w-full" required>
@@ -199,7 +199,7 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-5" class="form-label w-full flex flex-col sm:flex-row">
-                                                Task Name
+                                                Task Name <span style="color: red">*</span>
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
                                             <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="tom-select form-control w-full" required>
@@ -215,7 +215,7 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-6" class="form-label w-full sm:flex-row" id="sDate">
-                                                Start Date
+                                                Start Date <span style="color: red">*</span>
                                             </label>
                                             <input id="validation-form-6" type="date" name="startDate" class="form-control" value="{{ date('d-m-y') }}" required>
                                         </div>
@@ -223,7 +223,7 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-7" class="form-label w-full sm:flex-row">
-                                                Hand Over Date
+                                                Hand Over Date <span style="color: red">*</span>
                                             </label>
                                             <input id="validation-form-7" type="date" name="finishDate" class="form-control" required>
                                         </div>
@@ -239,7 +239,7 @@
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
                                             <label for="validation-form-11" class="form-label w-full sm:flex-row">
-                                                Open Date
+                                                Open Date <span style="color: red">*</span>
                                             </label>
                                             <input id="validation-form-11" type="date" name="openDate" class="form-control" required>
                                         </div>
@@ -248,10 +248,10 @@
                                 <div class="grid grid-cols-2 gap-2">
                                     <div class="input-form mt-3">
                                         <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
-                                            Designer Name
+                                            Designer Name <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
-                                        <select name="ds_name" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full" required>
+                                        <select name="ds_name" id="validation-form-8" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full" required>
                                             <option value="">Select a designer...</option>
                                             @foreach ($project5 as $pro5)
                                             <option value="{{$pro5->id}}">{{$pro5->name}}</option>
@@ -269,6 +269,17 @@
                                 <a href="{{ url("index") }}" class="btn btn-secondary mt-5">Back</a>
                             </div>
                         </form>
+                        <!-- BEGIN: Failed Notification Content -->
+                        <div id="failed-notification-content" class="toastify-content hidden flex">
+                            <i class="text-danger" data-lucide="x-circle"></i>
+                            <div class="ml-4 mr-4">
+                                <div class="font-medium">Add-Project Failed!</div>
+                                <div class="text-slate-500 mt-1">
+                                    Please check the fileld form.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: Failed Notification Content -->
                     </div>
                     <!-- END: Validation Form -->
                 </div>
@@ -297,32 +308,6 @@
                 $('#validation-form-10').val(diffDay);
 
             });
-
-            //select brand
-            // new TomSelect("#select-beast-empty",{
-            //     allowEmptyOption: true,
-            //     create: true
-            // });
-            //select location
-            // new TomSelect("#select-beast-empty1",{
-            //     allowEmptyOption: true,
-            //     create: true
-            // });
-            //select task type
-            // new TomSelect("#select-beast-empty2",{
-            //     allowEmptyOption: true,
-            //     create: true
-            // });
-            //select task name
-            // new TomSelect("#select-beast-empty3",{
-            //     allowEmptyOption: true,
-            //     create: true
-            // });
-            //select designer
-            // new TomSelect("#select-beast-empty4",{
-            //     allowEmptyOption: true,
-            //     create: true
-            // });
 
             // Date Choose - Check
             // $(document).on('change', '[name="startDate"]', function() {

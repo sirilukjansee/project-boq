@@ -131,9 +131,21 @@
                         <h2 class="text-lg font-medium mr-auto">
                             <b>Create BOQ of {{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</b>
                         </h2>
+                        <div class="mr-1">
+                            <p>Vender :</p>
+                        </div>
+                        <div class="mr-2">
+                            <form action="">
+                                <select name="" id="" class="w-72">
+                                    <option value="">Select Vender...</option>
+                                    <option value="">ELECTRONIC LIGHTING CO.,LTD.</option>
+                                    <option value="">Officemate</option>
+                                </select>
+                            </form>
+                        </div>
                         <div class="text-center">
                             <!-- BEGIN: Super Large Modal Toggle -->
-                            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">Choose Template</a>
+                            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1">Choose Template</a>
                             <!-- END: Super Large Modal Toggle -->
                         </div>
                         <!-- BEGIN: Super Large Modal Content -->
@@ -200,7 +212,7 @@
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full">
+                                                <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full" placeholder="Please Select...">
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
