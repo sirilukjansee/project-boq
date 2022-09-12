@@ -18,6 +18,9 @@ class template_boqs extends Model
         'name',
         'date',
         'status',
+        'comment',
+        'approve_by',
+        'approve_at',
         'create_by',
         'update_by'
     ];
@@ -25,4 +28,5 @@ class template_boqs extends Model
     public function project(){
         return $this->hasOne(Project::class,'id','project_id');
     }
+
 }

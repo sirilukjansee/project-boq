@@ -18,6 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="author" content="LEFT4CODE">
         <title> Manager Boq - </title>
         <!-- BEGIN: CSS Assets-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
         <!-- END: CSS Assets-->
     </head>
@@ -145,21 +146,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             Manager
                         </h2>
                         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                            <!--<div class="dropdown ml-auto sm:ml-0">
-                                <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                                    <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-lucide="plus"></i> </span>
-                                </button>
-                                <div class="dropdown-menu w-40">
-                                    <ul class="dropdown-content">
-                                        <li>
-                                            <a href="" class="dropdown-item"> <i data-lucide="file-plus" class="w-4 h-4 mr-2"></i> New Category </a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="dropdown-item"> <i data-lucide="users" class="w-4 h-4 mr-2"></i> New Group </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>-->
                         </div>
                     </div>
                     <!-- BEGIN: HTML Table Data -->
@@ -175,136 +161,72 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </form>
                             <div class="flex mt-5 sm:mt-0">
-                                <!--<button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"> <i data-lucide="printer" class="w-4 h-4 mr-2"></i> Print </button>
-                                <div class="dropdown w-1/2 sm:w-auto">
-                                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false" data-tw-toggle="dropdown"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export <i data-lucide="chevron-down" class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
-                                    <div class="dropdown-menu w-40">
-                                        <ul class="dropdown-content">
-                                            <li>
-                                                <a id="tabulator-export-csv" href="javascript:;" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export CSV </a>
-                                            </li>
-                                            <li>
-                                                <a id="tabulator-export-json" href="javascript:;" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export JSON </a>
-                                            </li>
-                                            <li>
-                                                <a id="tabulator-export-xlsx" href="javascript:;" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export XLSX </a>
-                                            </li>
-                                            <li>
-                                                <a id="tabulator-export-html" href="javascript:;" class="dropdown-item"> <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export HTML </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>-->
                             </div>
                         </div>
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                             <table class="table table-hover sm:mt-2">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="whitespace-nowrap">Brand</th>
-                                        <th class="whitespace-nowrap">Location</th>
-                                        <th class="text-center whitespace-nowrap">Area</th>
+                                        <th class="text-center whitespace-nowrap">ID</th>
+                                        <th class="text-center whitespace-nowrap">Brand</th>
+                                        <th class="text-center whitespace-nowrap">Location</th>
+                                        <th class="text-center whitespace-nowrap">Task Name</th>
+                                        <th class="text-center whitespace-nowrap">Task Type</th>
+                                        <th class="text-center whitespace-nowrap">Designer</th>
                                         <th class="text-center whitespace-nowrap">Status</th>
                                         <th class="text-center whitespace-nowrap"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="intro-x">
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <h3>flipflop 1</h3>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <a class="font-medium whitespace-nowrap"> Central Pinklao </a>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center"> 109 ตร.ม </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center"> <i data-lucide="" class=""></i> Waiting approval </div>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group flex text-center justify-center ">
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <!--<a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </a>
-                                                <div class="dropdown">
-                                                    <button class="dropdown-toggle btn btn-secondary mr-2" aria-expanded="false" data-tw-toggle="dropdown"><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit </button>
-                                                    <div class="dropdown-menu w-48">
-                                                        <ul class="dropdown-content">
-                                                            <li>
-                                                                <a href="" class="dropdown-item">
-                                                                    <i data-lucide="check" class="w-4 h-4 mr-2"></i> Approve
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="" class="dropdown-item">
-                                                                    <i data-lucide="scissors" class="w-4 h-4 mr-2"></i> Rework
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="" class="dropdown-item">
-                                                                    <i data-lucide="x" class="w-4 h-4 mr-2"></i> Reject
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <hr>
-                                                            </li>
-                                                            <li>
-                                                                <a href="" class="dropdown-item">
-                                                                    <i data-lucide="edit-3" class="w-4 h-4 mr-2"></i> Comment
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>-->
-                                                <!-- BEGIN: Modal Toggle -->
-                                                <div class="text-center">
-                                                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-secondary"><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit</a>
+                                    @foreach ( $boq_chk as $bchk)
+                                        <tr class="intro-x">
+                                            <td class="w-40 text-center table-report__action">
+                                                <div class="flex">
+                                                    <h3>{{ $bchk->number_id }}</h3>
                                                 </div>
-                                                <!-- END: Modal Toggle -->
-                                                <!-- BEGIN: Modal Content -->
-                                                <div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <a data-tw-dismiss="modal" href="javascript:;">
-                                                                <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                                            </a>
-                                                            <div class="modal-body p-10">
-                                                                <div class="mt-3">
-                                                                    <label class="">Status</label>
-                                                                    <div class="flex flex-col sm:flex-row mt-2">
-                                                                        <div class="form-check mr-2">
-                                                                            <input id="radio-switch-4" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-chris-evans">
-                                                                            <label class="form-check-label" for="radio-switch-4">Approve</label>
-                                                                        </div>
-                                                                        <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                                            <input id="radio-switch-5" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-liam-neeson">
-                                                                            <label class="form-check-label" for="radio-switch-5">Rework</label>
-                                                                        </div>
-                                                                        <div class="form-check mr-2 mt-2 sm:mt-0">
-                                                                            <input id="radio-switch-6" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-daniel-craig">
-                                                                            <label class="form-check-label" for="radio-switch-6">Reject</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="intro-y overflow-auto form-input mt-3">
-                                                                    <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row"> Comment </label>
-                                                                    <div class="text-center">
-                                                                        <textarea class="form-control form-control-sm" name="comment" id="comment" rows="3" class="" placeholder="ถ้ามี..."></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="grid justify-items-end mt-3">
-                                                                    <input type="submit" value="Save" class="btn btn-primary">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex items-center justify-center">{{ $bchk->project->brand_master->brand_name }}</div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex items-center justify-center">{{ $bchk->project->location_master->location_name }}</div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex items-center justify-center">{{ $bchk->project->task_name_master->task_name }}</div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex items-center justify-center">{{ $bchk->project->task_type_master->task_type_name }}</div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex items-center justify-center">{{ $bchk->project->designer_master->name }}</div>
+                                            </td>
+                                            <td class="table-report__action w-56">
+                                                <div class="flex items-center justify-center">
+                                                    @if ($bchk->status == "0")
+                                                    Drafted
+                                                    @elseif ($bchk->status == "1")
+                                                    Waiting Approval
+                                                    @elseif ($bchk->status == "2")
+                                                    Approval
+                                                    @elseif ($bchk->status == "3")
+                                                    Reject
+                                                    @elseif ($bchk->status == "4")
+                                                    Rework
+                                                @endif
                                                 </div>
-                                                <!-- END: Modal Content -->
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group flex text-center justify-center ">
+                                                    <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
+                                                    <!-- BEGIN: Modal Toggle -->
+                                                    <div class="text-center">
+                                                        <button id="btn_approve" value="{{ $bchk->id }}" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-secondary"><i data-lucide="edit" class="w-4 h-4 mr-2"></i> Edit</button>
+                                                    </div>
+                                                    <!-- END: Modal Toggle -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -315,11 +237,60 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </div>
         <!-- END: Content -->
-
+        <!-- BEGIN: Modal Content -->
+        <div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <a data-tw-dismiss="modal" href="javascript:;">
+                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
+                    </a>
+                    <div class="modal-body p-10">
+                        <form action="{{ url('/approve_store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mt-3">
+                                <label class="">Status</label>
+                                <div class="flex flex-col sm:flex-row mt-2">
+                                    <div class="form-check mr-2">
+                                        <input id="radio-switch-4" class="form-check-input" type="radio" name="status" value="2">
+                                        <label class="form-check-label" for="radio-switch-4">Approve</label>
+                                    </div>
+                                    <div class="form-check mr-2 mt-2 sm:mt-0">
+                                        <input id="radio-switch-6" class="form-check-input" type="radio" name="status" value="3">
+                                        <label class="form-check-label" for="radio-switch-6">Reject</label>
+                                    </div>
+                                    <div class="form-check mr-2 mt-2 sm:mt-0">
+                                        <input id="radio-switch-5" class="form-check-input" type="radio" name="status" value="4">
+                                        <label class="form-check-label" for="radio-switch-5">Rework</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="intro-y overflow-auto form-input mt-3">
+                                <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row"> Comment </label>
+                                <div class="text-center">
+                                    <textarea class="form-control form-control-sm" name="comment" id="comment" rows="3" class="" placeholder="ถ้ามี..."></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" id="boq_id" name="boq_id">
+                            <div class="grid justify-items-end mt-3">
+                                <input type="submit" value="Save" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END: Modal Content -->
         <!-- BEGIN: JS Assets-->
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="dist/js/app.js"></script>
         <!-- END: JS Assets-->
+        <script type="text/javascript">
+            jQuery(document).on('click', '#btn_approve', function()   {
+                var boq_id = $(this).val();
+                $('#boq_id').val(boq_id);
+                jQuery('#large-modal-size-preview').show();
+            });
+        </script>
     </body>
 </html>

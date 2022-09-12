@@ -276,7 +276,7 @@
                                 <input type="hidden" id="is_btn" name="btn_send">
                                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
                                 <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">ย้อนกลับ</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-5">Back</a>
                             </form>
                         </div>
                     <!-- END: Validation Form -->
