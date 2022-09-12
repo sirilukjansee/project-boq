@@ -59,9 +59,17 @@ class MasterTORController extends Controller
                 'is_active' => "0",
                 'update_by' => 1
             ]);
+            MasterTOR_detail::where('tor_id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
         }else {
             MasterTOR::where('id',$data->id)->update([
                 'is_active' => "1",
+                'update_by' => 1
+            ]);
+            MasterTOR_detail::where('tor_id',$data->id)->update([
+                'is_active' => "0",
                 'update_by' => 1
             ]);
         }

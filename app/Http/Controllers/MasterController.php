@@ -97,8 +97,16 @@ class MasterController extends Controller
                 'is_active' => "0",
                 'update_by' => 1
             ]);
+            catagory_sub::where('catagory_id', $data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
         }else {
             catagory::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+            catagory_sub::where('catagory_id', $data->id)->update([
                 'is_active' => "1",
                 'update_by' => 1
             ]);
