@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterTORSTable extends Migration
+class CreateMasterTorHasDetail extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateMasterTORSTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_t_o_r_s', function (Blueprint $table) {
+        Schema::create('master_t_o_r_details', function (Blueprint $table) {
             $table->id();
-            $table->string('message')->nullable()->comment('ข้อกำหนด');
+            $table->foreignId('tor_id')->nullable()->comment('รหัสตาราง masterTor');
+            $table->string('message')->nullable()->comment('ข้อกำหนดย่อย');
             $table->enum('is_active', ['0', '1'])->default('1');
             $table->text('remark')->nullable();
             $table->foreignId('create_by')->nullable();
@@ -32,6 +33,6 @@ class CreateMasterTORSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('master_t_o_r_s');
+        Schema::dropIfExists('master_tor_has_detail');
     }
 }

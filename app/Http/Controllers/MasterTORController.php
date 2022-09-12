@@ -2,81 +2,125 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\catagory_sub;
 use App\Models\MasterTOR;
+use App\Models\MasterTOR_detail;
 use Illuminate\Http\Request;
 
 class MasterTORController extends Controller
 {
     public function index()
     {
-        $tors = MasterTOR::get();
+        $masterTor = MasterTOR::get();
 
-        return view('boq.master.masterTOR', compact('tors'));
+        return view('boq.master.masterTOR', compact('masterTor'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        MasterTOR::create([
+            'message'   =>  $request->tor,
+            'is_active'    =>  "1",
+            'created_by'    =>  "1",
+        ]);
+
+        return redirect()->back()->with('success', '!!! ADD Tor Complete !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        return response()->json([
+            'dataEdit' => MasterTOR::find($id)
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $update = MasterTOR::where('id', $request->id)->update([
+            'message' => $request->tor,
+            'update_by' => 1,
+        ]);
+
+        return back()->with('success', '!!! Edit Complete !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+
+    public function changeStatus($id)
+    {
+        // return "dd";
+        $data = MasterTOR::find($id);
+
+        if ($data->is_active == "1") {
+            MasterTOR::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            MasterTOR::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function create_detail($id)
+    {
+        $masterTor_detail = MasterTOR_detail::where('tor_id', $id)->get();
+        $nameTor = MasterTOR::find($id);
+
+        return view('boq.master.masterTor_detail', compact('masterTor_detail', 'id', 'nameTor'));
+    }
+
+    public function store_detail(Request $request)
+    {
+        MasterTOR_detail::create([
+            'tor_id'    => $request->tor_id,
+            'message'   =>  $request->tor,
+            'is_active'    =>  "1",
+            'created_by'    =>  "1",
+        ]);
+
+        return redirect()->back()->with('success', '!!! ADD Tor Complete !!!');
+    }
+
+    public function edit_detail($id)
+    {
+        return response()->json([
+            'dataEdit' => MasterTOR_detail::find($id)
+        ]);
+    }
+
+    public function update_detail(Request $request)
+    {
+        $update = MasterTOR_detail::where('id', $request->id)->update([
+            'message' => $request->tor,
+            'update_by' => 1,
+        ]);
+
+        return back()->with('success', '!!! Edit Complete !!!');
+    }
+
+    public function changeStatus_detail($id)
+    {
+        // return "dd";
+        $data = MasterTOR_detail::find($id);
+
+        if ($data->is_active == "1") {
+            MasterTOR_detail::where('id',$data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
+        }else {
+            MasterTOR_detail::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+        }
+        return redirect()->back()->with('success','!!! Status Complete !!!');
     }
 }

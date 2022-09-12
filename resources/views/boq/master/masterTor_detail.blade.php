@@ -3,12 +3,17 @@
 @section('content-data')
             <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-lg font-medium mr-auto">
-                    Master TOR
+                    <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
+                        <ol class="breadcrumb breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ url('masterTOR') }}">Master TOR</a></li>
+                            <li class="breadcrumb-item active"><a>{{ $nameTor->message }}</a></li>
+                        </ol>
+                    </nav>
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <div class="text-center">
                         <!-- BEGIN: Large Modal Toggle -->
-                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Vender </a>
+                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Detail </a>
                         <!-- END: Large Modal Toggle -->
                     </div>
                 </div>
@@ -34,7 +39,7 @@
                                     <option value="all">All</option>
                                 </select>
                             </th>
-                            <th scope="col" col-index = 2>TOR
+                            <th scope="col" col-index = 2>Detail
                                 <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
                                     <option value="all">All</option>
                                 </select>
@@ -48,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($masterTor as $key => $tor)
+                            @foreach ($masterTor_detail as $key => $tor)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
                                 <td>{{ $tor->message }}</td>
@@ -61,13 +66,10 @@
                                 </td>
                                 <td class="text-center">
                                     <!-- BEGIN: Large Modal Toggle -->
-                                    <a href="{{ url('/masterTOR/detail', $tor->id) }}" class="btn btn-primary mr-2 mb-2"> <i
-                                        data-lucide="list" class="w-4 h-4 mr-2"></i> Detail</a>
-
                                     <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$tor->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                                    <a href="{{ url('/masterTOR/changeStatus', $tor->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                                    <a href="{{ url('/masterTOR/changeStatus_detail', $tor->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
                                     {{-- <a href="{{ url('/masterVender/softdelete', $tor->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                 </td>
                             </tr>
@@ -84,12 +86,13 @@
                                 <h2 class="font-medium text-base mr-auto">Add Tor</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/masterTOR/add') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('/masterTOR/add_detail') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="tor" placeholder="Please add a Tor..." required>
+                                        <input type="text" class="form-control mb-2" name="tor" placeholder="Please add a Detail..." required>
                                     </div>
+                                    <input type="hidden" value="{{$id}}" name="tor_id">
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
@@ -111,7 +114,7 @@
                                 <h2 class="font-medium text-base mr-auto">Edit Tor</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/masterTOR/update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('/masterTOR/update_detail') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
@@ -150,7 +153,7 @@
     function edit_modal(id){
         jQuery.ajax({
             type:   "GET",
-            url:    "{!! url('masterTOR/edit/"+id+"') !!}",
+            url:    "{!! url('masterTOR/edit_detail/"+id+"') !!}",
             datatype:   "JSON",
             async:  false,
             success: function(data) {
