@@ -28,23 +28,37 @@
                     </button>
                 </div>
                 @endif
-                <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-
-                </div>
+                <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-5"></div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2" id="allWork">
+                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
                         <thead>
                             <tr>
-                            <th scope="col">Code</th>
-                            <th scope="col">งานย่อย</th>
-                            <th scope="col">Brand</th>
-                            <th scope="col">Status</th>
-                            <th scope="col" align="center">Action</th>
+                                <th scope="col" col-index = 1>Code
+                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                        <option value="all">All</option>
+                                    </select>
+                                </th>
+                                <th scope="col" col-index = 2>งานย่อย
+                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                        <option value="all">All</option>
+                                    </select>
+                                </th>
+                                <th scope="col" col-index = 3>Brand
+                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                        <option value="all">All</option>
+                                    </select>
+                                </th>
+                                <th scope="col" col-index = 4>Status
+                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                        <option value="all">All</option>
+                                    </select>
+                                </th>
+                                <th scope="col" align="center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($catagories3 as $key => $cat)
-                            <tr>
+                            <tr class="intro-x">
                                 @php
                                     $brand = explode(',', $cat->brand_id);
                                 @endphp
@@ -183,16 +197,24 @@
 
 <!-- BEGIN: JS Assets-->
 <script>
+    window.onload = () => {
+        // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
+    };
+
+    getUniqueValuesFromColumn()
+
     jQuery(document).ready(function() {
-    jQuery(".select_brand").select2({
-        multiple: true,
-        placeholder: 'Select Brand'
+        jQuery(".select_brand").select2({
+            multiple: true,
+            placeholder: 'Select Brand'
+        });
+
     });
 
-});
-
     jQuery(document).ready(function () {
-        jQuery('#allWork').DataTable();
+        jQuery('.allWork').DataTable({
+            "ordering": false
+        });
     });
 
     //edit sub

@@ -10,9 +10,12 @@
         <title>Boq - </title>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+
+        <!-- BEGIN: DataTables -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/jquery.dataTables.min.css') }}" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('DataTables/jquery.dataTables.min.js') }}"></script>
+        <!-- END: DataTables -->
 
         <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
         <script src="{{ asset('select2/select2.min.js') }}"></script>
@@ -20,6 +23,7 @@
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
         <!-- END: CSS Assets-->
+        <script src="{{ asset('filter/filter.js') }}"></script>
     </head>
     <!-- END: Head -->
     <body class="main">

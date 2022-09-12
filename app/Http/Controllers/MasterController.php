@@ -14,10 +14,6 @@ class MasterController extends Controller
     public function index()
     {
         $catagories = catagory::all();
-        $catagories2 = DB::table('catagory_subs')
-        ->join('catagories','catagories.id','=','catagory_subs.catagory_id')
-        ->select('catagories.*', 'catagory_subs.*','catagories.name as catagory_name')
-        ->get();
 
         return view('boq.master.masterBoq', compact('catagories'));
     }
@@ -35,6 +31,13 @@ class MasterController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'unique:catagories'
+        ],
+        [
+            'name.unique' => "error"
+        ]);
+
         // dd($request);
         $data = array();
         $data['name'] = $request->name;
@@ -63,12 +66,12 @@ class MasterController extends Controller
     public function update(Request $request)
     {
         // dd($request->id);
-        $request->validate([
-            'name' => 'unique:catagories'
-        ],
-        [
-            'name.unique' => "error"
-        ]);
+        // $request->validate([
+        //     'name' => 'unique:catagories'
+        // ],
+        // [
+        //     'name.unique' => "error"
+        // ]);
 
         $update = DB::table('catagories')->where('id', $request->id)->update([
             'name' => $request->name,
@@ -94,8 +97,16 @@ class MasterController extends Controller
                 'is_active' => "0",
                 'update_by' => 1
             ]);
+            catagory_sub::where('catagory_id', $data->id)->update([
+                'is_active' => "0",
+                'update_by' => 1
+            ]);
         }else {
             catagory::where('id',$data->id)->update([
+                'is_active' => "1",
+                'update_by' => 1
+            ]);
+            catagory_sub::where('catagory_id', $data->id)->update([
                 'is_active' => "1",
                 'update_by' => 1
             ]);

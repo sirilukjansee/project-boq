@@ -13,6 +13,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VenderController;
+use App\Http\Controllers\MasterTORController;
 use App\Http\Controllers\ManagerController;
 // use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
@@ -111,6 +112,21 @@ Route::get('/masterVender/edit/{id}', [VenderController::class, 'edit'])->name('
 Route::post('/masterVender/update', [VenderController::class, 'update']);
 // Route::get('/masterVender/softdelete/{id}',[VenderController::class,'softdelete']);
 Route::get('/masterVender/changeStatus/{id}',[VenderController::class,'changeStatus']);
+
+//master TOR
+Route::get('/masterTOR', [MasterTORController::class, 'index'])->name('masterTOR');
+Route::post('/masterTOR/add', [MasterTORController::class, 'store'])->name('masterTOR/add');
+Route::get('/masterTOR/edit/{id}', [MasterTORController::class, 'edit']);
+Route::post('/masterTOR/update', [MasterTORController::class, 'update']);
+// Route::get('/masterTOR/softdelete/{id}',[VenderController::class,'softdelete']);
+Route::get('/masterTOR/changeStatus/{id}',[MasterTORController::class,'changeStatus']);
+
+Route::get('/masterTOR/detail/{id}', [MasterTORController::class, 'create_detail']);
+Route::post('/masterTOR/add_detail', [MasterTORController::class, 'store_detail'])->name('masterTOR/add_detail');
+Route::get('/masterTOR/edit_detail/{id}', [MasterTORController::class, 'edit_detail']);
+Route::post('/masterTOR/update_detail', [MasterTORController::class, 'update_detail']);
+// Route::get('/masterTOR/softdelete_detail/{id}',[VenderController::class,'softdelete_detail']);
+Route::get('/masterTOR/changeStatus_detail/{id}',[MasterTORController::class,'changeStatus_detail']);
 
 
 //main

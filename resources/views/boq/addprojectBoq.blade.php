@@ -135,7 +135,11 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                     <div class="group_wrapper">
+<<<<<<< HEAD
                         <form action="{{ url('/addprojectBoq/add') }}" method="post">
+=======
+                        <form action="{{ url('/addprojectBoq/add') }}" method="post" class="validate-form">
+>>>>>>> 9f350af0017e88e1faf98360ed4e4b3c3621c304
                             @csrf
                             <div class="intro-y input-form box p-5">
                                 <div class="grid grid-cols-2 gap-2">
@@ -144,8 +148,13 @@
                                             Brand <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
+<<<<<<< HEAD
                                         <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
                                             <option selected value="">Select a brand...</option>
+=======
+                                        <select name="brand" id="validation-form-1" data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
+                                            <option value="">Select a brand...</option>
+>>>>>>> 9f350af0017e88e1faf98360ed4e4b3c3621c304
                                             @foreach ($project1 as $pro1)
                                             <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
                                             @endforeach
@@ -287,6 +296,15 @@
             </div>
         </div>
         <!-- END: Content -->
+
+        <!-- BEGIN: Failed Notification Content -->
+        <div id="failed-notification-content" class="toastify-content hidden flex"> <i class="text-danger" data-lucide="x-circle"></i>
+            <div class="ml-4 mr-4">
+                <div class="font-medium">Registration failed!</div>
+                <div class="text-slate-500 mt-1"> Please check the fileld form. </div>
+            </div>
+        </div>
+        <!-- END: Failed Notification Content -->
 
         <!-- BEGIN: JS Assets-->
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>

@@ -3,12 +3,12 @@
 @section('content-data')
             <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-lg font-medium mr-auto">
-                    Master Task Type
+                    Master TOR
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <div class="text-center">
                         <!-- BEGIN: Large Modal Toggle -->
-                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Task Type </a>
+                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Vender </a>
                         <!-- END: Large Modal Toggle -->
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                     <option value="all">All</option>
                                 </select>
                             </th>
-                            <th scope="col" col-index = 2>Task Type
+                            <th scope="col" col-index = 2>TOR
                                 <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
                                     <option value="all">All</option>
                                 </select>
@@ -44,16 +44,16 @@
                                     <option value="all">All</option>
                                 </select>
                             </th>
-                            <th scope="col" align="center">Active</th>
+                            <th scope="col" align="center" col-index = 1>Active</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($task_types as $key => $task)
+                            @foreach ($masterTor as $key => $tor)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
-                                <td>{{ $task->task_type_name }}</td>
+                                <td>{{ $tor->message }}</td>
                                 <td>
-                                    @if ($task->is_active == "1")
+                                    @if ($tor->is_active == "1")
                                         Active
                                     @else
                                         Inactive
@@ -61,11 +61,14 @@
                                 </td>
                                 <td class="text-center">
                                     <!-- BEGIN: Large Modal Toggle -->
-                                    <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$task->id}})" data-tw-toggle="modal"
+                                    <a href="{{ url('/masterTOR/detail', $tor->id) }}" class="btn btn-primary mr-2 mb-2"> <i
+                                        data-lucide="list" class="w-4 h-4 mr-2"></i> Detail</a>
+
+                                    <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$tor->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                                    <a href="{{ url('/masterTaskType/changeStatus', $task->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
-                                    {{-- <a href="{{ url('/masterTaskType/softdelete', $task->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
+                                    <a href="{{ url('/masterTOR/changeStatus', $tor->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                                    {{-- <a href="{{ url('/masterVender/softdelete', $tor->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -78,14 +81,14 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Add Task type</h2>
+                                <h2 class="font-medium text-base mr-auto">Add Tor</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/masterTaskType/add') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('/masterTOR/add') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="task_type_name" placeholder="Please add a Task type..." required>
+                                        <input type="text" class="form-control mb-2" name="tor" placeholder="Please add a Tor..." required>
                                     </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
@@ -105,14 +108,14 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h2 class="font-medium text-base mr-auto">Edit Task type</h2>
+                                <h2 class="font-medium text-base mr-auto">Edit Tor</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                            <form action="{{ url('/masterTaskType/update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ url('/masterTOR/update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="task_type_name" id="task_type_name" required>
+                                        <input type="text" class="form-control mb-2" name="tor" id="get_tor" required>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
                                 </div>
@@ -130,7 +133,7 @@
             </div>
 
 <script type="text/javascript">
-     window.onload = () => {
+    window.onload = () => {
     // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
     };
 
@@ -143,19 +146,16 @@
         });
     });
 
-
     //edit main
     function edit_modal(id){
-        console.log(id);
         jQuery.ajax({
             type:   "GET",
-            url:    "{!! url('masterTaskType/edit/"+id+"') !!}",
+            url:    "{!! url('masterTOR/edit/"+id+"') !!}",
             datatype:   "JSON",
             async:  false,
             success: function(data) {
                 $('#get_id').val(data.dataEdit.id);
-                $('#task_type_name').val(data.dataEdit.task_type_name);
-                $('#update_by').val(data.dataEdit.update_by);
+                $('#get_tor').val(data.dataEdit.message);
                 jQuery('#Delete').children().remove().end();
 
             }

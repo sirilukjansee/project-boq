@@ -51,7 +51,11 @@ class BoqController extends Controller
 
             if($data >= 1)
             {
+<<<<<<< HEAD
                 $number_id = str_pad($data + 1, 4, '0', STR_PAD_LEFT);
+=======
+                $number_id = str_pad($data+1, 4, '0', STR_PAD_LEFT);
+>>>>>>> 9f350af0017e88e1faf98360ed4e4b3c3621c304
                 $template = template_boqs::create([
                     'number_id' => $data_number->number_id."-".$number_id,
                     'project_id' => $request->project_id,
