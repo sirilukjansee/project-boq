@@ -13,6 +13,7 @@ class Brand extends Model
 
     protected $filable = [
         'brand_name',
+        'is_active',
         'create_by',
         'update_by'
     ];

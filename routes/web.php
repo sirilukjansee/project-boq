@@ -166,6 +166,9 @@ Route::get('projects/export/', [BoqController::class, 'export']);
 Route::get('/checkBoq', [ManagerController::class, 'index']);
 Route::post('/approve_store',[ManagerController::class, 'store']);
 
+// Import File
+Route::post('/import-brand', [BrandController::class, 'uploadBrand']);
+
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
 
