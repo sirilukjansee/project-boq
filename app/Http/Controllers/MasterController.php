@@ -14,10 +14,6 @@ class MasterController extends Controller
     public function index()
     {
         $catagories = catagory::all();
-        $catagories2 = DB::table('catagory_subs')
-        ->join('catagories','catagories.id','=','catagory_subs.catagory_id')
-        ->select('catagories.*', 'catagory_subs.*','catagories.name as catagory_name')
-        ->get();
 
         return view('boq.master.masterBoq', compact('catagories'));
     }

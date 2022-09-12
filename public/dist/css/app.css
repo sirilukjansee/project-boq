@@ -281,6 +281,7 @@ select {
     background-size: 1.5em 1.5em;
     color-adjust: exact;
     padding-right: 2.5rem;
+    border-radius: 8px;
 }
 [multiple] {
     -webkit-print-color-adjust: unset;

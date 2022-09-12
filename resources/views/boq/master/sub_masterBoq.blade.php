@@ -28,16 +28,10 @@
                     </button>
                 </div>
                 @endif
-                <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-5">
-                    <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
-                        <div class="sm:flex sm:mr-4 mt-2 xl:mt-0">
-                            <input id="myInput"  type="text" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Search...">
-                        </div>
-                    </form>
-                </div>
+                <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-5"></div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2" id="emp-table">
-                        <thead class="table-light">
+                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                        <thead>
                             <tr>
                                 <th scope="col" col-index = 1>Code
                                     <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
@@ -209,26 +203,18 @@
 
     getUniqueValuesFromColumn()
 
-    $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#searchTable tr").filter(function() {
-            jQuery(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-
-
     jQuery(document).ready(function() {
-    jQuery(".select_brand").select2({
-        multiple: true,
-        placeholder: 'Select Brand'
-    });
+        jQuery(".select_brand").select2({
+            multiple: true,
+            placeholder: 'Select Brand'
+        });
 
-});
+    });
 
     jQuery(document).ready(function () {
-        jQuery('#allWork').DataTable();
+        jQuery('.allWork').DataTable({
+            "ordering": false
+        });
     });
 
     //edit sub
