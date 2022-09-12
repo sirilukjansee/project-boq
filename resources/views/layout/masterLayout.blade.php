@@ -20,6 +20,7 @@
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
         <!-- END: CSS Assets-->
+        <script src="{{ asset('filter/filter.js') }}"></script>
     </head>
     <!-- END: Head -->
     <body class="main">

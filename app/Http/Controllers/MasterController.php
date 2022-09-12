@@ -35,6 +35,13 @@ class MasterController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'unique:catagories'
+        ],
+        [
+            'name.unique' => "error"
+        ]);
+
         // dd($request);
         $data = array();
         $data['name'] = $request->name;
@@ -63,12 +70,12 @@ class MasterController extends Controller
     public function update(Request $request)
     {
         // dd($request->id);
-        $request->validate([
-            'name' => 'unique:catagories'
-        ],
-        [
-            'name.unique' => "error"
-        ]);
+        // $request->validate([
+        //     'name' => 'unique:catagories'
+        // ],
+        // [
+        //     'name.unique' => "error"
+        // ]);
 
         $update = DB::table('catagories')->where('id', $request->id)->update([
             'name' => $request->name,

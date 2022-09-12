@@ -12,7 +12,6 @@ class TaskNameController extends Controller
     {
         $tasknames = taskname::all();
 
-
         return view('boq.master.task_name', compact('tasknames'));
     }
 

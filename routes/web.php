@@ -13,6 +13,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VenderController;
+use App\Http\Controllers\MasterTORController;
 // use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
 
@@ -112,6 +113,14 @@ Route::get('/masterVender/edit/{id}', [VenderController::class, 'edit'])->name('
 Route::post('/masterVender/update', [VenderController::class, 'update']);
 // Route::get('/masterVender/softdelete/{id}',[VenderController::class,'softdelete']);
 Route::get('/masterVender/changeStatus/{id}',[VenderController::class,'changeStatus']);
+
+//master TOR
+Route::get('/masterTOR', [MasterTORController::class, 'index'])->name('masterTOR');
+// Route::post('/masterVender/add', [VenderController::class, 'store'])->name('add_masterVender');
+// Route::get('/masterVender/edit/{id}', [VenderController::class, 'edit'])->name('/masterVender/edit/{id}');
+// Route::post('/masterVender/update', [VenderController::class, 'update']);
+// // Route::get('/masterVender/softdelete/{id}',[VenderController::class,'softdelete']);
+// Route::get('/masterVender/changeStatus/{id}',[VenderController::class,'changeStatus']);
 
 
 //main
