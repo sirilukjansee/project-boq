@@ -56,7 +56,7 @@
                                 <th scope="col" align="center">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="searchTable">
+                        <tbody>
                             @foreach ($catagories3 as $key => $cat)
                             <tr class="intro-x">
                                 @php
@@ -198,7 +198,7 @@
 <!-- BEGIN: JS Assets-->
 <script>
     window.onload = () => {
-        console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
+        // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
     };
 
     getUniqueValuesFromColumn()

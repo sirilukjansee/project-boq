@@ -135,7 +135,7 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                     <div class="group_wrapper">
-                        <form action="{{ url('/addprojectBoq/add') }}" method="post" >
+                        <form action="{{ url('/addprojectBoq/add') }}" method="post" class="validate-form">
                             @csrf
                             <div class="intro-y input-form box p-5">
                                 <div class="grid grid-cols-2 gap-2">
@@ -144,7 +144,7 @@
                                             Brand
                                         </label>
                                         {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
-                                        <select name="brand" data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
+                                        <select name="brand" id="validation-form-1" data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
                                             <option value="">Select a brand...</option>
                                             @foreach ($project1 as $pro1)
                                             <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
@@ -276,6 +276,15 @@
             </div>
         </div>
         <!-- END: Content -->
+
+        <!-- BEGIN: Failed Notification Content -->
+        <div id="failed-notification-content" class="toastify-content hidden flex"> <i class="text-danger" data-lucide="x-circle"></i>
+            <div class="ml-4 mr-4">
+                <div class="font-medium">Registration failed!</div>
+                <div class="text-slate-500 mt-1"> Please check the fileld form. </div>
+            </div>
+        </div>
+        <!-- END: Failed Notification Content -->
 
         <!-- BEGIN: JS Assets-->
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>

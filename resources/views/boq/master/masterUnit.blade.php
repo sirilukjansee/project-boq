@@ -26,13 +26,25 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2" id="allWork">
+                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
                         <thead>
                             <tr>
-                            <th scope="col" class="text-center">ID</th>
-                            <th scope="col">Unit</th>
-                            <th scope="col">Status</th>
-                            <th scope="col" align="center">Active</th>
+                            <th scope="col" class="text-center" col-index = 1>ID
+                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                    <option value="all">All</option>
+                                </select>
+                            </th>
+                            <th scope="col" col-index = 2>Unit
+                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                    <option value="all">All</option>
+                                </select>
+                            </th>
+                            <th scope="col" col-index = 3>Status
+                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                    <option value="all">All</option>
+                                </select>
+                            </th>
+                            <th scope="col" align="center" col-index = 1>Active</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -119,9 +131,17 @@
             </div>
 
 <script type="text/javascript">
+    window.onload = () => {
+    // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
+    };
+
+    getUniqueValuesFromColumn()
+
     //show data-table
     jQuery(document).ready(function () {
-        jQuery('#allWork').DataTable();
+        jQuery('.allWork').DataTable({
+            "ordering": false
+        });
     });
 
 
