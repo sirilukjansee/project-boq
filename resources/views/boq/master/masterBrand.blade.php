@@ -8,6 +8,7 @@
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <div class="text-center">
                         <!-- BEGIN: Large Modal Toggle -->
+                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white"><i data-lucide="database" class="w-4 h-4 mr-2"></i> Import Brand </a>
                         <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Brand </a>
                         <!-- END: Large Modal Toggle -->
                     </div>
@@ -124,6 +125,34 @@
                                     <button type="submit" class="btn btn-primary w-20">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Large Modal Content -->
+
+                <!-- BEGIN: Large Modal Content -->
+                <div id="large-modal-size-import" class="modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="font-medium text-base mr-auto">Import Brand</h2>
+                            </div> <!-- END: Modal Header -->
+                            <!-- BEGIN: Modal Body -->
+                                <div class="modal-body">
+                                    <form data-single="true" action="/file-upload" class="dropzone">
+                                        <div class="fallback"> <input name="file" type="file" /> </div>
+                                        <div class="dz-message" data-dz-message>
+                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
+                                            <div class="text-slate-500"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- BEGIN: Modal Footer -->
+                                <div class="modal-footer">
+                                    <button type="button" data-tw-dismiss="modal"
+                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                </div> <!-- END: Modal Footer -->
                         </div>
                     </div>
                 </div>
