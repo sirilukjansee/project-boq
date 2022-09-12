@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\Brand;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class UsersImport implements ToModel
+class UsersImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,10 +16,11 @@ class UsersImport implements ToModel
     public function model(array $row)
     {
         return new Brand([
-            "brand_name" => $row['brand_name'],
-            "is_active" => $row['is_active'],
-            // "create_by" => $row['create_by'],
-            // "update_by" => $row['update_by'],
+            'code' => $row['code'],
+            'brand_name' => $row['brand_name'],
+            // "is_active" => $row['is_active'],
+            'create_by' => 2,
+            'update_by' => 2,
         ]);
     }
 }

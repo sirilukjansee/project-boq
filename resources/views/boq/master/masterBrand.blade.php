@@ -86,7 +86,10 @@
                             <form action="{{ url('/masterBrand/add') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2" name="code" placeholder="Please add a Code..." required>
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
                                         <input type="text" class="form-control mb-2" name="brand_name" placeholder="Please add a Brand..." required>
                                     </div>
                                 </div>
@@ -113,7 +116,10 @@
                             <form action="{{ url('/masterBrand/update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
+                                    <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                        <input type="text" class="form-control mb-2" name="code" id="code" required>
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-8 input-form mt-3">
                                         <input type="text" class="form-control mb-2" name="brand_name" id="brand_name" required>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
@@ -138,7 +144,7 @@
                                 <h2 class="font-medium text-base mr-auto">Import Brand</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                            <form data-single="true" action="{{url('/import-brand')}}" class="dropzone" method="post">
+                            <form data-single="true" action="{{url('/import-brand')}}" class="dropzone" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
                                     <input name="file" type="file" />
@@ -184,6 +190,7 @@
             async:  false,
             success: function(data) {
                 $('#get_id').val(data.dataEdit.id);
+                $('#code').val(data.dataEdit.code);
                 $('#brand_name').val(data.dataEdit.brand_name);
                 $('#update_by').val(data.dataEdit.update_by);
                 jQuery('#Delete').children().remove().end();

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\UsersImport;
+use App\Imports\BrandsImport;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +21,7 @@ class BrandController extends Controller
     {
         // dd($request);
         $brand = new Brand;
+        $brand->code = $request->code;
         $brand->brand_name = $request->brand_name;
         $brand->create_by = 1;
         $brand->update_by = 1;
@@ -47,6 +48,7 @@ class BrandController extends Controller
         ]);
 
         $design_pm = Brand::find($request->id)->update([
+            'code' => $request->code,
             'brand_name' => $request->brand_name,
             'update_by' => 1
         ]);
@@ -82,7 +84,7 @@ class BrandController extends Controller
     public function uploadBrand(Request $request)
     {
         // dd($request);
-        Excel::import(new UsersImport, $request->file);
+        Excel::import(new BrandsImport, $request->file);
 
         return back();
     }
