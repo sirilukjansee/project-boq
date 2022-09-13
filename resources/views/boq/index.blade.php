@@ -8,10 +8,14 @@
         <meta name="keywords" content="admin template, Icewall Admin Template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
         <title>All project boq - </title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('filter/filter.js') }}"></script>
+        <!-- BEGIN: DataTables -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/jquery.dataTables.min.css') }}" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{ asset('DataTables/jquery.dataTables.min.js') }}"></script>
+        <!-- END: DataTables -->
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
         <!-- END: CSS Assets-->
@@ -202,77 +206,71 @@
                         </div>
                         @endif
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                            <table class="table table-hover table-auto sm:mt-2" id="allWork">
+                            <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
                                 <thead>
                                     <tr>
-                                        <th class="whitespace-nowrap">#</th>
-                                        <th class="whitespace-nowrap">ID</th>
-                                        <th class="text-center whitespace-nowrap">Brand</th>
-                                        <th class="text-center whitespace-nowrap">Location</th>
-                                        <th class="text-center whitespace-nowrap">Area/Sq.m</th>
-                                        <th class="text-center whitespace-nowrap">Task Type</th>
-                                        <th class="text-center whitespace-nowrap">Task Name</th>
-                                        <th class="text-center whitespace-nowrap">Open date</th>
-                                        <th class="text-center whitespace-nowrap">IO</th>
-                                        <th class="text-center whitespace-nowrap">Designer</th>
-                                        <th class="text-center whitespace-nowrap">Status</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col" col-index = 2>ID
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 3>Brand
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 4>Location
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 5>Area/Sq.m
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 6>Task Type
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 7>Task Name
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 8>Open date
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 9>Designer
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col" col-index = 10>Status
+                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
+                                                <option value="all">All</option>
+                                            </select>
+                                        </th>
+                                        <th scope="col">IO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($project as $key => $pro)
                                     <tr data-href="{{ url('allBoq', $pro->id) }}" class="intro-x cursor-pointer">
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <h3>{{ $key + 1 }}</h3>
-                                            </div>
-                                        </td>
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <h3>{{ $pro->number_id }}</h3>
-                                            </div>
-                                        </td>
+                                        <td class="text-center table-report__action">{{ $key + 1 }}</td>
+                                        <td class="w-40 text-center table-report__action"><h3>{{ $pro->number_id }}</td>
+                                        <td class="table-report__action w-56">{{ $pro->brand_master->brand_name }}</td>
+                                        <td class="table-report__action w-56">{{ $pro->location_master->location_name }}</td>
+                                        <td class="table-report__action w-56">{{ $pro->area }}</td>
+                                        <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
+                                        <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
+                                        <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
+                                        <td class="table-report__action w-56">{{ $pro->designer_master->name }}</td>
                                         <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <b class="text-center">{{ $pro->brand_master->brand_name }}</b>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p class="text-center">{{ $pro->location_master->location_name }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>{{ $pro->area }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="text-center table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>{{ $pro->task_type_master->task_type_name }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="text-center table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>{{ $pro->task_name_master->task_name }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="text-center table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>{{ $pro->io }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>{{ $pro->designer_master->name }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
                                                 @if ( @$pro->project_id1->name == "Master BOQ" )
                                                     @if ($pro->project_id1->status == "0")
                                                     Drafted
@@ -286,8 +284,8 @@
                                                     Rework
                                                     @endif
                                                 @endif
-                                            </div>
                                         </td>
+                                        <td class="table-report__action w-56">{{ $pro->io }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -306,9 +304,17 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="dist/js/app.js"></script>
         <script>
+            window.onload = () => {
+                // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
+            };
+
+            getUniqueValuesFromColumn()
+
             //data table
             jQuery(document).ready(function () {
-                jQuery('#allWork').DataTable();
+                jQuery('.allWork').DataTable({
+                    "ordering": false
+                });
             });
 
             //row button

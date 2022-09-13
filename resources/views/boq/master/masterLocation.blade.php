@@ -8,6 +8,7 @@
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <div class="text-center">
                         <!-- BEGIN: Large Modal Toggle -->
+                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white"><i data-lucide="database" class="w-4 h-4 mr-2"></i> Import Location </a>
                         <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Location </a>
                         <!-- END: Large Modal Toggle -->
                     </div>
