@@ -91,20 +91,23 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="name" placeholder="Please add a Designer..." required>
+                                        <input type="text" class="form-control mb-2 chk_name" name="name" placeholder="Please add a Designer..." required>
+                                        <p class="text-danger" id="comment"></p>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                        <input type="email" class="form-control mb-2" name="email" placeholder="Please add a Email..." required>
+                                        <input type="email" class="form-control mb-2 chk_email" name="email" placeholder="Please add a Email..." required>
+                                        <p class="text-danger" id="comment_email"></p>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="tel" placeholder="Please add a Telephone..." required>
+                                        <input type="text" class="form-control mb-2 tel" name="tel" placeholder="Please add a Telephone..." required>
+                                        <p class="text-danger" id="comment_tel"></p>
                                     </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -124,13 +127,16 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="name" id="name" required>
+                                        <input type="text" class="form-control mb-2 chk_name_edit" name="name" id="name" required>
+                                        <p class="text-danger" id="edit_comment"></p>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                        <input type="email" class="form-control mb-2" name="email" id="email" required>
+                                        <input type="email" class="form-control mb-2 chk_email_edit" name="email" id="email" required>
+                                        <p class="text-danger" id="edit_comment_email"></p>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6 input-form mt-3">
                                         <input type="text" class="form-control mb-2" name="tel" id="tel" required>
+                                        <p class="text-danger" id="edit_comment_tel"></p>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
                                 </div>
@@ -138,7 +144,7 @@
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save_edit">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -160,7 +166,7 @@
                             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
 
                                     <div class="col-span-12 sm:col-span-4 input-form mt-3">
-                                        <input name="file" type="file" class="form-control-xl"/>
+                                        <input name="file" type="file" class="form-control-xl" required/>
                                     </div>
                             </div>
                             <!-- BEGIN: Modal Footer -->
@@ -199,6 +205,9 @@
 
     //edit main
     function edit_modal(id){
+        $('#edit_comment_email').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
         console.log(id);
         jQuery.ajax({
             type:   "GET",
@@ -216,6 +225,113 @@
             }
         });
     }
+
+    //เช็คข้อมูลซ้ำ
+    $('.chk_name').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment').text('');
+            document.getElementById('btn_save').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterDesignPM/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.name == datakey) {
+                        $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                    }
+                    if (value.email == $('.chk_email').val()) {
+                        $('#comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
+    $('.chk_email').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment_email').text('');
+            document.getElementById('btn_save').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterDesignPM/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.email == datakey) {
+                        $('#comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                    }if (value.name == $('.chk_name').val()) {
+                        $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                    }
+
+                });
+
+            },
+        });
+    });
+
+    $('.chk_name_edit').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterDesignPM/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.name == datakey) {
+                        $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                    }
+                    // if (value.email == $('.chk_email_edit').val()) {
+                    //     $('#edit_comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
+                    //     document.getElementById('btn_save').disabled = true;
+                    // }
+                });
+
+            },
+        });
+    });
+
+    $('.chk_email_edit').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#edit_comment_email').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterDesignPM/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.email == datakey) {
+                        $('#edit_comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }if (value.name == $('.chk_name_edit').val()) {
+                        $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+
+                });
+
+            },
+        });
+    });
+
 </script>
 <!-- END: JS Assets-->
 @endsection

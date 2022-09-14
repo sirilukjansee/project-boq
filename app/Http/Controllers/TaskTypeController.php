@@ -87,4 +87,11 @@ class TaskTypeController extends Controller
 
         return back()->with('success','!!! Import File Complete !!!');
     }
+
+    public function taskTypeChk($data)
+    {
+        return response()->json([
+            'dataChk' => task_type::get()
+        ]);
+    }
 }

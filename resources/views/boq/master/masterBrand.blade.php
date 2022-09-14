@@ -81,17 +81,19 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="code" placeholder="Please add a Code..." required>
+                                        <input type="text" class="form-control mb-2 chk_code" name="code" placeholder="Please add a Code..." required>
+                                        <p class="text-danger" id="comment"></p>
                                     </div>
                                     <div class="col-span-12 sm:col-span-6 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="brand_name" placeholder="Please add a Brand..." required>
+                                        <input type="text" class="form-control mb-2 chk_name" name="brand_name" placeholder="Please add a Brand..." required>
+                                        <p class="text-danger" id="comment2"></p>
                                     </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -110,11 +112,13 @@
                             <form action="{{ url('/masterBrand/update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-4 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="code" id="code" required>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2 chk_code" name="code" id="code" required>
+                                        <p class="text-danger" id="edit_comment"></p>
                                     </div>
-                                    <div class="col-span-12 sm:col-span-8 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="brand_name" id="brand_name" required>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2 chk_name" name="brand_name" id="brand_name" required>
+                                        <p class="text-danger" id="edit_comment2"></p>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
                                 </div>
@@ -122,7 +126,7 @@
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save_edit">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -182,6 +186,9 @@
 
     //edit main
     function edit_modal(id){
+            $('#edit_comment').text('');
+            $('#edit_comment2').text('');
+            document.getElementById('btn_save_edit').disabled = false;
         jQuery.ajax({
             type:   "GET",
             url:    "{!! url('masterBrand/edit/"+id+"') !!}",
@@ -197,6 +204,64 @@
             }
         });
     }
+
+        //เช็คข้อมูลซ้ำ
+        jQuery(document).ready(function() {
+
+        });
+
+        $('.chk_code').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterBrand/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.code == datakey) {
+                        $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                        $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
+    $('.chk_name').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment2').text('');
+            $('#edit_comment2').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterBrand/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.brand_name == datakey) {
+                        $('#comment2').text("'" + value.brand_name + "' มีอยูในระบบแล้ว !");
+                        $('#edit_comment2').text("'" + value.brand_name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
 </script>
 <!-- END: JS Assets-->
 @endsection

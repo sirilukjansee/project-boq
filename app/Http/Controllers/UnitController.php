@@ -86,4 +86,11 @@ class UnitController extends Controller
 
         return back()->with('success','!!! Import File Complete !!!');
     }
+
+    public function unitChk($data)
+    {
+        return response()->json([
+            'dataChk' => Unit::get()
+        ]);
+    }
 }

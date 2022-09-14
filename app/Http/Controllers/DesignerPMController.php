@@ -92,4 +92,11 @@ class DesignerPMController extends Controller
 
         return back()->with('success','!!! Import File Complete !!!');
     }
+
+    public function designChk($data)
+    {
+        return response()->json([
+            'dataChk' => design_and_pm::get()
+        ]);
+    }
 }

@@ -11,7 +11,7 @@
                         <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white">
                             <i data-lucide="database" class="w-4 h-4 mr-2"></i> Import Vender
                         </a>
-                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2">
+                        <a href="javascript:;" id="btn_add" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2">
                             <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Vender
                         </a>
                         <!-- END: Large Modal Toggle -->
@@ -84,14 +84,15 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="name" placeholder="Please add a Name..." required>
+                                        <input type="text" class="form-control mb-2 chk_name" name="name" placeholder="Please add a Name..." required>
+                                        <p class="text-danger" id="comment"></p>
                                     </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -111,7 +112,8 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="name" id="name" required>
+                                        <input type="text" class="form-control mb-2 chk_name" name="name" id="name" required>
+                                        <p class="text-danger" id="edit_comment"></p>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
                                 </div>
@@ -119,7 +121,7 @@
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save_edit">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -179,6 +181,9 @@
 
     //edit main
     function edit_modal(id){
+        $('#edit_comment').text('');
+        document.getElementById('btn_save_edit').disabled = false;
+
         jQuery.ajax({
             type:   "GET",
             url:    "{!! url('masterVender/edit/"+id+"') !!}",
@@ -193,6 +198,40 @@
             }
         });
     }
+
+     //เช็คข้อมูลซ้ำ
+     $('#btn_add').on('click', function() {
+            $('#comment').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+        });
+
+     $('.chk_name').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('masterVender/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.name == datakey) {
+                            $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                            $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
 </script>
 <!-- END: JS Assets-->
 @endsection

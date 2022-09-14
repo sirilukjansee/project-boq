@@ -85,4 +85,11 @@ class VenderController extends Controller
 
         return back()->with('success','!!! Import File Complete !!!');
     }
+
+    public function venderChk($data)
+    {
+        return response()->json([
+            'dataChk' => Vender::get()
+        ]);
+    }
 }

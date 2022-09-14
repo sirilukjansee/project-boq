@@ -87,4 +87,11 @@ class LocationController extends Controller
 
         return back()->with('success','!!! Import File Complete !!!');
     }
+
+    public function locationChk($data)
+    {
+        return response()->json([
+            'dataChk' => Location::get()
+        ]);
+    }
 }

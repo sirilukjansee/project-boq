@@ -112,16 +112,18 @@
                                     <input type="text" class="form-control" name="name" placeholder="{{ $catagories->name }}" disabled>
                                 </div>
                                 <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control" name="code1" minlength="2" maxlength="2" placeholder="Ex: GG" required>
+                                    <input type="text" class="form-control chk_code" name="code1" minlength="2" maxlength="2" placeholder="Ex: GG" required>
+                                    <p class="text-danger" id="comment"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control" name="code2" minlength="3" maxlength="3" placeholder="Ex: 001" required>
+                                    <input type="text" class="form-control chk_code2" name="code2" minlength="3" maxlength="3" placeholder="Ex: 001" required>
                                 </div>
                                 <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control" name="code3" minlength="2" maxlength="2" placeholder="- -">
+                                    <input type="text" class="form-control chk_code3" name="code3" minlength="2" maxlength="2" placeholder="- -">
                                 </div>
                                 <div class="col-span-12 sm:col-span-12">
-                                    <input type="text" class="form-control" name="name" placeholder="Name">
+                                    <input type="text" class="form-control chk_name" name="name" placeholder="Name">
+                                    <p class="text-danger" id="comment2"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
                                     <select id="" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
@@ -135,7 +137,7 @@
                             <div class="modal-footer">
                                 <button type="button" data-tw-dismiss="modal"
                                     class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
                             </div> <!-- END: Modal Footer -->
                         </form>
                     </div>
@@ -158,16 +160,18 @@
                                     <input type="text" class="form-control" id="name" name="name" placeholder="{{ $catagories->name }}" disabled>
                                 </div>
                                 <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control" id="get_code1" name="code1" minlength="2" maxlength="2" required>
+                                    <input type="text" class="form-control chk_code_edit" id="get_code1" name="code1" minlength="2" maxlength="2" required>
+                                    <p class="text-danger" id="edit_comment"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control" id="get_code2" name="code2" minlength="3" maxlength="3" required>
+                                    <input type="text" class="form-control chk_code_edit2" id="get_code2" name="code2" minlength="3" maxlength="3" required>
                                 </div>
                                 <div class="col-span-12 sm:col-span-4">
-                                    <input type="text" class="form-control" id="get_code3" placeholder="- -" name="code3" minlength="2" maxlength="2">
+                                    <input type="text" class="form-control chk_code_edit3" id="get_code3" placeholder="- -" name="code3" minlength="2" maxlength="2">
                                 </div>
                                 <div class="col-span-12 sm:col-span-12">
-                                    <input type="text" class="form-control" id="sub_name" name="name">
+                                    <input type="text" class="form-control chk_name_edit" id="sub_name" name="name">
+                                    <p class="text-danger" id="edit_comment2"></p>
                                 </div>
                                 <div class="col-span-12 sm:col-span-12 input-form">
                                     <select id="get_brand_edit" class="form-control select_brand" name="brand_id[]" multiple placeholder="Select Brand" required>
@@ -182,7 +186,7 @@
                             <div class="modal-footer">
                                 <button type="button" data-tw-dismiss="modal"
                                     class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                <button type="submit" class="btn btn-primary w-20" id="btn_save_edit">บันทึก</button>
                             </div> <!-- END: Modal Footer -->
                         </form>
                     </div>
@@ -221,14 +225,22 @@
 
 <!-- BEGIN: JS Assets-->
 <script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery(".select_brand").select2({
+            multiple: true,
+            placeholder: 'Select Brand'
+        });
+
+    });
+
    jQuery(document).ready(function() {
         var table = jQuery('#example').DataTable({
             "bLengthChange": true,
             "iDisplayLength": 10,
             "ordering": false,
-        });
+    });
 
-        jQuery(".filterhead").not(":eq(4)").each( function ( i ) {
+    jQuery(".filterhead").not(":eq(4)").each( function ( i ) {
             var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
                 .appendTo( jQuery(this).empty() )
                 .on( 'change', function () {
@@ -243,6 +255,9 @@
 
     //edit sub
     function edit_modal_sub(id){
+        $('#comment2').text('');
+        $('#edit_comment2').text('');
+        document.getElementById('btn_save_edit').disabled = true;
         // console.log(id);
         var x = document.getElementById("get_brand_edit");
         var option = document.createElement("option");
@@ -290,6 +305,98 @@
             }
         });
     }
+
+    //เช็คข้อมูลซ้ำ
+    $('.chk_name').on('click', function() {
+            var datakey = $('.chk_code').val() + $('.chk_code2').val() + $('.chk_code3').val();
+            $('#comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.code == datakey) {
+                            $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+
+                        }
+                    });
+
+                },
+            });
+    });
+
+    // $('.chk_name_edit').on('click', function() {
+    //         var datakey = $('.chk_code_edit').val() + $('.chk_code_edit2').val() + $('.chk_code_edit3').val();
+    //         $('#edit_comment').text('');
+    //         document.getElementById('btn_save_edit').disabled = false;
+    //         jQuery.ajax({
+    //             type:   "GET",
+    //             url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+    //             datatype:   "JSON",
+    //             async:  false,
+    //             success: function(data) {
+    //                 // $('#chk_code').val(data.dataChk.code);
+    //                 jQuery.each(data.dataChk, function(key, value){
+    //                     if (value.code == datakey) {
+    //                         $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+    //                         document.getElementById('btn_save_edit').disabled = true;
+    //                     }
+    //                 });
+
+    //             },
+    //         });
+    // });
+
+    $('.chk_name').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment2').text('');
+            document.getElementById('btn_save').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.name == datakey) {
+                        $('#comment2').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
+    $('.chk_name_edit').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#edit_comment2').text('');
+            document.getElementById('btn_save_edit').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('sub_masterBoq/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.name == datakey) {
+                        $('#edit_comment2').text("'" + value.name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
 </script>
 <!-- END: JS Assets-->
 @endsection

@@ -195,4 +195,18 @@ class MasterController extends Controller
         return back()->with('success','!!! Import File Complete !!!');
     }
 
+    public function masterBoqChk($data)
+    {
+        return response()->json([
+            'dataChk' => catagory::get()
+        ]);
+    }
+
+    public function subMasterBoqChk($data)
+    {
+        return response()->json([
+            'dataChk' => catagory_sub::get()
+        ]);
+    }
+
 }

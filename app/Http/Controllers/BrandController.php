@@ -88,4 +88,11 @@ class BrandController extends Controller
 
         return back()->with('success','!!! Import File Complete !!!');
     }
+
+    public function brandChk($data)
+    {
+        return response()->json([
+            'dataChk' => Brand::get()
+        ]);
+    }
 }

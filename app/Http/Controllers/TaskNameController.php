@@ -87,4 +87,11 @@ class TaskNameController extends Controller
         return back()->with('success','!!! Import File Complete !!!');
     }
 
+    public function taskNameChk($data)
+    {
+        return response()->json([
+            'dataChk' => taskname::get()
+        ]);
+    }
+
 }
