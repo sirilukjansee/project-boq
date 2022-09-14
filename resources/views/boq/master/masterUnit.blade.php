@@ -26,25 +26,19 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                    <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
-                            <th scope="col" class="text-center" col-index = 1>ID
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 2>Unit
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 3>Status
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" align="center" col-index = 1>Active</th>
+                                <th scope="col" style="text-align: center;">ID</th>
+                                <th scope="col">Unit</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="text-align: center;">Action</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="filterhead" style="text-align: center;">ID</th>
+                                <th scope="col" class="filterhead">Unit</th>
+                                <th scope="col" class="filterhead">Status</th>
+                                <th scope="col" class="filterhead"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,9 +48,9 @@
                                 <td>{{ $un->unit_name }}</td>
                                 <td>
                                     @if ($un->is_active == "1")
-                                        Active
+                                        ON
                                     @else
-                                        Inactive
+                                        OFF
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -64,8 +58,7 @@
                                     <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$un->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                                    <a href="{{ url('/masterUnit/changeStatus', $un->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
-
+                                        <a href="{{ url('/masterUnit/changeStatus', $un->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i>On/Off</a>
                                     {{-- <a href="{{ url('/masterUnit/softdelete', $un->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                 </td>
                             </tr>
@@ -131,17 +124,24 @@
             </div>
 
 <script type="text/javascript">
-    window.onload = () => {
-    // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-    };
+    jQuery(document).ready(function() {
+     var table = jQuery('#example').DataTable({
+         "bLengthChange": true,
+         "iDisplayLength": 10,
+         "ordering": false,
+	   });
 
-    getUniqueValuesFromColumn()
-
-    //show data-table
-    jQuery(document).ready(function () {
-        jQuery('.allWork').DataTable({
-            "ordering": false
-        });
+       jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+        var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+            .appendTo( jQuery(this).empty() )
+            .on( 'change', function () {
+               var term = $(this).val();
+                table.column( i ).search(term, false, false ).draw();
+            } );
+ 	      table.column( i ).data().unique().each( function ( d, j ) {
+            	select.append( '<option value="'+d+'">'+d+'</option>' )
+        } );
+		} );
     });
 
 

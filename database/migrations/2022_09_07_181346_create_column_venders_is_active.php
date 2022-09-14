@@ -14,7 +14,7 @@ class CreateColumnVendersIsActive extends Migration
     public function up()
     {
         Schema::table('venders', function (Blueprint $table) {
-            $table->enum('is_active', ['0', '1'])->default('1')->after('last_name');
+            $table->enum('is_active', ['0', '1'])->default('1')->after('name');
         });
     }
 

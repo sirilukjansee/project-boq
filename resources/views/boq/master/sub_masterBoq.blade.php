@@ -30,30 +30,21 @@
                 @endif
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start mb-5"></div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                    <table class="table table-hover table-auto sm:mt-2 allWork" id="example">
                         <thead>
                             <tr>
-                                <th scope="col" col-index = 1>Code
-                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                        <option value="all">All</option>
-                                    </select>
-                                </th>
-                                <th scope="col" col-index = 2>งานย่อย
-                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                        <option value="all">All</option>
-                                    </select>
-                                </th>
-                                <th scope="col" col-index = 3>Brand
-                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                        <option value="all">All</option>
-                                    </select>
-                                </th>
-                                <th scope="col" col-index = 4>Status
-                                    <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                        <option value="all">All</option>
-                                    </select>
-                                </th>
-                                <th scope="col" align="center">Action</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">งานย่อย</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="text-align: center;">Action</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="filterhead">Code</th>
+                                <th scope="col" class="filterhead">งานย่อย</th>
+                                <th scope="col" class="filterhead">Brand</th>
+                                <th scope="col" class="filterhead">Status</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,9 +71,9 @@
                                 </td>
                                 <td>
                                     @if ($cat->is_active == "1")
-                                        Active
+                                        ON
                                     @else
-                                        Inactive
+                                        OFF
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -196,25 +187,25 @@
 
 
 <!-- BEGIN: JS Assets-->
-<script>
-    window.onload = () => {
-        // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-    };
-
-    getUniqueValuesFromColumn()
-
-    jQuery(document).ready(function() {
-        jQuery(".select_brand").select2({
-            multiple: true,
-            placeholder: 'Select Brand'
+<script type="text/javascript">
+   jQuery(document).ready(function() {
+        var table = jQuery('#example').DataTable({
+            "bLengthChange": true,
+            "iDisplayLength": 10,
+            "ordering": false,
         });
 
-    });
-
-    jQuery(document).ready(function () {
-        jQuery('.allWork').DataTable({
-            "ordering": false
-        });
+        jQuery(".filterhead").not(":eq(4)").each( function ( i ) {
+            var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+                .appendTo( jQuery(this).empty() )
+                .on( 'change', function () {
+                var term = $(this).val();
+                    table.column( i ).search(term, false, false ).draw();
+                } );
+            table.column( i ).data().unique().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+            } );
+        } );
     });
 
     //edit sub

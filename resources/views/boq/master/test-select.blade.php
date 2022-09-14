@@ -18,11 +18,17 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
+        <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
         <!-- END: CSS Assets-->
+        <style>
+            thead input {
+        width: 100%;
+    }
+        </style>
     </head>
     <!-- END: Head -->
     <body class="main">
@@ -171,50 +177,94 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Content -->
         <div class="content">
             <div class="intro-y mt-3">
-                <h2 class="text-lg font-medium mr-auto">
-                    Create BOQ
-                </h2>
-                <div class="col-span-6 mt-5">
-                    <select data-placeholder="Select your favorite actors" id="addition" name="select1" class="tom-select w-full">
-                        {{-- <option value="1">Leonardo DiCaprio</option>
-                        <option value="2">Johnny Deep</option>
-                        <option value="3">Robert Downey, Jr</option>
-                        <option value="4">Samuel L. Jackson</option>
-                        <option value="5">Morgan Freeman</option> --}}
-                    </select>
-                </div>
-                <div class="col-span-6 mt-5" id="cc"></div>
-                <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary mt-5" id="btn222" rel="" />
-            <!-- BEGIN: Validation Form -->
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Office</th>
+                            <th>Age</th>
+                            <th>Start date</th>
+                            <th>Salary</th>
+                        </tr>
+                        <tr>
+                            <th class="filterhead">Name</th>
+                            <th class="filterhead">Position</th>
+                            <th class="filterhead">Office</th>
+                            <th class="filterhead">Age</th>
+                            <th class="filterhead">Start date</th>
+                            <th class="filterhead"></th>
+                        </tr>
 
-            <!-- END: Validation Form -->
-
-
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Brielle Williamson</td>
+                            <td>Integration Specialist</td>
+                            <td>New York</td>
+                            <td>61</td>
+                            <td>2012-12-02</td>
+                            <td>$372,000</td>
+                        </tr>
+                        <tr>
+                            <td>Brielle Williamson</td>
+                            <td>Integration Specialist</td>
+                            <td>New York</td>
+                            <td>61</td>
+                            <td>2012-12-02</td>
+                            <td>$372,000</td>
+                        </tr>
+                        <tr>
+                            <td>Herrod Chandler</td>
+                            <td>Sales Assistant</td>
+                            <td>San Francisco</td>
+                            <td>59</td>
+                            <td>2012-08-06</td>
+                            <td>$137,500</td>
+                        </tr>
+                        <tr>
+                            <td>Rhona Davidson</td>
+                            <td>Integration Specialist</td>
+                            <td>Tokyo</td>
+                            <td>55</td>
+                            <td>2010-10-14</td>
+                            <td>$327,900</td>
+                        </tr>
+                        <tr>
+                            <td>Colleen Hurst</td>
+                            <td>Javascript Developer</td>
+                            <td>San Francisco</td>
+                            <td>39</td>
+                            <td>2009-09-15</td>
+                            <td>$205,500</td>
+                        </tr>
+                    </tbody>
+                </table>
         </div>
         <!-- END: Content -->
+        <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('dist/js/app.js')}}"></script>
+
         <script type="text/javascript">
-        // jQuery(document).ready(function()
-        // {
-            var html = '';
-        html += '<select data-placeholder="Select your favorite actors" id="sss" class="tom-select w-full"><option value="1">Leonardo DiCaprio</option></select>';
-        $('#cc').append(html);
+        jQuery(document).ready(function() {
+     var table = jQuery('#example').DataTable({
+         "bLengthChange": false,
+         "iDisplayLength": 15,
+         "ordering": false,
+	   });
 
-        // });
-
-        </script>
-    </div>
-        <!-- END: Content -->
-
-        <!-- BEGIN: JS Assets-->
-        <script src="{{ asset ('dist/js/app.js') }}"></script>
-        <script>
-
-            // jQuery(document).ready(function()
-            // {
-
-
-            // });
-            $('#addition').append('<option value="CCCCCC">XXXX</option>');
+       jQuery(".filterhead").not(":eq(5)").each( function ( i ) {
+        var select = jQuery('<select><option value=""></option></select>')
+            .appendTo( jQuery(this).empty() )
+            .on( 'change', function () {
+               var term = $(this).val();
+                table.column( i ).search(term, false, false ).draw();
+            } );
+ 	      table.column( i ).data().unique().sort().each( function ( d, j ) {
+            	select.append( '<option value="'+d+'">'+d+'</option>' )
+        } );
+		} );
+} );
         </script>
 
 

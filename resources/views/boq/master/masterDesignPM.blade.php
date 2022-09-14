@@ -26,36 +26,25 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                    <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
-                            <th scope="col" class="text-center" col-index = 1>ID
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 2>Name
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 3>E-mail
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" class="text-center" col-index = 4>Telephone
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 5>Status
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" align="center">Active</th>
+                                <th scope="col" style="text-align: center;">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Telephone</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="text-align: center;">Active</th>
                             </tr>
+                            <tr>
+                                <th scope="col" class="filterhead">ID</th>
+                                <th scope="col" class="filterhead">Name</th>
+                                <th scope="col" class="filterhead">E-mail</th>
+                                <th scope="col" class="filterhead">Telephone</th>
+                                <th scope="col" class="filterhead">Status</th>
+                                <th scope="col" class="filterhead"></th>
+                            </tr>
+
                         </thead>
                         <tbody>
                             @foreach ($design_and_pms as $key => $dp)
@@ -66,9 +55,9 @@
                                 <td class="text-center">{{ $dp->tel }}</td>
                                 <td>
                                     @if ($dp->is_active == "1")
-                                        Active
+                                        ON
                                     @else
-                                        Inactive
+                                        OFF
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -76,7 +65,7 @@
                                     <button class="btn btn-secondary mr-2 mb-2" onclick="edit_modal({{$dp->id}})" data-tw-toggle="modal"
                                         data-tw-target="#large-modal-size-preview_edit"> <i data-lucide="edit-2" class="w-4 h-4 mr-2"></i> Edit</button>
 
-                                    <a href="{{ url('/masterDesignPM/changeStatus', $dp->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i> On/Off</a>
+                                    <a href="{{ url('/masterDesignPM/changeStatus', $dp->id) }}" class="btn btn-dark mr-2 mb-2"> <i data-lucide="power" class="w-4 h-4 mr-2"></i>On/Off</a>
                                     {{-- <a href="{{ url('/masterDesignPM/softdelete', $dp->id) }}" class="btn btn-dark gap-w"> Delete </a> --}}
                                 </td>
                             </tr>
@@ -154,18 +143,26 @@
             </div>
 
 <script type="text/javascript">
-    window.onload = () => {
-        // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-    };
+    jQuery(document).ready(function() {
+     var table = jQuery('#example').DataTable({
+         "bLengthChange": true,
+         "iDisplayLength": 10,
+         "ordering": false,
+	   });
 
-    getUniqueValuesFromColumn()
-
-    //show data-table
-    jQuery(document).ready(function () {
-        jQuery('.allWork').DataTable({
-            "ordering": false
-        });
+       jQuery(".filterhead").not(":eq(5)").each( function ( i ) {
+        var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+            .appendTo( jQuery(this).empty() )
+            .on( 'change', function () {
+               var term = $(this).val();
+                table.column( i ).search(term, false, false ).draw();
+            } );
+ 	      table.column( i ).data().unique().each( function ( d, j ) {
+            	select.append( '<option value="'+d+'">'+d+'</option>' )
+        } );
+		} );
     });
+
 
     //edit main
     function edit_modal(id){

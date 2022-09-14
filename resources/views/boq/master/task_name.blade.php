@@ -27,25 +27,19 @@
                         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                         </div>
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                            <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                            <table class="table table-hover table-auto sm:mt-2" id="example">
                                 <thead>
                                   <tr>
-                                    <th scope="col" class="text-center" col-index = 1>ID
-                                        <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                            <option value="all">All</option>
-                                        </select>
-                                    </th>
-                                    <th scope="col" col-index = 2>Task Name
-                                        <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                            <option value="all">All</option>
-                                        </select>
-                                    </th>
-                                    <th scope="col" col-index = 3>Status
-                                        <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                            <option value="all">All</option>
-                                        </select>
-                                    </th>
-                                    <th scope="col" align="center">Active</th>
+                                    <th scope="col" style="text-align: center;">ID</th>
+                                    <th scope="col">Task Name</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" style="text-align: center;">Active</th>
+                                  </tr>
+                                  <tr>
+                                    <th scope="col" class="filterhead" style="text-align: center;">ID</th>
+                                    <th scope="col" class="filterhead">Task Name</th>
+                                    <th scope="col" class="filterhead">Status</th>
+                                    <th scope="col" class="filterhead" style="text-align: center;"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -55,9 +49,9 @@
                                         <td>{{ $task->task_name }}</td>
                                         <td>
                                             @if ($task->is_active == "1")
-                                                Active
+                                                ON
                                             @else
-                                                Inactive
+                                                OFF
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -132,17 +126,24 @@
 
 <!-- BEGIN: JS Assets-->
 <script type="text/javascript">
-    window.onload = () => {
-    // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-    };
-
-    getUniqueValuesFromColumn()
-
-    //show data-table
-    jQuery(document).ready(function () {
-        jQuery('.allWork').DataTable({
-            "ordering": false
+    jQuery(document).ready(function() {
+        var table = jQuery('#example').DataTable({
+            "bLengthChange": true,
+            "iDisplayLength": 10,
+            "ordering": false,
         });
+
+        jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+            var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+                .appendTo( jQuery(this).empty() )
+                .on( 'change', function () {
+                var term = $(this).val();
+                    table.column( i ).search(term, false, false ).draw();
+                } );
+            table.column( i ).data().unique().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+            } );
+        } );
     });
 
         //edit main

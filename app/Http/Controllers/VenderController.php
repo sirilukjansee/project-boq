@@ -19,8 +19,7 @@ class VenderController extends Controller
     {
         // dd($request);
         $vend = new vender;
-        $vend->first_name = $request->first_name;
-        $vend->last_name = $request->last_name;
+        $vend->name = $request->name;
         $vend->is_active = "1";
         $vend->create_by = 1;
         $vend->update_by = 1;
@@ -45,8 +44,7 @@ class VenderController extends Controller
         // ]);
 
         $venders = vender::find($request->id)->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'update_by' => 1
         ]);
 
