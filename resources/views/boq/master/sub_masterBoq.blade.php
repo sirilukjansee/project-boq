@@ -7,14 +7,19 @@
                     {{-- Master Data > {{ $catagories->name }} --}}
                     <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
                         <ol class="breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('masterBoq') }}">Master Data</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('masterBoq') }}">Master Category</a></li>
                             <li class="breadcrumb-item active"><a>{{ $catagories->name }}</a></li>
                         </ol>
                     </nav>
                 </h2>
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <!-- BEGIN: Large Modal Toggle -->
-                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add_sub" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Sub </a>
+                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white">
+                        <i data-lucide="database" class="w-4 h-4 mr-2"></i> Import Sub
+                    </a>
+                    <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add_sub" class="btn btn-primary mr-1 mb-2">
+                        <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Sub
+                    </a>
                     <!-- END: Large Modal Toggle -->
                 </div>
             </div>
@@ -172,6 +177,34 @@
                                     </select>
                                 </div>
                                 <input type="hidden" name="id" id="id">
+                            </div>
+                            <!-- BEGIN: Modal Footer -->
+                            <div class="modal-footer">
+                                <button type="button" data-tw-dismiss="modal"
+                                    class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                            </div> <!-- END: Modal Footer -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Large Modal Content -->
+
+            <!-- BEGIN: Large Modal Content -->
+            <div id="large-modal-size-import" class="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="font-medium text-base mr-auto">Import Sub</h2>
+                        </div> <!-- END: Modal Header -->
+                        <!-- BEGIN: Modal Body -->
+                        <form action="{{url('/import-category-sub')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                                    <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                        <input name="file" type="file" class="form-control-xl"/>
+                                    </div>
                             </div>
                             <!-- BEGIN: Modal Footer -->
                             <div class="modal-footer">

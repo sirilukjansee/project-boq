@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UnitsImport;
 use Illuminate\Http\Request;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UnitController extends Controller
 {
@@ -75,5 +77,13 @@ class UnitController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadUnit(Request $request)
+    {
+        // dd($request);
+        Excel::import(new UnitsImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
     }
 }

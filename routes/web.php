@@ -168,6 +168,15 @@ Route::post('/approve_store',[ManagerController::class, 'store']);
 
 // Import File
 Route::post('/import-brand', [BrandController::class, 'uploadBrand']);
+Route::post('/import-location', [LocationController::class, 'uploadLocation']);
+Route::post('/import-category', [MasterController::class, 'uploadCategory']);
+Route::post('/import-category-sub', [MasterController::class, 'uploadCategory_sub']);
+Route::post('/import-designer', [DesignerPMController::class, 'uploadDesigner']);
+Route::post('/import-vender', [VenderController::class, 'uploadVender']);
+Route::post('/import-task-name', [TaskNameController::class, 'uploadTaskName']);
+Route::post('/import-task-type', [TaskTypeController::class, 'uploadTaskType']);
+Route::post('/import-unit', [UnitController::class, 'uploadUnit']);
+Route::post('/import-tor', [MasterTORController::class, 'uploadTor']);
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);

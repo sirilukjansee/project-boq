@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\CategorysImport;
+use App\Imports\CategorySubsImport;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Models\catagory;
 use App\Models\catagory_sub;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MasterController extends Controller
 {
@@ -174,6 +177,22 @@ class MasterController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadCategory(Request $request)
+    {
+        // dd($request);
+        Excel::import(new CategorysImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function uploadCategory_sub(Request $request)
+    {
+        // dd($request);
+        Excel::import(new CategorySubsImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
     }
 
 }

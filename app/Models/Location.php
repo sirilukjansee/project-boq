@@ -12,14 +12,12 @@ class Location extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $filable = [
+    Protected $table = 'locations';
+    protected $fillable = [
         'location_name',
         'is_active',
         'create_by',
         'update_by'
     ];
-
-    protected $guarded = [];
-
 
 }

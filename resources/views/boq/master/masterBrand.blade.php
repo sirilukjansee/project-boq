@@ -138,15 +138,13 @@
                                 <h2 class="font-medium text-base mr-auto">Import Brand</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                            <form data-single="true" action="{{url('/import-brand')}}" class="dropzone" method="post" enctype="multipart/form-data">
+                            <form action="{{url('/import-brand')}}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <div class="modal-body">
-                                    <input name="file" type="file" />
-                                        {{-- <div class="fallback"> <input name="file" type="file" /> </div>
-                                        <div class="dz-message" data-dz-message>
-                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                            <div class="text-slate-500"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
-                                        </div> --}}
+                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                                        <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                            <input name="file" type="file" class="form-control"/>
+                                        </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\VendersImport;
 use Illuminate\Http\Request;
 use App\Models\Vender;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VenderController extends Controller
 {
@@ -74,5 +76,13 @@ class VenderController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadVender(Request $request)
+    {
+        // dd($request);
+        Excel::import(new VendersImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
     }
 }

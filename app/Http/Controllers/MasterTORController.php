@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\TorsImport;
 use App\Models\catagory_sub;
 use App\Models\MasterTOR;
 use App\Models\MasterTOR_detail;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MasterTORController extends Controller
 {
@@ -130,5 +132,13 @@ class MasterTORController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadTor(Request $request)
+    {
+        // dd($request);
+        Excel::import(new TorsImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
     }
 }

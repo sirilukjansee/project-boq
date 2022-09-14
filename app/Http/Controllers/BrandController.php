@@ -86,6 +86,6 @@ class BrandController extends Controller
         // dd($request);
         Excel::import(new BrandsImport, $request->file);
 
-        return back();
+        return back()->with('success','!!! Import File Complete !!!');
     }
 }

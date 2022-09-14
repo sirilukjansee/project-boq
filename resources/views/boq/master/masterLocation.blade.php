@@ -122,6 +122,35 @@
                     </div>
                 </div>
                 <!-- END: Large Modal Content -->
+
+                <!-- BEGIN: Large Modal Content -->
+                <div id="large-modal-size-import" class="modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="font-medium text-base mr-auto">Import Location</h2>
+                            </div> <!-- END: Modal Header -->
+                            <!-- BEGIN: Modal Body -->
+                            <form action="{{url('/import-location')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                                        <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                            <input name="file" type="file" class="form-control-xl"/>
+                                        </div>
+                                </div>
+                                <!-- BEGIN: Modal Footer -->
+                                <div class="modal-footer">
+                                    <button type="button" data-tw-dismiss="modal"
+                                        class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                </div> <!-- END: Modal Footer -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Large Modal Content -->
+
             </div>
 
 <script type="text/javascript">
