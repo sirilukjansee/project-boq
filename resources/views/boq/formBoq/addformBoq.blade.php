@@ -198,36 +198,6 @@
                                 <input type="hidden" value="{{ $project->id }}" name="project_id">
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
-<<<<<<< HEAD
-                                    <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
-                                    <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
-                                    <div class="intro-y input-form mt-3 ml-2">
-                                        <div class="input-form">
-                                            <div id="addsub" class="flex flex-row gap-2 mb-2">
-                                                <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} testTom w-32" placeholder="Code...">
-                                                    <option selected value=""></option>
-                                                    @foreach ($cat->catagory_sub as $cat_s)
-                                                    <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <select id="sub{{$key + 1}}" name="sub_id[][{{ $cat->id }}]" class="testTom w-full" placeholder="Please Select...">
-                                                    <option selected value=""></option>
-                                                    @foreach ($cat->catagory_sub as $cat_s)
-                                                    <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="sub_selected{{ $cat->id }}"></span>
-                                                <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
-                                                <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
-                                                    <option selected value=""></option>
-                                                    @foreach ($catagories2 as $cat2)
-                                                    <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
-                                                <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
-=======
                                         <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                                         <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                                         <div class="intro-y input-form mt-3 ml-2">
@@ -259,7 +229,6 @@
                                                 </div>
                                                 <div id="newRowsub{{$key + 1}}"></div>
                                                 <input type="hidden" id="number_s" rel="{{$key + 1}}">
->>>>>>> 3e1fac9e47266182b3260d39a4b5cf79ddc455b8
                                             </div>
                                         </div>
                                         <div class="grid grid-cols-3 mb-3">

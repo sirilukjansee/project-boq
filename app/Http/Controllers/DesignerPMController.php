@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DesignsExport;
 use App\Imports\DesignersImport;
 use Illuminate\Http\Request;
 use App\Models\design_and_pm;
@@ -91,6 +92,11 @@ class DesignerPMController extends Controller
         Excel::import(new DesignersImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new DesignsExport, 'designandPM.xlsx');
     }
 
     public function designChk($data)

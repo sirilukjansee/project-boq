@@ -192,6 +192,13 @@ Route::post('/import-unit', [UnitController::class, 'uploadUnit']);
 Route::post('/import-tor', [MasterTORController::class, 'uploadTor']);
 Route::post('/import-tor-detail', [MasterTORController::class, 'uploadTorDetail']);
 
+// Export File
+Route::get('/export-brand', [BrandController::class, 'export']);
+Route::get('/export-location', [LocationController::class, 'export']);
+Route::get('/export-category', [MasterController::class, 'export']);
+Route::get('/export-category_sub', [MasterController::class, 'export_sub']);
+Route::get('/export-designer', [DesignerPMController::class, 'export']);
+
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
 
