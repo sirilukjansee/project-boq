@@ -180,7 +180,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Content -->
         <div class="content">
             <div class="intro-y mt-3">
-                <select class="js-example-basic-single mr-5" name="state" id="ss">
+                <select class="js-example-basic-single2 mr-5" name="state" id="ss">
+                    <option value="">เลือกข้อมูล</option>
                     <option value="123">123</option>
                     <option value="456">456</option>
                   </select>
@@ -195,16 +196,20 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{ asset('dist/js/app.js')}}"></script>
 
         <script type="text/javascript">
-            jQuery(document).ready(function() {
-        $('#cc').append('<option value="1" selected>EEEEE</option>');
-
+        jQuery('.js-example-basic-single2').select2();
+        jQuery('.js-example-basic-single').select2();
+            // jQuery(document).ready(function() {
+        // $('#cc').append('<option value="1" selected>EEEEE</option>');
+        jQuery(document).on('change', "#ss", function(){
+            // alert("OK");
+                // $('#cc').append('<option value="1" selected>XXX</option>');
+                $("#cc option[value='WY']").attr("selected","selected");
                 jQuery('.js-example-basic-single').select2();
             });
 
-            // $('#ss').on('click', function(){
-            //     $('#cc').append('<option value="1" selected>XXX</option>');
-            //     jQuery('#cc').select2();
             // });
+
+
         </script>
 
 
