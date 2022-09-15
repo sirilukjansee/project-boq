@@ -142,7 +142,7 @@
                                 <div class="form-inline mb-3 mt-10">
                                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
                                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
-                                        <option selected value="{{ $edit_dis->vender_id }}">{{ @$edit_dis->vender_n->first_name }}</option>
+                                        <option selected value="">{{ @$edit_dis->vender_n->first_name }}</option>
                                         @foreach ( $ven_der as $vd )
                                         <option value="{{ $vd->id }}">{{ $vd->first_name }}</option>
                                         @endforeach
@@ -244,13 +244,13 @@
                                                     <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
                                                        <b> Overhead </b>
                                                     </label>
-                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$edit_dis->overhead}}">
+                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="">
                                                 </div>
                                                 <div class="input-form mt-3">
                                                     <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
                                                        <b> Discount </b>
                                                     </label>
-                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$edit_dis->discount}}">
+                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="">
                                                 </div>
                                             </div>
                                             @endif
@@ -346,7 +346,11 @@
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
                             html += '<select name="code_id[]['+value.id+']" class="sub_select2-'+x+' tom-select w-32" placeholder="Code...">';
+<<<<<<< HEAD
                             html += '<option value=""></option>';
+=======
+                            html += '<option selected value=""></option>';
+>>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
                                     html += '<option value="'+value3.id+'">'+value3.code+'</option>';
@@ -355,7 +359,11 @@
 
                             html += '</select>';
                             html += '<select  name="sub_id[]['+value.id+']" class="sub_select-'+x+' tom-select w-full" placeholder="Please Select...">';
+<<<<<<< HEAD
                             html += '<option value=""></option>';
+=======
+                            html += '<option selected value=""></option>';
+>>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
                                     html += '<option value="'+value2.id+'">'+value2.name+'</option>';
