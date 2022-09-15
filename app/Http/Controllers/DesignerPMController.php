@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\DesignersImport;
 use Illuminate\Http\Request;
 use App\Models\design_and_pm;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DesignerPMController extends Controller
 {
@@ -81,5 +83,20 @@ class DesignerPMController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadDesigner(Request $request)
+    {
+        // dd($request);
+        Excel::import(new DesignersImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function designChk($data)
+    {
+        return response()->json([
+            'dataChk' => design_and_pm::get()
+        ]);
     }
 }

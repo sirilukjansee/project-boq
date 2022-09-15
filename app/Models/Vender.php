@@ -12,13 +12,10 @@ class Vender extends Model
     use SoftDeletes;
 
     protected   $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'is_active',
         'create_by',
         'update_by'
     ];
-
-    protected $guarded = [];
 
 }

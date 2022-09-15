@@ -18,11 +18,20 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="author" content="LEFT4CODE">
         <title>Boq - </title>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
+        <style>
+            thead input {
+        width: 100%;
+    }
+        </style>
     </head>
     <!-- END: Head -->
     <body class="main">
@@ -171,50 +180,31 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Content -->
         <div class="content">
             <div class="intro-y mt-3">
-                <h2 class="text-lg font-medium mr-auto">
-                    Create BOQ
-                </h2>
-                <div class="col-span-6 mt-5">
-                    <select data-placeholder="Select your favorite actors" id="addition" name="select1" class="tom-select w-full">
-                        {{-- <option value="1">Leonardo DiCaprio</option>
-                        <option value="2">Johnny Deep</option>
-                        <option value="3">Robert Downey, Jr</option>
-                        <option value="4">Samuel L. Jackson</option>
-                        <option value="5">Morgan Freeman</option> --}}
-                    </select>
-                </div>
-                <div class="col-span-6 mt-5" id="cc"></div>
-                <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary mt-5" id="btn222" rel="" />
-            <!-- BEGIN: Validation Form -->
-
-            <!-- END: Validation Form -->
-
-
+                <select class="js-example-basic-single mr-5" name="state" id="ss">
+                    <option value="123">123</option>
+                    <option value="456">456</option>
+                  </select>
+                <select class="js-example-basic-single" name="state" id="cc">
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+            </div>
         </div>
         <!-- END: Content -->
+        <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('dist/js/app.js')}}"></script>
+
         <script type="text/javascript">
-        // jQuery(document).ready(function()
-        // {
-            var html = '';
-        html += '<select data-placeholder="Select your favorite actors" id="sss" class="tom-select w-full"><option value="1">Leonardo DiCaprio</option></select>';
-        $('#cc').append(html);
+            jQuery(document).ready(function() {
+        $('#cc').append('<option value="1" selected>EEEEE</option>');
 
-        // });
+                jQuery('.js-example-basic-single').select2();
+            });
 
-        </script>
-    </div>
-        <!-- END: Content -->
-
-        <!-- BEGIN: JS Assets-->
-        <script src="{{ asset ('dist/js/app.js') }}"></script>
-        <script>
-
-            // jQuery(document).ready(function()
-            // {
-
-
+            // $('#ss').on('click', function(){
+            //     $('#cc').append('<option value="1" selected>XXX</option>');
+            //     jQuery('#cc').select2();
             // });
-            $('#addition').append('<option value="CCCCCC">XXXX</option>');
         </script>
 
 

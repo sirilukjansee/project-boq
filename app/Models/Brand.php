@@ -11,12 +11,14 @@ class Brand extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $filable = [
+    Protected $table = 'brands';
+    protected $fillable = [
+        'code',
         'brand_name',
+        'is_active',
         'create_by',
         'update_by'
     ];
 
-    protected $guarded = [];
 
 }

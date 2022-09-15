@@ -28,25 +28,19 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                    <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
-                            <th scope="col" class="text-center" col-index = 1>ID
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 2>Brand Name
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 3>Status
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" align="center">Active</th>
+                                <th scope="col" style="text-align: center;">ID</th>
+                                <th scope="col">Brand Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="text-align: center;">Active</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="filterhead" style="text-align: center;">ID</th>
+                                <th scope="col" class="filterhead">Brand Name</th>
+                                <th scope="col" class="filterhead">Status</th>
+                                <th scope="col" class="filterhead" style="text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,9 +50,9 @@
                                 <td>{{ $brd->brand_name }}</td>
                                 <td>
                                     @if ($brd->is_active == "1")
-                                        Active
+                                        ON
                                     @else
-                                        Inactive
+                                        OFF
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -86,15 +80,20 @@
                             <form action="{{ url('/masterBrand/add') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="brand_name" placeholder="Please add a Brand..." required>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2 chk_code" name="code" placeholder="Please add a Code..." required>
+                                        <p class="text-danger" id="comment"></p>
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2 chk_name" name="brand_name" placeholder="Please add a Brand..." required>
+                                        <p class="text-danger" id="comment2"></p>
                                     </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -113,8 +112,13 @@
                             <form action="{{ url('/masterBrand/update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                    <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="brand_name" id="brand_name" required>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2 chk_code" name="code" id="code" required>
+                                        <p class="text-danger" id="edit_comment"></p>
+                                    </div>
+                                    <div class="col-span-12 sm:col-span-6 input-form mt-3">
+                                        <input type="text" class="form-control mb-2 chk_name" name="brand_name" id="brand_name" required>
+                                        <p class="text-danger" id="edit_comment2"></p>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
                                 </div>
@@ -122,7 +126,7 @@
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save_edit">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -138,14 +142,13 @@
                                 <h2 class="font-medium text-base mr-auto">Import Brand</h2>
                             </div> <!-- END: Modal Header -->
                             <!-- BEGIN: Modal Body -->
-                                <div class="modal-body">
-                                    <form data-single="true" action="/file-upload" class="dropzone">
-                                        <div class="fallback"> <input name="file" type="file" /> </div>
-                                        <div class="dz-message" data-dz-message>
-                                            <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                            <div class="text-slate-500"> This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded. </div>
+                            <form action="{{url('/import-brand')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                                        <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                            <input name="file" type="file" class="form-control"/>
                                         </div>
-                                    </form>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
@@ -153,6 +156,7 @@
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
                                     <button type="submit" class="btn btn-primary w-20">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -160,21 +164,31 @@
             </div>
 
 <script type="text/javascript">
-    window.onload = () => {
-        // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-    };
+    jQuery(document).ready(function() {
+     var table = jQuery('#example').DataTable({
+         "bLengthChange": true,
+         "iDisplayLength": 10,
+         "ordering": false,
+	   });
 
-    getUniqueValuesFromColumn()
-
-    //show data-table
-    jQuery(document).ready(function () {
-        jQuery('.allWork').DataTable({
-            "ordering": false
-        });
+       jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+        var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+            .appendTo( jQuery(this).empty() )
+            .on( 'change', function () {
+               var term = $(this).val();
+                table.column( i ).search(term, false, false ).draw();
+            } );
+ 	      table.column( i ).data().unique().each( function ( d, j ) {
+            	select.append( '<option value="'+d+'">'+d+'</option>' )
+        } );
+		} );
     });
 
     //edit main
     function edit_modal(id){
+            $('#edit_comment').text('');
+            $('#edit_comment2').text('');
+            document.getElementById('btn_save_edit').disabled = false;
         jQuery.ajax({
             type:   "GET",
             url:    "{!! url('masterBrand/edit/"+id+"') !!}",
@@ -182,6 +196,7 @@
             async:  false,
             success: function(data) {
                 $('#get_id').val(data.dataEdit.id);
+                $('#code').val(data.dataEdit.code);
                 $('#brand_name').val(data.dataEdit.brand_name);
                 $('#update_by').val(data.dataEdit.update_by);
                 jQuery('#Delete').children().remove().end();
@@ -189,6 +204,64 @@
             }
         });
     }
+
+        //เช็คข้อมูลซ้ำ
+        jQuery(document).ready(function() {
+
+        });
+
+        $('.chk_code').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterBrand/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.code == datakey) {
+                        $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                        $('#edit_comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
+    $('.chk_name').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment2').text('');
+            $('#edit_comment2').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+        jQuery.ajax({
+            type:   "GET",
+            url:    "{!! url('masterBrand/chk/"+datakey+"') !!}",
+            datatype:   "JSON",
+            async:  false,
+            success: function(data) {
+                // $('#chk_code').val(data.dataChk.code);
+                jQuery.each(data.dataChk, function(key, value){
+                    if (value.brand_name == datakey) {
+                        $('#comment2').text("'" + value.brand_name + "' มีอยูในระบบแล้ว !");
+                        $('#edit_comment2').text("'" + value.brand_name + "' มีอยูในระบบแล้ว !");
+                        document.getElementById('btn_save').disabled = true;
+                        document.getElementById('btn_save_edit').disabled = true;
+                    }
+                });
+
+            },
+        });
+    });
+
 </script>
 <!-- END: JS Assets-->
 @endsection

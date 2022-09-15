@@ -8,7 +8,12 @@
                 <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                     <div class="text-center">
                         <!-- BEGIN: Large Modal Toggle -->
-                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Vender </a>
+                        <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white">
+                            <i data-lucide="database" class="w-4 h-4 mr-2"></i> Import TOR
+                        </a>
+                        <a href="javascript:;" id="btn_add" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2">
+                            <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add TOR
+                        </a>
                         <!-- END: Large Modal Toggle -->
                     </div>
                 </div>
@@ -26,25 +31,19 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                 </div>
                 <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
-                    <table class="table table-hover table-auto sm:mt-2 allWork" id="emp-table">
+                    <table class="table table-hover table-auto sm:mt-2" id="example">
                         <thead>
                             <tr>
-                            <th scope="col" class="text-center" col-index = 1>ID
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 2>TOR
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" col-index = 3>Status
-                                <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                    <option value="all">All</option>
-                                </select>
-                            </th>
-                            <th scope="col" align="center" col-index = 1>Active</th>
+                                <th scope="col" style="text-align: center;">ID</th>
+                                <th scope="col">TOR</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="text-align: center;">Active</th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="filterhead" style="text-align: center;">ID</th>
+                                <th scope="col" class="filterhead">TOR</th>
+                                <th scope="col" class="filterhead">Status</th>
+                                <th scope="col" class="filterhead" style="text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,9 +53,9 @@
                                 <td>{{ $tor->message }}</td>
                                 <td>
                                     @if ($tor->is_active == "1")
-                                        Active
+                                        ON
                                     @else
-                                        Inactive
+                                        OFF
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -88,14 +87,15 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="tor" placeholder="Please add a Tor..." required>
+                                        <input type="text" class="form-control mb-2 chk_name" name="tor" placeholder="Please add a Tor..." required>
+                                        <p class="text-danger" id="comment"></p>
                                     </div>
                                 </div>
                                 <!-- BEGIN: Modal Footer -->
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -115,7 +115,8 @@
                                 @csrf
                                 <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                     <div class="col-span-12 sm:col-span-12 input-form mt-3">
-                                        <input type="text" class="form-control mb-2" name="tor" id="get_tor" required>
+                                        <input type="text" class="form-control mb-2 chk_name" name="tor" id="get_tor" required>
+                                        <p class="text-danger" id="edit_comment"></p>
                                     </div>
                                     <input type="hidden" name="id" id="get_id">
                                 </div>
@@ -123,7 +124,7 @@
                                 <div class="modal-footer">
                                     <button type="button" data-tw-dismiss="modal"
                                         class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
-                                    <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                                    <button type="submit" class="btn btn-primary w-20" id="btn_save_edit">บันทึก</button>
                                 </div> <!-- END: Modal Footer -->
                             </form>
                         </div>
@@ -132,22 +133,59 @@
                 <!-- END: Large Modal Content -->
             </div>
 
+            <!-- BEGIN: Large Modal Content -->
+            <div id="large-modal-size-import" class="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="font-medium text-base mr-auto">Import TOR</h2>
+                        </div> <!-- END: Modal Header -->
+                        <!-- BEGIN: Modal Body -->
+                        <form action="{{url('/import-tor')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+
+                                    <div class="col-span-12 sm:col-span-4 input-form mt-3">
+                                        <input name="file" type="file" class="form-control-xl" required/>
+                                    </div>
+                            </div>
+                            <!-- BEGIN: Modal Footer -->
+                            <div class="modal-footer">
+                                <button type="button" data-tw-dismiss="modal"
+                                    class="btn btn-outline-secondary w-20 mr-1">ยกเลิก</button>
+                                <button type="submit" class="btn btn-primary w-20">บันทึก</button>
+                            </div> <!-- END: Modal Footer -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Large Modal Content -->
+
 <script type="text/javascript">
-    window.onload = () => {
-    // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-    };
-
-    getUniqueValuesFromColumn()
-
-    //show data-table
-    jQuery(document).ready(function () {
-        jQuery('.allWork').DataTable({
-            "ordering": false
+   jQuery(document).ready(function() {
+        var table = jQuery('#example').DataTable({
+            "bLengthChange": true,
+            "iDisplayLength": 10,
+            "ordering": false,
         });
+
+        jQuery(".filterhead").not(":eq(3)").each( function ( i ) {
+            var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+                .appendTo( jQuery(this).empty() )
+                .on( 'change', function () {
+                var term = $(this).val();
+                    table.column( i ).search(term, false, false ).draw();
+                } );
+            table.column( i ).data().unique().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+            } );
+        } );
     });
 
     //edit main
     function edit_modal(id){
+        $('#edit_comment').text('');
+        document.getElementById('btn_save_edit').disabled = false;
         jQuery.ajax({
             type:   "GET",
             url:    "{!! url('masterTOR/edit/"+id+"') !!}",
@@ -161,6 +199,41 @@
             }
         });
     }
+
+    //เช็คข้อมูลซ้ำ
+    $('#btn_add').on('click', function() {
+            $('#comment').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+        });
+
+        $('.chk_name').on('keyup', function() {
+            var datakey = $(this).val();
+            $('#comment').text('');
+            $('#edit_comment').text('');
+            document.getElementById('btn_save').disabled = false;
+            document.getElementById('btn_save_edit').disabled = false;
+            jQuery.ajax({
+                type:   "GET",
+                url:    "{!! url('masterTOR/chk/"+datakey+"') !!}",
+                datatype:   "JSON",
+                async:  false,
+                success: function(data) {
+                    // $('#chk_code').val(data.dataChk.code);
+                    jQuery.each(data.dataChk, function(key, value){
+                        if (value.message == datakey) {
+                            $('#comment').text("'" + value.message + "' มีอยูในระบบแล้ว !");
+                            $('#edit_comment').text("'" + value.message + "' มีอยูในระบบแล้ว !");
+                            document.getElementById('btn_save').disabled = true;
+                            document.getElementById('btn_save_edit').disabled = true;
+                        }
+                    });
+
+                },
+            });
+    });
+
 </script>
 <!-- END: JS Assets-->
 @endsection

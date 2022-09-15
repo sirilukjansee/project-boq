@@ -12,9 +12,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <!-- BEGIN: DataTables -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/jquery.dataTables.min.css') }}" />
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{{ asset('DataTables/jquery.dataTables.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('DataTables2/jquery.dataTables.min.css')}}">
         <!-- END: DataTables -->
 
         <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
@@ -23,7 +23,6 @@
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
         <!-- END: CSS Assets-->
-        <script src="{{ asset('filter/filter.js') }}"></script>
     </head>
     <!-- END: Head -->
     <body class="main">
@@ -200,6 +199,7 @@
         <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
+        <script type="text/javascript" src="{{ asset('DataTables2/jquery.dataTables.min.js') }}"></script>
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="{{ asset('dist/js/app.js')}}"></script>

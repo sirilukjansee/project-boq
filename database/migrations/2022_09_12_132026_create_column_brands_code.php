@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColumnVendersIsActive extends Migration
+class CreateColumnBrandsCode extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateColumnVendersIsActive extends Migration
      */
     public function up()
     {
-        Schema::table('venders', function (Blueprint $table) {
-            $table->enum('is_active', ['0', '1'])->default('1')->after('name');
+        Schema::table('brands', function (Blueprint $table) {
+            $table->string('code')->after('id')->comment('รหัสแบรนด์')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class CreateColumnVendersIsActive extends Migration
      */
     public function down()
     {
-        Schema::table('venders', function (Blueprint $table) {
-            $table->dropColumn('is_active');
+        Schema::table('brands', function (Blueprint $table) {
+            $table->dropColumn('code');
         });
     }
 }

@@ -15,10 +15,9 @@ class CreateVendersTable extends Migration
     {
         Schema::create('venders', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->comment('ชื่อ');
-            $table->string('last_name')->comment('นามสกุล');
-            $table->string('create_by');
-            $table->string('update_by');
+            $table->string('name')->comment('ชื่อ-นามสกุล');
+            $table->foreignId('create_by')->nullable();
+            $table->foreignId('update_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

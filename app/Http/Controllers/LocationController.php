@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LocationsImport;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LocationController extends Controller
 {
@@ -76,5 +78,20 @@ class LocationController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadLocation(Request $request)
+    {
+        // dd($request);
+        Excel::import(new LocationsImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function locationChk($data)
+    {
+        return response()->json([
+            'dataChk' => Location::get()
+        ]);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\TaskTypesImport;
 use Illuminate\Http\Request;
 use App\Models\task_type;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TaskTypeController extends Controller
 {
@@ -76,5 +78,20 @@ class TaskTypeController extends Controller
             ]);
         }
         return redirect()->back()->with('success','!!! Status Complete !!!');
+    }
+
+    public function uploadTaskType(Request $request)
+    {
+        // dd($request);
+        Excel::import(new TaskTypesImport, $request->file);
+
+        return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function taskTypeChk($data)
+    {
+        return response()->json([
+            'dataChk' => task_type::get()
+        ]);
     }
 }
