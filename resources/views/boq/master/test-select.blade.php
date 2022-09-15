@@ -21,8 +21,11 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
+        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
         <style>
             thead input {
@@ -177,94 +180,31 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Content -->
         <div class="content">
             <div class="intro-y mt-3">
-                <table id="example" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                        <tr>
-                            <th class="filterhead">Name</th>
-                            <th class="filterhead">Position</th>
-                            <th class="filterhead">Office</th>
-                            <th class="filterhead">Age</th>
-                            <th class="filterhead">Start date</th>
-                            <th class="filterhead"></th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>2012-12-02</td>
-                            <td>$372,000</td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>2012-12-02</td>
-                            <td>$372,000</td>
-                        </tr>
-                        <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                            <td>2012-08-06</td>
-                            <td>$137,500</td>
-                        </tr>
-                        <tr>
-                            <td>Rhona Davidson</td>
-                            <td>Integration Specialist</td>
-                            <td>Tokyo</td>
-                            <td>55</td>
-                            <td>2010-10-14</td>
-                            <td>$327,900</td>
-                        </tr>
-                        <tr>
-                            <td>Colleen Hurst</td>
-                            <td>Javascript Developer</td>
-                            <td>San Francisco</td>
-                            <td>39</td>
-                            <td>2009-09-15</td>
-                            <td>$205,500</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <select class="js-example-basic-single mr-5" name="state" id="ss">
+                    <option value="123">123</option>
+                    <option value="456">456</option>
+                  </select>
+                <select class="js-example-basic-single" name="state" id="cc">
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+            </div>
         </div>
         <!-- END: Content -->
         <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
         <script src="{{ asset('dist/js/app.js')}}"></script>
 
         <script type="text/javascript">
-        jQuery(document).ready(function() {
-     var table = jQuery('#example').DataTable({
-         "bLengthChange": false,
-         "iDisplayLength": 15,
-         "ordering": false,
-	   });
+            jQuery(document).ready(function() {
+        $('#cc').append('<option value="1" selected>EEEEE</option>');
 
-       jQuery(".filterhead").not(":eq(5)").each( function ( i ) {
-        var select = jQuery('<select><option value=""></option></select>')
-            .appendTo( jQuery(this).empty() )
-            .on( 'change', function () {
-               var term = $(this).val();
-                table.column( i ).search(term, false, false ).draw();
-            } );
- 	      table.column( i ).data().unique().sort().each( function ( d, j ) {
-            	select.append( '<option value="'+d+'">'+d+'</option>' )
-        } );
-		} );
-} );
+                jQuery('.js-example-basic-single').select2();
+            });
+
+            // $('#ss').on('click', function(){
+            //     $('#cc').append('<option value="1" selected>XXX</option>');
+            //     jQuery('#cc').select2();
+            // });
         </script>
 
 
