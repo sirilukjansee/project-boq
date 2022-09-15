@@ -10,9 +10,10 @@
         <title>Boq - </title>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('select2/select2.min.js') }}"></script>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
-        {{-- <link rel="stylesheet" href="../tom-select/dist/css/tom-select.css" defer/> --}}
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -206,13 +207,13 @@
                                         <div class="input-form">
                                             <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                 <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
+                                                <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} testTom w-32" placeholder="Code...">
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full" placeholder="Please Select...">
+                                                <select id="sub{{$key + 1}}" name="sub_id[][{{ $cat->id }}]" class="testTom w-full" placeholder="Please Select...">
                                                     <option selected value=""></option>
                                                     @foreach ($cat->catagory_sub as $cat_s)
                                                     <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
@@ -302,9 +303,11 @@
             var checked = jQuery('input:checkbox:checked').map(function () {
                 return this.value;
             }).get();
+
             jQuery('input:checkbox:checked').parents('#addsub').remove();
             });
 
+            jQuery('.testTom').select2();
 
             // btn add subwork
             jQuery(document).ready(function()
@@ -321,19 +324,13 @@
                         // console.log(response);
                         var sub_num = key + 1;
 
-                        // $('#code_id'+sub_num).on('change', function(){
-                        //     console.log($(this).val());
-                        //     jQuery('.sub_selected'+sub_num).children().remove().end();
-                        //     document.getElementById('sub1').style.display = 'none';
-                        //     $('.sub_selected'+sub_num).append('<select name="code_id" class="tom-select-sub-'+sub_num+' tom-select w-32"><option value="1">EEEEE</option></select>');
+                        jQuery(document).on('change', "#code_id"+sub_num, function(){
+                            // alert("#sub1 option[value='2']");
+                            console.log($(this).val());
+                            $("#sub1 option[value='"+$(this).val()+"']").attr("selected","selected");
 
-                        //     let options = {
-                        //         plugins: {
-                        //             dropdown_input: {},
-                        //         }
-                        //     };
-                        //     new TomSelect(".tom-select-sub-"+sub_num);
-                        // });
+                            jQuery('.testTom').select2();
+                        });
 
 
 
