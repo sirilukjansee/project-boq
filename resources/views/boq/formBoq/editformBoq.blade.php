@@ -346,11 +346,7 @@
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
                             html += '<select name="code_id[]['+value.id+']" class="sub_select2-'+x+' tom-select w-32" placeholder="Code...">';
-<<<<<<< HEAD
-                            html += '<option value=""></option>';
-=======
                             html += '<option selected value=""></option>';
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
                                     html += '<option value="'+value3.id+'">'+value3.code+'</option>';
@@ -359,11 +355,7 @@
 
                             html += '</select>';
                             html += '<select  name="sub_id[]['+value.id+']" class="sub_select-'+x+' tom-select w-full" placeholder="Please Select...">';
-<<<<<<< HEAD
-                            html += '<option value=""></option>';
-=======
                             html += '<option selected value=""></option>';
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
                                     html += '<option value="'+value2.id+'">'+value2.name+'</option>';

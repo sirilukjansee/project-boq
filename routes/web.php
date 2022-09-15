@@ -198,6 +198,11 @@ Route::get('/export-location', [LocationController::class, 'export']);
 Route::get('/export-category', [MasterController::class, 'export']);
 Route::get('/export-category_sub', [MasterController::class, 'export_sub']);
 Route::get('/export-designer', [DesignerPMController::class, 'export']);
+Route::get('/export-vender', [VenderController::class, 'export']);
+Route::get('/export-task-name', [TaskNameController::class, 'export']);
+Route::get('/export-task-type', [TaskTypeController::class, 'export']);
+Route::get('/export-unit', [UnitController::class, 'export']);
+Route::get('/export-tor', [MasterTORController::class, 'export']);
 
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);

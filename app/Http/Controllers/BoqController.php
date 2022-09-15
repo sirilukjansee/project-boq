@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\isEmpty;
 
 class BoqController extends Controller
 {
@@ -79,44 +80,58 @@ class BoqController extends Controller
             // return $template;
         // foreach($request->main_id as $key => $value)
         // {
+
             foreach($request->code_id as $key2 => $value2)
-            {
-                    if ($value2)
-                    {
+                {
                     foreach($request->code_id[$key2] as $key3 => $value3)
+                    {
+                        // echo $key3."=".$value3."<br>";
+                        // dd($request->code_id[$key2][$key3]);
+                        // dd($key3);
+                        if($request->code_id[$key2][$key3])
                         {
-                        // dd($request->amount[$key3]);
-                        foreach($request->amount[$key3] as $key4 => $value4)
+                            // return "OK";
+                        foreach($request->amount[$key2] as $key4 => $value4)
+                        {
+                        //     // dd($value4);
+                        // //     if( $value4 )
+                        // // {
+                            foreach($request->unit_id[$key2] as $key5 => $value5)
                             {
-                    //         foreach($request->unit_id[$key4] as $key5 => $value5)
-                    //         {
-                    //             foreach($request->desc[$key5] as $key6 => $value6)
-                    //             {
-                    //                 // dd($request->unit_id[0]);
-                    //                 // if($value2)
-                    //                 // {
-                    //                     $boq = new Boq;
-                    //                     $boq->template_boq_id = $template;
-                    //                     $boq->vender_id = ($request->vender_id);
-                    //                     $boq->main_id = ($key2);
-                    //                     $boq->sub_id = ($value2);
-                    //                     $boq->amount = ($value4);
-                    //                     $boq->unit_id = ($value5);
-                    //                     $boq->desc = ($value6);
-                    //                     $boq->overhead = $request->overhead;
-                    //                     $boq->discount = $request->discount;
-                    //                     $boq->status = $send_form;
-                    //                     $boq->comment = $request->comment;
-                    //                     $boq->create_by = 1;
-                    //                     $boq->update_by = 1;
-                    //                     $boq->save();
-                    //                 // }
-                    //             }
-                    //         }
+                        //         // if( $value5 )
+                        //         // {
+                                foreach($request->desc[$key2] as $key6 => $value6)
+                                {
+                        //         //     if( $value6 )
+                        //         // {
+                        //             // if( $value2 )
+                        //             // {
+                                        $boq = new Boq;
+                                        $boq->template_boq_id = $template;
+                                        $boq->vender_id = ($request->vender_id);
+                                        $boq->main_id = ($key3);
+                                        $boq->sub_id = ($value3);
+                                        $boq->amount = $value4;
+                                        $boq->unit_id = $value5;
+                                        $boq->desc = $value6;
+                                        $boq->total = $request->total;
+                                        $boq->overhead = $request->overhead;
+                                        $boq->discount = $request->discount;
+                                        $boq->status = $send_form;
+                                        $boq->comment = $request->comment;
+                                        $boq->create_by = 1;
+                                        $boq->update_by = 1;
+                                        $boq->save();
+                        //             // }
+                        //         // }
+                        //         // }
+                        //     // }
                             }
                         }
+                        }
                     }
-            }
+                    }
+                }
 
 
         // }
@@ -162,22 +177,35 @@ class BoqController extends Controller
                 {
                     foreach($request->code_id[$key2] as $key3 => $value3)
                     {
-                        foreach($request->amount[$key3] as $key4 => $value4)
+                        // echo $key3."=".$value3."<br>";
+                        // dd($request->code_id[$key2][$key3]);
+                        // dd($key3);
+                        if($request->code_id[$key2][$key3])
                         {
-                            foreach($request->unit_id[$key4] as $key5 => $value5)
+                            // return "OK";
+                        foreach($request->amount[$key2] as $key4 => $value4)
+                        {
+                        //     // dd($value4);
+                        // //     if( $value4 )
+                        // // {
+                            foreach($request->unit_id[$key2] as $key5 => $value5)
                             {
-                                foreach($request->desc[$key5] as $key6 => $value6)
+                        //         // if( $value5 )
+                        //         // {
+                                foreach($request->desc[$key2] as $key6 => $value6)
                                 {
-                                    // if( $value2 )
-                                    // {
+                        //         //     if( $value6 )
+                        //         // {
+                        //             // if( $value2 )
+                        //             // {
                                         $boq = new Boq;
                                         $boq->template_boq_id = $request->id;
                                         $boq->vender_id = ($request->vender_id);
-                                        $boq->main_id = ($key2);
-                                        $boq->sub_id = ($value2);
-                                        $boq->amount = ($value4);
-                                        $boq->unit_id = ($value5);
-                                        $boq->desc = ($value6);
+                                        $boq->main_id = ($key3);
+                                        $boq->sub_id = ($value3);
+                                        $boq->amount = $value4;
+                                        $boq->unit_id = $value5;
+                                        $boq->desc = $value6;
                                         $boq->total = $request->total;
                                         $boq->overhead = $request->overhead;
                                         $boq->discount = $request->discount;
@@ -186,10 +214,14 @@ class BoqController extends Controller
                                         $boq->create_by = 1;
                                         $boq->update_by = 1;
                                         $boq->save();
-                                    // }
-                                }
+                        //             // }
+                        //         // }
+                        //         // }
+                        //     // }
                             }
                         }
+                        }
+                    }
                     }
                 }
             // }
