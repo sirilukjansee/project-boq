@@ -132,18 +132,6 @@
                         <h2 class="text-lg font-medium mr-auto">
                             <b>Create BOQ of {{ $project->brand_master->brand_name }} at {{ $project->location_master->location_name }}</b>
                         </h2>
-                        <div class="mr-1">
-                            <p>Vender :</p>
-                        </div>
-                        <div class="mr-2">
-                            <form action="">
-                                <select name="" id="" class="w-72">
-                                    <option value="">Select Vender...</option>
-                                    <option value="">ELECTRONIC LIGHTING CO.,LTD.</option>
-                                    <option value="">Officemate</option>
-                                </select>
-                            </form>
-                        </div>
                         <div class="text-center">
                             <!-- BEGIN: Super Large Modal Toggle -->
                             <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1">Choose Template</a>
@@ -198,9 +186,19 @@
                         <div class="group_wrapper">
                             <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
+                                <div class="form-inline mb-3 mt-10">
+                                    <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
+                                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
+                                        <option selected value=""></option>
+                                        @foreach ( $venders as $vd )
+                                        <option value="{{ $vd->id }}">{{ $vd->first_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <input type="hidden" value="{{ $project->id }}" name="project_id">
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
+<<<<<<< HEAD
                                     <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
                                     <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
                                     <div class="intro-y input-form mt-3 ml-2">
@@ -229,21 +227,73 @@
                                                 </select>
                                                 <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
                                                 <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+=======
+                                        <input type="text" class="w-full" value="{{$key + 1}}. {{$cat->name}}" style="background-color: rgb(153, 187, 238);" readonly >
+                                        <input type="hidden" name="main_id[]" value="{{$cat->id}}" >
+                                        <div class="intro-y input-form mt-3 ml-2">
+                                            <div class="input-form">
+                                                <div id="addsub" class="flex flex-row gap-2 mb-2">
+                                                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+                                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
+                                                        <option selected value=""></option>
+                                                        @foreach ($cat->catagory_sub as $cat_s)
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full" placeholder="Please Select...">
+                                                        <option selected value=""></option>
+                                                        @foreach ($cat->catagory_sub as $cat_s)
+                                                        <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
+                                                    <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
+                                                    <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
+                                                        <option selected value=""></option>
+                                                        @foreach ($catagories2 as $cat2)
+                                                        <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                                    <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
+                                                </div>
+                                                <div id="newRowsub{{$key + 1}}"></div>
+                                                <input type="hidden" id="number_s" rel="{{$key + 1}}">
+>>>>>>> 3e1fac9e47266182b3260d39a4b5cf79ddc455b8
                                             </div>
-                                            <div id="newRowsub{{$key + 1}}"></div>
-                                            <input type="hidden" id="number_s" rel="{{$key + 1}}">
                                         </div>
-                                    </div>
-                                    <div class="grid grid-cols-3 mb-3">
-                                        <div class="col-span-2">
-                                            <input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" />
+                                        <div class="grid grid-cols-3 mb-3">
+                                            <div class="col-span-2">
+                                                <input type="button" value="ลบงานย่อยที่เลือก" class="btn btn-secondary" id="checkDel" />
+                                            </div>
+                                            <div class="flex justify-end gap-2">
+                                                <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
+                                            </div>
                                         </div>
-                                        <div class="flex justify-end gap-2">
-                                            <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
-                                            {{-- <input type="button" value="ลบงานหลัก" class="btn btn-secondary" id="delMain"> --}}
-                                        </div>
-                                    </div>
                                     @endforeach
+                                        @php
+                                        $data_chk = App\Models\template_boqs::where('project_id', $project->id)
+                                        ->where('name', "Master BOQ")
+                                        ->first();
+                                        @endphp
+                                        @if ($data_chk)
+                                            @if ($data_chk->status == "2" )
+                                            <div class="grid grid-cols-3 gap-2">
+                                                <div class="input-form mt-3">
+                                                    <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
+                                                       <b> Overhead </b>
+                                                    </label>
+                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" required>
+                                                </div>
+                                                <div class="input-form mt-3">
+                                                    <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
+                                                       <b> Discount </b>
+                                                    </label>
+                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        @endif
                                 </div>
                                 <input type="hidden" id="is_btn" name="btn_send">
                                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">

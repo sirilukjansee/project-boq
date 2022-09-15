@@ -9,6 +9,7 @@ use App\Models\Unit;
 use App\Models\Project;
 use App\Models\Brand;
 use App\Models\template_boqs;
+use App\Models\Vender;
 use Illuminate\Support\Facades\DB;
 
 class FormboqController extends Controller
@@ -22,9 +23,10 @@ class FormboqController extends Controller
         // ->get();
         $brand_master = Brand::where('is_active', "1")->get();
         $catagories2 = Unit::where('is_active', "1")->get();
+        $venders = Vender::where('is_active', "1")->get();
 
         // echo $catagories1;
-        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master','project','template_boq'));
+        return view('boq.formBoq.addformBoq', compact('catagories','catagories2','brand_master','project','template_boq','venders'));
 
     }
 

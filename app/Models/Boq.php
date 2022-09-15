@@ -17,6 +17,9 @@ class Boq extends Model
         'unit_id',
         'desc',
         'total',
+        'status',
+        'comment',
+        'vender_id',
         'create_by',
         'update_by'
     ];
@@ -29,6 +32,12 @@ class Boq extends Model
     }
     public function unit_u(){
         return $this->hasOne(Unit::class,'id','unit_id');
+    }
+    public function vender_n(){
+        return $this->hasOne(Vender::class,'id','vender_id');
+    }
+    public function template(){
+        return $this->hasOne(template_boqs::class,'id','template_boq_id');
     }
 }
 

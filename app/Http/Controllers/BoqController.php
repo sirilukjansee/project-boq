@@ -9,11 +9,13 @@ use App\Models\template_boqs;
 use App\Models\catagory;
 use App\Models\Unit;
 use App\Models\Brand;
+use App\Models\Vender;
 use Carbon\Carbon;
 use App\Exports\BoqsExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 
 class BoqController extends Controller
@@ -34,7 +36,7 @@ class BoqController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
+        dd($request);
         if( $request->btn_send == "btn_send" )
         {
             $send_form = "1";
@@ -83,12 +85,15 @@ class BoqController extends Controller
                 {
                     $boq = new Boq;
                     $boq->template_boq_id = $template;
+                    $boq->vender_id = ($request->vender_id);
                     $boq->main_id = ($key2);
                     $boq->sub_id = ($value2);
                     $boq->amount = ($request->amount[$key][$key2]);
                     $boq->unit_id = ($request->unit_id[$key][$key2]);
                     $boq->desc = ($request->desc[$key][$key2]);
                     $boq->total = $request->total;
+                    $boq->overhead = $request->overhead;
+                    $boq->discount = $request->discount;
                     $boq->status = $send_form;
                     $boq->comment = $request->comment;
                     $boq->create_by = 1;
@@ -102,11 +107,14 @@ class BoqController extends Controller
     public function edit($id)
     {
         $editboq = Boq::where('template_boq_id', $id)->get();
-        $catagories = catagory::all();
-        $brand_master = Brand::all();
-        $catagories2 = Unit::all();
+        $catagories = catagory::where('is_active', "1")->get();
+        $brand_master = Brand::where('is_active', "1")->get();
+        $catagories2 = Unit::where('is_active', "1")->get();
+        $ven_der = Vender::where('is_active', "1")->get();
+        $edit_dis = Boq::where('template_boq_id', $id)->first();
         $project_id = template_boqs::where('id' ,$id)->first();
-        return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id'));
+
+        return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }
     public function update(Request $request)
     {
@@ -137,12 +145,15 @@ class BoqController extends Controller
                     {
                         $boq = new Boq;
                         $boq->template_boq_id = $request->id;
+                        $boq->vender_id = ($request->vender_id);
                         $boq->main_id = ($key2);
                         $boq->sub_id = ($value2);
                         $boq->amount = ($request->amount[$key][$key2]);
                         $boq->unit_id = ($request->unit_id[$key][$key2]);
                         $boq->desc = ($request->desc[$key][$key2]);
                         $boq->total = $request->total;
+                        $boq->overhead = $request->overhead;
+                        $boq->discount = $request->discount;
                         $boq->status = $send_form;
                         $boq->comment = $request->comment;
                         $boq->create_by = 1;
@@ -165,6 +176,19 @@ class BoqController extends Controller
 
         return back()->with('Yay');
 
+    }
+
+    public function view_boq($id)
+    {
+        $editboq = Boq::where('template_boq_id', $id)->get();
+        $catagories = catagory::where('is_active', "1")->get();
+        $brand_master = Brand::where('is_active', "1")->get();
+        $catagories2 = Unit::where('is_active', "1")->get();
+        $ven_der = Vender::where('is_active', "1")->get();
+        $edit_dis = Boq::where('template_boq_id', $id)->first();
+        $project_id = template_boqs::where('id' ,$id)->first();
+
+        return view('boq.formBoq.viewBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }
 
     public function export()

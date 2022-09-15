@@ -255,7 +255,11 @@
                                                 <option value="all">All</option>
                                             </select>
                                         </th>
+<<<<<<< HEAD
+                                        <th class="text-center" scope="col">IO</th>
+=======
                                         <th scope="col">IO</th>
+>>>>>>> 0765f9e8f2d3aa0a7f52e986f4e79e42fb6f43bf
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -265,12 +269,21 @@
                                         <td class="w-40 text-center table-report__action"><h3>{{ $pro->number_id }}</td>
                                         <td class="table-report__action w-56">{{ $pro->brand_master->brand_name }}</td>
                                         <td class="table-report__action w-56">{{ $pro->location_master->location_name }}</td>
+<<<<<<< HEAD
+                                        <td class="text-center table-report__action w-56">{{ $pro->area }}</td>
+                                        <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
+                                        <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
+                                        <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
+                                        <td class="text-center table-report__action w-56">{{ $pro->designer_master->name }}</td>
+                                        <td class="text-center table-report__action w-56">
+=======
                                         <td class="table-report__action w-56">{{ $pro->area }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
                                         <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
                                         <td class="table-report__action w-56">{{ $pro->designer_master->name }}</td>
                                         <td class="table-report__action w-56">
+>>>>>>> 0765f9e8f2d3aa0a7f52e986f4e79e42fb6f43bf
                                                 @if ( @$pro->project_id1->name == "Master BOQ" )
                                                     @if ($pro->project_id1->status == "0")
                                                     Drafted
@@ -285,7 +298,11 @@
                                                     @endif
                                                 @endif
                                         </td>
+<<<<<<< HEAD
+                                        <td class="text-center table-report__action w-56">{{ $pro->io }}</td>
+=======
                                         <td class="table-report__action w-56">{{ $pro->io }}</td>
+>>>>>>> 0765f9e8f2d3aa0a7f52e986f4e79e42fb6f43bf
                                     </tr>
                                     @endforeach
                                 </tbody>

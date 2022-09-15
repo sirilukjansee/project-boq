@@ -150,19 +150,6 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <!-- BEGIN: HTML Table Data -->
                     <div class="intro-y box p-5 mt-5">
-                        {{-- <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-                            <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto" >
-                                <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-                                    <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">โครงการ</label>
-                                    <input id="tabulator-html-filter-value" type="text" class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Search...">
-                                    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-                                        <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16" >ค้นหา</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="flex mt-5 sm:mt-0">
-                            </div>
-                        </div> --}}
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                             <table class="table table-hover sm:mt-2">
                                 <thead class="table-light">
@@ -178,7 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $boq_chk as $bchk)
+                                    @foreach ( $boq_chk as $bchk )
                                         <tr class="intro-x">
                                             <td class="w-40 table-report__action">
                                                 <div class="flex">
@@ -217,7 +204,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td>
                                                 <div class="btn-group flex text-center justify-center ">
-                                                    <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
+                                                    <a href="{{ url('/viewBoq', $bchk->id) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
                                                     <!-- BEGIN: Modal Toggle -->
                                                     <div class="text-center">
                                                         @if ($bchk->status == "2")

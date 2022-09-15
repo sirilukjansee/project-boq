@@ -134,60 +134,20 @@
                                 [Additional BOQ]
                             @endif</b>
                         </h2>
-                        <div class="text-center">
-                            <!-- BEGIN: Super Large Modal Toggle -->
-                            <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary mr-1 mb-2">Choose Template</a>
-                            <!-- END: Super Large Modal Toggle -->
-                        </div>
-                        <!-- BEGIN: Super Large Modal Content -->
-                        <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-body p-10 text-center">
-                                        <table class="table">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">ชื่อโครงการ</th>
-                                                <th scope="col">สถามที่</th>
-                                                <th scope="col">ขนาด</th>
-                                                <th scope="col"></th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Master 1</td>
-                                                <td>Central Pinklao</td>
-                                                <td>159 ตร.ม</td>
-                                                <td class="text-center"><a href="#" class="btn btn-primary">เลือก</a></td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Master 2</td>
-                                                <td>Central Pinklao</td>
-                                                <td>99 ตร.ม</td>
-                                                <td class="text-center"><a href="#" class="btn btn-primary">เลือก</a></td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Master 3</td>
-                                                <td>Central Pinklao</td>
-                                                <td>109 ตร.ม</td>
-                                                <td class="text-center"><a href="#" class="btn btn-primary">เลือก</a></td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Super Large Modal Content -->
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
                             <form action="{{ url('/formBoq/update') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
+                                <div class="form-inline mb-3 mt-10">
+                                    <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
+                                    <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
+                                        <option selected value="{{ $edit_dis->vender_id }}">{{ @$edit_dis->vender_n->first_name }}</option>
+                                        @foreach ( $ven_der as $vd )
+                                        <option value="{{ $vd->id }}">{{ $vd->first_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
                                     <input type="hidden" value="{{ $id }}" name="id">
@@ -268,10 +228,33 @@
                                         </div>
                                         <div class="flex justify-end gap-2">
                                             <input type="button" value="เพิ่มงานย่อย" class="btn btn-primary" id="btnAddsub{{$key + 1}}" rel="{{$key + 1}}" />
-                                            {{-- <input type="button" value="ลบงานหลัก" class="btn btn-secondary" id="delMain"> --}}
                                         </div>
                                     </div>
                                     @endforeach
+                                    @php
+                                        $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                        ->where('name', "Master BOQ")
+                                        ->first();
+                                        // dd($data_chk);
+                                        @endphp
+                                        @if ($data_chk)
+                                            @if ($data_chk->status == "2" )
+                                            <div class="grid grid-cols-3 gap-2">
+                                                <div class="input-form mt-3">
+                                                    <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
+                                                       <b> Overhead </b>
+                                                    </label>
+                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$edit_dis->overhead}}">
+                                                </div>
+                                                <div class="input-form mt-3">
+                                                    <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
+                                                       <b> Discount </b>
+                                                    </label>
+                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$edit_dis->discount}}">
+                                                </div>
+                                            </div>
+                                            @endif
+                                        @endif
                                 </div>
                                 <input type="hidden" id="is_btn" name="btn_send">
                                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
