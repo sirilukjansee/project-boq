@@ -36,7 +36,7 @@ class BoqController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         if( $request->btn_send == "btn_send" )
         {
             $send_form = "1";
@@ -77,31 +77,49 @@ class BoqController extends Controller
                 ])->id;
             }
             // return $template;
-        foreach($request->main_id as $key => $value)
-        {
-            foreach($request->code_id[$key] as $key2 => $value2)
+        // foreach($request->main_id as $key => $value)
+        // {
+            foreach($request->code_id as $key2 => $value2)
             {
-                if($value2)
-                {
-                    $boq = new Boq;
-                    $boq->template_boq_id = $template;
-                    $boq->vender_id = ($request->vender_id);
-                    $boq->main_id = ($key2);
-                    $boq->sub_id = ($value2);
-                    $boq->amount = ($request->amount[$key][$key2]);
-                    $boq->unit_id = ($request->unit_id[$key][$key2]);
-                    $boq->desc = ($request->desc[$key][$key2]);
-                    $boq->total = $request->total;
-                    $boq->overhead = $request->overhead;
-                    $boq->discount = $request->discount;
-                    $boq->status = $send_form;
-                    $boq->comment = $request->comment;
-                    $boq->create_by = 1;
-                    $boq->update_by = 1;
-                    $boq->save();
-                }
+                    if ($value2)
+                    {
+                    foreach($request->code_id[$key2] as $key3 => $value3)
+                        {
+                        // dd($request->amount[$key3]);
+                        foreach($request->amount[$key3] as $key4 => $value4)
+                            {
+                    //         foreach($request->unit_id[$key4] as $key5 => $value5)
+                    //         {
+                    //             foreach($request->desc[$key5] as $key6 => $value6)
+                    //             {
+                    //                 // dd($request->unit_id[0]);
+                    //                 // if($value2)
+                    //                 // {
+                    //                     $boq = new Boq;
+                    //                     $boq->template_boq_id = $template;
+                    //                     $boq->vender_id = ($request->vender_id);
+                    //                     $boq->main_id = ($key2);
+                    //                     $boq->sub_id = ($value2);
+                    //                     $boq->amount = ($value4);
+                    //                     $boq->unit_id = ($value5);
+                    //                     $boq->desc = ($value6);
+                    //                     $boq->overhead = $request->overhead;
+                    //                     $boq->discount = $request->discount;
+                    //                     $boq->status = $send_form;
+                    //                     $boq->comment = $request->comment;
+                    //                     $boq->create_by = 1;
+                    //                     $boq->update_by = 1;
+                    //                     $boq->save();
+                    //                 // }
+                    //             }
+                    //         }
+                            }
+                        }
+                    }
             }
-        }
+
+
+        // }
         return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! ADD BOQ Complete !!!');
     }
     public function edit($id)
@@ -112,7 +130,7 @@ class BoqController extends Controller
         $catagories2 = Unit::where('is_active', "1")->get();
         $ven_der = Vender::where('is_active', "1")->get();
         $edit_dis = Boq::where('template_boq_id', $id)->first();
-        $project_id = template_boqs::where('id' ,$id)->first();
+        $project_id = template_boqs::where('id' , $id)->first();
 
         return view('boq.formBoq.editformBoq', compact('editboq','catagories','brand_master','catagories2','id','project_id','ven_der','edit_dis'));
     }
@@ -134,35 +152,47 @@ class BoqController extends Controller
 
         Boq::where('template_boq_id', $request->id)->delete();      //*******************จะลบข้อมูลเดิมมออกก่อน แล้วค่อยเพิ่มใหม่************************
 
-        foreach($request->main_id as $key => $value)
-        {
+        // foreach($request->main_id as $key => $value)
+        // {
             // return $request->code_id[2];
-            if(!empty($request->code_id[$key]))
-            {
-                foreach($request->code_id[$key] as $key2 => $value2)
+            // if(!empty($request->code_id[$key]))
+            // {
+                foreach($request->code_id as $key2 => $value2)
                 {
-                    if( $value2 )
+                    foreach($request->code_id[$key2] as $key3 => $value3)
                     {
-                        $boq = new Boq;
-                        $boq->template_boq_id = $request->id;
-                        $boq->vender_id = ($request->vender_id);
-                        $boq->main_id = ($key2);
-                        $boq->sub_id = ($value2);
-                        $boq->amount = ($request->amount[$key][$key2]);
-                        $boq->unit_id = ($request->unit_id[$key][$key2]);
-                        $boq->desc = ($request->desc[$key][$key2]);
-                        $boq->total = $request->total;
-                        $boq->overhead = $request->overhead;
-                        $boq->discount = $request->discount;
-                        $boq->status = $send_form;
-                        $boq->comment = $request->comment;
-                        $boq->create_by = 1;
-                        $boq->update_by = 1;
-                        $boq->save();
+                        foreach($request->amount[$key3] as $key4 => $value4)
+                        {
+                            foreach($request->unit_id[$key4] as $key5 => $value5)
+                            {
+                                foreach($request->desc[$key5] as $key6 => $value6)
+                                {
+                                    // if( $value2 )
+                                    // {
+                                        $boq = new Boq;
+                                        $boq->template_boq_id = $request->id;
+                                        $boq->vender_id = ($request->vender_id);
+                                        $boq->main_id = ($key2);
+                                        $boq->sub_id = ($value2);
+                                        $boq->amount = ($value4);
+                                        $boq->unit_id = ($value5);
+                                        $boq->desc = ($value6);
+                                        $boq->total = $request->total;
+                                        $boq->overhead = $request->overhead;
+                                        $boq->discount = $request->discount;
+                                        $boq->status = $send_form;
+                                        $boq->comment = $request->comment;
+                                        $boq->create_by = 1;
+                                        $boq->update_by = 1;
+                                        $boq->save();
+                                    // }
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }
+            // }
+        // }
         return redirect(route('allBoq', ['id' => $request->project_id]))->with('success', '!!! Edit BOQ Complete !!!');
     }
 

@@ -363,7 +363,7 @@
                             var html = '';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select name="code_id[]['+sub_num+']" class="sub_select2-'+x+' tom-select w-32" placeholder="Code...">';
+                            html += '<select name="code_id[]['+value.id+']" class="sub_select2-'+x+' tom-select w-32" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -372,7 +372,7 @@
                             });
 
                             html += '</select>';
-                            html += '<select  name="sub_id[]['+sub_num+']" class="sub_select-'+x+' tom-select w-full" placeholder="Please Select...">';
+                            html += '<select  name="sub_id[]['+value.id+']" class="sub_select-'+x+' tom-select w-full" placeholder="Please Select...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
@@ -380,10 +380,10 @@
                                 }
                             });
                             html += '</select>';
-                            html += '<input type="number" name="amount[]['+sub_num+']" class="form-control w-24" placeholder="จำนวน" >';
-                            html += '<select name="unit_id[]['+sub_num+']" class="form-control w-24">';
+                            html += '<input type="number" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" >';
+                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-24">';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
-                            html += '<input type="text" name="desc[]['+sub_num+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
+                            html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 
