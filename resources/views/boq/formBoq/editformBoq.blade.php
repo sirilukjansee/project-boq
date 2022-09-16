@@ -142,9 +142,9 @@
                                 <div class="form-inline mb-3 mt-10">
                                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
                                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
-                                        <option selected value="">{{ @$edit_dis->vender_n->first_name }}</option>
+                                        <option selected value="{{ $project_id->vender_id }}">{{ @$project_id->vender_name->name }}</option>
                                         @foreach ( $ven_der as $vd )
-                                        <option value="{{ $vd->id }}">{{ $vd->first_name }}</option>
+                                        <option value="{{ $vd->id }}">{{ $vd->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -182,6 +182,15 @@
                                                         @endforeach
                                                     </select>
                                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}">
+                                                    @php
+                                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                                    ->where('name', "Master BOQ")
+                                                    ->first();
+                                                    @endphp
+                                                    @if ( $data_chk )
+                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24" value="{{ $eb->wage_cost }}">
+                                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24" value="{{ $eb->material_cost }}">
+                                                    @endif
                                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                                 </div>
                                             @endif
@@ -215,6 +224,17 @@
                                                         @endforeach
                                                     </select>
                                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                                    @php
+                                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                                    ->where('name', "Master BOQ")
+                                                    ->first();
+                                                    @endphp
+                                                    @if ( $data_chk )
+                                                        @if ($data_chk->status == "2" )
+                                                        <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
+                                                        <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
+                                                        @endif
+                                                    @endif
                                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                                 </div>
                                             @endif
@@ -235,7 +255,6 @@
                                         $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
                                         ->where('name', "Master BOQ")
                                         ->first();
-                                        // dd($data_chk);
                                         @endphp
                                         @if ($data_chk)
                                             @if ($data_chk->status == "2" )
@@ -244,13 +263,13 @@
                                                     <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
                                                        <b> Overhead </b>
                                                     </label>
-                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="">
+                                                    <input id="validation-form-8" type="number" name="overhead" class="form-control" value="{{$project_id->overhead}}">
                                                 </div>
                                                 <div class="input-form mt-3">
                                                     <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
                                                        <b> Discount </b>
                                                     </label>
-                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="">
+                                                    <input id="validation-form-9" type="number" name="discount" class="form-control" value="{{$project_id->discount}}">
                                                 </div>
                                             </div>
                                             @endif
@@ -366,6 +385,15 @@
                             html += '<select name="unit_id[]['+value.id+']" class="form-control w-24">';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
+                            // html += '@php';
+                            // html += '$data_chk = App\Models\template_boqs::where("project_id", $project_id->project_id)';
+                            // html += '->where("name", "Master BOQ")';
+                            // html += '->first();';
+                            // html += '@endphp';
+                            html += '@if ( $data_chk )';
+                            html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
+                            html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
+                            html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 

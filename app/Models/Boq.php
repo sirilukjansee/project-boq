@@ -17,6 +17,8 @@ class Boq extends Model
         'unit_id',
         'desc',
         'total',
+        'wage_cost',
+        'material_cost',
         'status',
         'comment',
         'vender_id',

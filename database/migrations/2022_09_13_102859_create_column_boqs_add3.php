@@ -14,8 +14,8 @@ class CreateColumnBoqsAdd3 extends Migration
     public function up()
     {
         Schema::table('boqs', function (Blueprint $table) {
-            $table->float('overhead', 8, 2)->after('total')->default('0')->nullable();
-            $table->float('discount', 8, 2)->after('overhead')->default('0')->nullable();
+            $table->float('wage_cost', 8, 2)->after('total')->default('0')->nullable();
+            $table->float('material_cost', 8, 2)->after('wage_cost')->default('0')->nullable();
         });
     }
 
@@ -27,7 +27,7 @@ class CreateColumnBoqsAdd3 extends Migration
     public function down()
     {
         Schema::table('boqs', function (Blueprint $table) {
-            $table->dropColumn('overhead','discount');
+            $table->dropColumn('wage_cost','material_cost');
         });
     }
 }

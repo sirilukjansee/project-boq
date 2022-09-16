@@ -141,7 +141,7 @@
                                 @csrf --}}
                                 <div class="form-inline mb-3 mt-10">
                                     <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
-                                    <input type="text" value="{{ $edit_dis->vender_n->first_name }}" disabled>
+                                    <input type="text" value="{{ $project_id->vender_name->name }}" disabled>
                                 </div>
                                 <div id="addmain" class="input-form mt-3">
                                     @foreach ($catagories as $key => $cat)
@@ -179,6 +179,15 @@
                                                         @endforeach
                                                     </select> --}}
                                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" value="{{ $eb->desc }}" disabled>
+                                                    @php
+                                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                                    ->where('name', "Master BOQ")
+                                                    ->first();
+                                                    @endphp
+                                                    @if ( $data_chk )
+                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->wage_cost }}" disabled>
+                                                    <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" value="{{ $eb->material_cost }}" disabled>
+                                                    @endif
                                                 </div>
                                             @endif
                                             @endforeach
@@ -213,6 +222,15 @@
                                                         @endforeach
                                                     </select> --}}
                                                     <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full" disabled>
+                                                    @php
+                                                    $data_chk = App\Models\template_boqs::where('project_id', $project_id->project_id)
+                                                    ->where('name', "Master BOQ")
+                                                    ->first();
+                                                    @endphp
+                                                    @if ( $data_chk )
+                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าแรง" disabled>
+                                                    <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าวัสดุ" disabled>
+                                                    @endif
                                                 </div>
                                             @endif
                                             <div id="newRowsub{{$key + 1}}"></div>
@@ -241,13 +259,13 @@
                                                     <label for="validation-form-8" class="form-label w-full flex flex-col sm:flex-row">
                                                        <b> Overhead </b>
                                                     </label>
-                                                    <input id="validation-form-8" type="text" name="overhead" class="form-control" value="{{$edit_dis->overhead}}" disabled>
+                                                    <input id="validation-form-8" type="text" name="overhead" class="form-control" value="{{$project_id->overhead}}" disabled>
                                                 </div>
                                                 <div class="input-form mt-3">
                                                     <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
                                                        <b> Discount </b>
                                                     </label>
-                                                    <input id="validation-form-9" type="text" name="discount" class="form-control" value="{{$edit_dis->discount}}" disabled>
+                                                    <input id="validation-form-9" type="text" name="discount" class="form-control" value="{{$project_id->discount}}" disabled>
                                                 </div>
                                             </div>
                                             @endif
