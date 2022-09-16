@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TaskNamesExport;
 use App\Imports\TaskNamesImport;
 use Illuminate\Http\Request;
 use App\Models\taskname;
@@ -85,6 +86,11 @@ class TaskNameController extends Controller
         Excel::import(new TaskNamesImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TaskNamesExport, 'taskName.xlsx');
     }
 
     public function taskNameChk($data)

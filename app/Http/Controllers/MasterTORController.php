@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TORExport;
 use App\Imports\TorDetailsImport;
 use App\Imports\TorsImport;
 use App\Models\catagory_sub;
@@ -141,6 +142,11 @@ class MasterTORController extends Controller
         Excel::import(new TorsImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TORExport, 'tor.xlsx');
     }
 
     public function uploadTorDetail(Request $request)

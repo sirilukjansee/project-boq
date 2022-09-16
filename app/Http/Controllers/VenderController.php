@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VendersExport;
 use App\Imports\VendersImport;
 use Illuminate\Http\Request;
 use App\Models\Vender;
@@ -84,6 +85,11 @@ class VenderController extends Controller
         Excel::import(new VendersImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new VendersExport, 'vender.xlsx');
     }
 
     public function venderChk($data)

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CategorysExport;
+use App\Exports\CategorySubsExport;
 use App\Imports\CategorysImport;
 use App\Imports\CategorySubsImport;
 use App\Models\Brand;
@@ -193,6 +195,16 @@ class MasterController extends Controller
         Excel::import(new CategorySubsImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new CategorysExport, 'category.xlsx');
+    }
+
+    public function export_sub()
+    {
+        return Excel::download(new CategorySubsExport, 'category_sub.xlsx');
     }
 
     public function masterBoqChk($data)

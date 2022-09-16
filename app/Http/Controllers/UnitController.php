@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UnitsExport;
 use App\Imports\UnitsImport;
 use Illuminate\Http\Request;
 use App\Models\Unit;
@@ -85,6 +86,11 @@ class UnitController extends Controller
         Excel::import(new UnitsImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UnitsExport, 'unit.xlsx');
     }
 
     public function unitChk($data)

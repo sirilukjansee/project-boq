@@ -11,6 +11,9 @@
                         <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-import" class="btn btn-success mr-1 mb-2 text-white">
                             <i data-lucide="database" class="w-4 h-4 mr-2"></i> Import Location
                         </a>
+                        <a href="{{ url('/export-location')}}" class="btn btn-pending mr-1 mb-2 text-white">
+                            <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> Export Location
+                        </a>
                         <a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview_add" class="btn btn-primary mr-1 mb-2">
                             <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add Location
                         </a>

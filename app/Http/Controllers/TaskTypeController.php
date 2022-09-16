@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TaskTypesExport;
 use App\Imports\TaskTypesImport;
 use Illuminate\Http\Request;
 use App\Models\task_type;
@@ -86,6 +87,11 @@ class TaskTypeController extends Controller
         Excel::import(new TaskTypesImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TaskTypesExport, 'taskType.xlsx');
     }
 
     public function taskTypeChk($data)

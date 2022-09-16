@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LocationsExport;
 use App\Imports\LocationsImport;
 use Illuminate\Http\Request;
 use App\Models\Location;
@@ -86,6 +87,11 @@ class LocationController extends Controller
         Excel::import(new LocationsImport, $request->file);
 
         return back()->with('success','!!! Import File Complete !!!');
+    }
+
+    public function export()
+    {
+        return Excel::download(new LocationsExport, 'location.xlsx');
     }
 
     public function locationChk($data)
