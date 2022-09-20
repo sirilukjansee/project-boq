@@ -34,6 +34,8 @@ class template_boqs extends Model
     public function vender_name(){
         return $this->hasOne(Vender::class,'id','vender_id');
     }
-
+    public function cat_sub(){
+        return $this->hasMany(Boq::class,'template_boq_id','id');
+    }
 
 }

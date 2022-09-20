@@ -125,7 +125,7 @@
             <div class="wrapper-box">
                 <!-- BEGIN: Content -->
                 <div class="content">
-                    <div class="intro-y flex sm:flex-row items-center mt-3">
+                    <div class="intro-y flex sm:flex-row items-top mt-5">
                         <h2 class="text-lg font-medium mr-auto">
                             <b>Edit BOQ of {{ $project_id->project->brand_master->brand_name }} at {{ $project_id->project->location_master->location_name }}
                             @if ( $project_id->name == 'Master BOQ' )
@@ -134,6 +134,14 @@
                                 [Additional BOQ]
                             @endif</b>
                         </h2>
+                        @if ( $project_id->comment != null )
+                        <div class="intro-y flex sm:flex-row items-top">
+                            <h2 class="text-lg font-medium mr-auto">
+                                <b>Comment from Manager : </b>
+                                <textarea class="flex" cols="60" rows="3" readonly>{{ $project_id->comment }}</textarea>
+                            </h2>
+                        </div>
+                        @endif
                     </div>
                     <!-- BEGIN: Validation Form -->
                         <div class="group_wrapper">
@@ -228,8 +236,8 @@
                                                     ->first();
                                                     @endphp
                                                     @if ( $data_chk )
-                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าแรง" disabled>
                                                     <input type="number" name="material_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าวัสดุ" disabled>
+                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" class="form-control w-24" placeholder="ค่าแรง" disabled>
                                                     @endif
                                                 </div>
                                             @endif

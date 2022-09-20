@@ -241,7 +241,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 @if ( $tb->status == "3" )
                                                     <button class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export </button>
                                                     @else
-                                                    <a href="{{ url('projects/export/') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                                                    <a href="{{ url('projects/export', $tb->id ) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                                                 @endif
 
                                             </div>

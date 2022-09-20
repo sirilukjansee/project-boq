@@ -187,7 +187,7 @@
                             <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-inline mb-3 mt-10">
-                                    <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
+                                    <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
                                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
                                         <option selected value=""></option>
                                         @foreach ( $venders as $vd )
@@ -204,19 +204,21 @@
                                             <div class="input-form">
                                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                    <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="tom-select-code-{{$key + 1}} tom-select w-32" placeholder="Code...">
+                                                    {{-- <span id="code_id{{$key + 1}}"></span> --}}
+                                                    {{-- <select id="code_id{{$key + 1}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 w-32" placeholder="Code...">
                                                         <option selected value=""></option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
                                                         <option value="{{$cat_s->id}}">{{$cat_s->code}}</option>
                                                         @endforeach
-                                                    </select>
-                                                    <select id="sub1" name="sub_id[][{{ $cat->id }}]" class="tom-select w-full" placeholder="Please Select...">
+                                                    </select> --}}
+                                                    <span id="select_code_id{{$key + 1}}"></span>
+                                                    {{-- <select id="sub{{$key + 1}}" name="sub_id[][{{ $cat->id }}]" class="selectDropdown_2 w-full" placeholder="Please Select...">
                                                         <option selected value=""></option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
                                                         <option value="{{$cat_s->id}}">{{$cat_s->name}}</option>
                                                         @endforeach
-                                                    </select>
-                                                    {{-- <span class="sub_selected{{ $cat->id }}"></span> --}}
+                                                    </select> --}}
+                                                    <span id="select_sub_id{{$key + 1}}"></span>
                                                     <input type="number" name="amount[][{{ $cat->id }}]" class="form-control w-24" placeholder="จำนวน">
                                                     <select name="unit_id[][{{ $cat->id }}]" class="form-control w-24">
                                                         <option selected value=""></option>
@@ -224,15 +226,15 @@
                                                         <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
+                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-3/4">
                                                     @php
                                                     $data_chk = App\Models\template_boqs::where('project_id', $project->id)
                                                     ->where('name', "Master BOQ")
                                                     ->first();
                                                     @endphp
                                                     @if ( $data_chk )
-                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
                                                     <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
+                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
                                                     @endif
                                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                                 </div>
@@ -275,7 +277,13 @@
                                 </div>
                                 <input type="hidden" id="is_btn" name="btn_send">
                                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
-                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                @if ($data_chk)
+                                    @if ($data_chk->status != "2")
+                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                    @endif
+                                    @else
+                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
+                                @endif
                                 <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                             </form>
                         </div>
@@ -335,7 +343,8 @@
             jQuery('input:checkbox:checked').parents('#addsub').remove();
             });
 
-            jQuery('.testTom').select2();
+            jQuery('.selectDropdown_2').select2();
+            // jQuery('.selectDropdown_23').select2();
 
             // btn add subwork
             jQuery(document).ready(function()
@@ -352,24 +361,10 @@
                         // console.log(response);
                         var sub_num = key + 1;
 
-                        jQuery(document).on('change', "#code_id"+sub_num, function(){
-                            // alert("#sub1 option[value='2']");
-                            console.log($(this).val());
-                            $("#sub1 option[value='"+$(this).val()+"']").attr("selected","selected");
-
-                            jQuery('.testTom').select2();
-                        });
-
-
-
-                        // new TomSelect(".tom-select-code-"+sub_num);
-                        // new TomSelect(".tom-select-sub-"+sub_num);
-
-                        $("#btnAddsub" + sub_num).on('click', function(){
+                        //append code
                             var html = '';
-                            html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
-                            html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select name="code_id[]['+value.id+']" class="sub_select2-'+x+' tom-select w-32" placeholder="Code...">';
+                            var html2 = '';
+                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -378,7 +373,121 @@
                             });
 
                             html += '</select>';
-                            html += '<select  name="sub_id[]['+value.id+']" class="sub_select-'+x+' tom-select w-full" placeholder="Please Select...">';
+                            $('#select_code_id'+sub_num).append(html);
+                            // jQuery('#code_id'+sub_num).select2();
+                            jQuery('.selectDropdown_2').select2();
+
+
+                            // append งานย่อย
+                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
+                            html2 += '<option selected value=""></option>';
+                            jQuery.each(response.dataSub, function(key, value2){
+                                if(value2.catagory_id == value.id){
+                                    html2 += '<option value="'+value2.id+'">'+value2.name+'</option>';
+                                }
+                            });
+                            html2 += '</select>';
+                            $('#select_sub_id'+sub_num).append(html2);
+                            // jQuery('#sub'+sub_num).select2();
+                            jQuery('.selectDropdown_2').select2();
+
+
+                        // คลิกที่ code แล้ว link งานย่อย
+                        jQuery(document).on('change', "#code_id"+sub_num, function(){
+                            // alert("#sub1 option[value='2']");
+                            console.log($(this).val());
+
+                            jQuery('#select_sub_id'+sub_num).children().remove().end();
+
+                            var html2 = '';
+                            html2 += '<select id="sub'+sub_num+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
+                            html2 += '<option selected value=""></option>';
+                            jQuery.each(response.dataSub, function(key, value2){
+                                if(value2.catagory_id == value.id){
+                                    html2 += '<option value="'+value2.id+'">'+value2.name+'cc</option>';
+                                }
+                            });
+                            html2 += '</select>';
+                            $('#select_sub_id'+sub_num).append(html2);
+
+                            $("#sub"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+                            jQuery('.selectDropdown_2').select2();
+                            // jQuery('.sub'+sub_num).select2();
+                        });
+
+                        //------------------------------------------------------------//
+
+                        // คลิกที่ งานย่อย แล้ว link code
+                        jQuery(document).on('change', "#sub"+sub_num, function(){
+                            // alert("#sub1 option[value='2']");
+                            console.log($(this).val());
+                            console.log($(this).attr('id'));
+                            console.log('#select_code_id'+sub_num);
+
+                            jQuery('#select_code_id'+sub_num).children().remove().end();
+
+                            var html = '';
+                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<option selected value=""></option>';
+                            jQuery.each(response.dataSub, function(key, value3){
+                                if(value3.catagory_id == value.id){
+                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                }
+                            });
+                            html += '</select>';
+                            $('#select_code_id'+sub_num).append(html);
+
+                            $("#code_id"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+                            jQuery('.selectDropdown_2').select2();
+                            // jQuery('#code_id'+sub_num).select2();
+                        });
+
+                        //----------------------------------------------------------------------------------------------------//
+                        // คลิกที่ งานย่อย แล้ว link code
+                        jQuery(document).on('change', "#sub_a"+sub_num, function(){
+                            // alert("#sub1 option[value='2']");
+                            console.log($(this).val());
+                            console.log($(this).attr('id'));
+                            console.log("#code_id_a"+sub_num);
+
+                            $("#code_id_a"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+                            jQuery('.selectDropdown_2').select2();
+                            jQuery('#sub_a'+sub_num).select2();
+                        });
+
+                        jQuery(document).on('change', "#code_id_a"+sub_num, function(){
+                            // alert("#sub1 option[value='2']");
+                            console.log($(this).val());
+                            console.log($(this).attr('id'));
+                            console.log("#sub_a"+sub_num);
+
+                            $("#sub_a"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
+
+                            jQuery('.selectDropdown_2').select2();
+                            jQuery('#sub_a'+sub_num).select2();
+                        });
+
+                        jQuery('.selectDropdown_2').select2();
+                            jQuery('#sub_a'+sub_num).select2();
+
+
+                        $("#btnAddsub" + sub_num).on('click', function(){
+                            var html = '';
+                            html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
+                            html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
+                            html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<option selected value=""></option>';
+                            jQuery.each(response.dataSub, function(key, value3){
+                                if(value3.catagory_id == value.id){
+                                    html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                                }
+                            });
+
+                            html += '</select>';
+                            html += '<select id="sub_a'+x+'" name="sub_id[]['+value.id+']" class="selectDropdown_2 w-full" placeholder="Please Select...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value2){
                                 if(value2.catagory_id == value.id){
@@ -387,30 +496,24 @@
                             });
                             html += '</select>';
                             html += '<input type="number" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" >';
-                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-24">';
+                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
-                            // html += '@php';
-                            // html += '$data_chk = App\Models\template_boqs::where("project_id", $project->id)->where("name", "Master BOQ")->first();';
-                            // html += '->where("name", "Master BOQ")';
-                            // html += '->first();';
-                            // html += '@endphp';
                             html += '@if ( $data_chk )';
-                            html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
                             html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
+                            html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
                             html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 
                             // console.log(sub_num);
                         $("#newRowsub" + sub_num).append(html);
+                        jQuery('.selectDropdown_2').select2();
+                        jQuery('#sub'+sub_num).select2();
 
-                        // Tom select
-                        new TomSelect(".sub_select2-"+x);
-                        new TomSelect(".sub_select-"+x);
                         x++;
-
                          });
+
                     });
                 }
                 });

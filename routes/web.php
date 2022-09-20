@@ -42,9 +42,9 @@ Route::get('/loginBoq', function () {
 // Route::get('/addminorBoq', function () {
 //     return view('boq.formBoq.addminorBoq');
 // });
-Route::get('/adminBoq', function () {
-    return view('boq.adminBoq');
-});
+// Route::get('/adminBoq', function () {
+//     return view('boq.adminBoq');
+// });
 Route::get('/addUser', function () {
     return view('boq.formBoq.addUser');
 });
@@ -154,6 +154,8 @@ Route::post('/sub_masterBoq/update', [MasterController::class, 'update_sub']);
 Route::get('/sub_masterBoq/changeStatus/{id}',[MasterController::class,'changeStatus_sub']);
 Route::get('/sub_masterBoq/chk/{data}',[MasterController::class, 'subMasterBoqChk']);
 
+//dashboard
+Route::get('/adminBoq', [ProjectController::class, 'adminView']);
 
 //project
 Route::get('/index', [ProjectController::class, 'index'])->name('index');
@@ -168,12 +170,13 @@ Route::post('/formBoq/update', [BoqController::class, 'update']);
 Route::post('/change_status_boq', [BoqController::class, 'change_status_boq'])->name('change_status_boq');
 //view
 Route::get('/viewBoq/{id}', [BoqController::class, 'view_boq']);
+Route::get('/viewBoq/{id}', [BoqController::class, 'export_boq']);
 
 
 Route::get('/createformBoq/{id}', [FormboqController::class, 'index'])->name('createformboq');
 Route::get('/addformBoq/select-catagory', [FormboqController::class, 'select_catagory']);
 
-Route::get('projects/export/', [BoqController::class, 'export']);
+Route::get('projects/export/{id}', [BoqController::class, 'export']);
 
 //manager_approve
 Route::get('/checkBoq', [ManagerController::class, 'index']);

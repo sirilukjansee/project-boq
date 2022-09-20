@@ -135,7 +135,7 @@
                     </div>
                     <!-- BEGIN: Validation Form -->
                     <div class="group_wrapper">
-                        <form action="{{ url('/addprojectBoq/add') }}" method="post">
+                        <form name="addProject" action="{{ url('/addprojectBoq/add') }}" method="post" id="formId">
                             @csrf
                             <div class="intro-y input-form box p-5">
                                 <div class="grid grid-cols-2 gap-2">
@@ -144,24 +144,30 @@
                                             Brand <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-1" type="text" name="brand" class="form-control" required> --}}
-                                        <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full" required>
-                                            <option selected value="">Select a brand...</option>
+                                        <select name="brand" id="validation-form-1"  data-placeholder="Select a brand..." class="tom-select form-control w-full">
+                                            <option selected value=""></option>
                                             @foreach ($project1 as $pro1)
                                             <option value="{{$pro1->id}}">{{$pro1->brand_name}}</option>
                                             @endforeach
                                         </select>
+                                        @error('brand')
+                                                <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="input-form mt-3">
                                         <label for="validation-form-2" class="form-label w-full flex flex-col sm:flex-row">
                                             Location <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-2" type="text" name="location" class="form-control" required> --}}
-                                        <select id="validation-form-2" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full" required>
+                                        <select id="validation-form-2" name="location" data-placeholder="Select a location..."  autocomplete="off" class="tom-select form-control w-full">
                                             <option selected value="">Select a location...</option>
                                             @foreach ($project2 as $pro2)
                                             <option value="{{$pro2->id}}">{{$pro2->location_name}}</option>
                                             @endforeach
                                         </select>
+                                        @error('location')
+                                                <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-8 gap-2">
@@ -170,9 +176,11 @@
                                             <label for="validation-form-3" class="form-label w-full flex flex-col sm:flex-row">
                                                 Area/Sq.m <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-3" type="number" name="area" class="form-control" required>
-                                            {{-- <div class="form-help">ขนาด และ หน่วย</div> --}}
+                                            <input id="validation-form-3" type="number" name="area" class="form-control">
                                         </div>
+                                        @error('area')
+                                                <span class="text-danger">{{$message}}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">
                                         <div class="input-form mt-2 xl:mt-0">
@@ -188,12 +196,15 @@
                                                 Task Type <span style="color: red">*</span>
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task" class="form-control" required> --}}
-                                            <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="tom-select form-control w-full" required>
+                                            <select id="select-beast-empty2" name="task" data-placeholder="Select a task type..."  autocomplete="off" class="tom-select form-control w-full">
                                                 <option selected value="">Select a task type...</option>
                                                 @foreach ($project3 as $pro3)
                                                 <option value="{{$pro3->id}}">{{$pro3->task_type_name}}</option>
                                                 @endforeach
                                             </select>
+                                            @error('task')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">
@@ -202,12 +213,15 @@
                                                 Task Name <span style="color: red">*</span>
                                             </label>
                                             {{-- <input id="validation-form-5" type="text" name="task_n" class="form-control" required> --}}
-                                            <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="tom-select form-control w-full" required>
+                                            <select id="select-beast-empty3" name="task_n" data-placeholder="Select a task name..."  autocomplete="off" class="tom-select form-control w-full">
                                                 <option selected value="">Select a task name...</option>
                                                 @foreach ($project4 as $pro4)
                                                 <option value="{{$pro4->id}}">{{$pro4->task_name}}</option>
                                                 @endforeach
                                             </select>
+                                            @error('task_n')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +231,10 @@
                                             <label for="validation-form-6" class="form-label w-full sm:flex-row" id="sDate">
                                                 Start Date <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-6" type="date" name="startDate" class="form-control" value="{{ date('d-m-y') }}" required>
+                                            <input id="validation-form-6" type="date" name="startDate" class="form-control" value="{{ date('d-m-y') }}">
+                                            @error('startDate')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">
@@ -225,7 +242,10 @@
                                             <label for="validation-form-7" class="form-label w-full sm:flex-row">
                                                 Hand Over Date <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-7" type="date" name="finishDate" class="form-control" required>
+                                            <input id="validation-form-7" type="date" name="finishDate" class="form-control">
+                                            @error('finishDate')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-span-12 xl:col-span-2 mt-3">
@@ -241,7 +261,10 @@
                                             <label for="validation-form-11" class="form-label w-full sm:flex-row">
                                                 Open Date <span style="color: red">*</span>
                                             </label>
-                                            <input id="validation-form-11" type="date" name="openDate" class="form-control" required>
+                                            <input id="validation-form-11" type="date" name="openDate" class="form-control">
+                                            @error('openDate')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -251,46 +274,22 @@
                                             Designer Name <span style="color: red">*</span>
                                         </label>
                                         {{-- <input id="validation-form-8" type="text" name="ds_name" class="form-control" required> --}}
-                                        <select name="ds_name" id="validation-form-8" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full" required>
-                                            <option value="">Select a designer...</option>
+                                        <select name="ds_name" id="validation-form-8" data-placeholder="Select a designer..."  autocomplete="off" class="tom-select form-control w-full">
+                                            <option selected value="">Select a designer...</option>
                                             @foreach ($project5 as $pro5)
                                             <option value="{{$pro5->id}}">{{$pro5->name}}</option>
                                             @endforeach
                                         </select>
+                                        @error('ds_name')
+                                                <span class="text-danger">{{$message}}</span>
+                                        @enderror
                                     </div>
-                                    {{-- <div class="input-form mt-3">
-                                        <label for="validation-form-9" class="form-label w-full flex flex-col sm:flex-row">
-                                            Project Manager
-                                        </label>
-                                        <input id="validation-form-9" type="text" name="pm_name" class="form-control" required>
-                                    </div> --}}
                                 </div>
-                                <input type="submit" value="Save" class="btn btn-primary mt-5">
+                                <input id="chk" type="submit" value="Save" class="btn btn-primary mt-5">
+                                {{-- <span id="btn_add"></span> --}}
                                 <a href="{{ url("index") }}" class="btn btn-secondary mt-5">Back</a>
                             </div>
                         </form>
-                        <!-- BEGIN: Success Notification Content -->
-                        <div id="success-notification-content" class="toastify-content hidden flex">
-                            <i class="text-success" data-lucide="check-circle"></i>
-                            <div class="ml-4 mr-4">
-                                <div class="font-medium">Registration success!</div>
-                                <div class="text-slate-500 mt-1">
-                                    Please check your e-mail for further info!
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Success Notification Content -->
-                        <!-- BEGIN: Failed Notification Content -->
-                        <div id="failed-notification-content" class="toastify-content hidden flex">
-                            <i class="text-danger" data-lucide="x-circle"></i>
-                            <div class="ml-4 mr-4">
-                                <div class="font-medium">Add-Project Failed!</div>
-                                <div class="text-slate-500 mt-1">
-                                    Please check the fileld form.
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END: Failed Notification Content -->
                     </div>
                     <!-- END: Validation Form -->
                 </div>
@@ -298,20 +297,18 @@
             </div>
         </div>
         <!-- END: Content -->
-
-        <!-- BEGIN: Failed Notification Content -->
-        <div id="failed-notification-content" class="toastify-content hidden flex"> <i class="text-danger" data-lucide="x-circle"></i>
-            <div class="ml-4 mr-4">
-                <div class="font-medium">Registration failed!</div>
-                <div class="text-slate-500 mt-1"> Please check the fileld form. </div>
-            </div>
-        </div>
-        <!-- END: Failed Notification Content -->
-
         <!-- BEGIN: JS Assets-->
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="dist/js/app.js"></script>
         <script type="text/javascript">
+
+            // function validateForm() {
+            // let x = document.forms["addProject"]["brand"]["location"]["task"]["task_n"]["ds_name"].value;
+            // if (x == "") {
+            //     alert("Must be filled out");
+            //     return false;
+            // }
+            // }
 
             //calculate date
             $('#validation-form-7').on('change', function() {
@@ -352,15 +349,30 @@
                 jQuery('[name="openDate"]').attr('min', min);
             });
 
-            // function Validate() {
-            //     var val_brand = document.getElementById("validation-form-1");
-            //     if (val_brand.value == "") {
-            //         //If the "Please Select" option is selected display error.
-            //         alert("Please select an option!");
-            //         return false;
+            //  jQuery(document).on('click', '#chk', function(){
+            //     var val_brand = $("#validation-form-1").val();
+            //     var val_location = $("#validation-form-2").val();
+            //     var val_task_t = $("#select-beast-empty2").val();
+            //     var val_task_n = $("#select-beast-empty3").val();
+            //     var val_design = $("#validation-form-8").val();
+
+            //     if (val_brand == "" && val_task_t == "" && val_task_n == "" && val_design == "") {
+            //         $('#test').text('Please fill this');
             //     }
-            //     return true;
-            // }
+            //     // if (val_location == ""){
+            //     //     $('#test').text('Please fill this');
+            //     // }
+            //     // if(val_brand != "" && val_location != "" && val_task_t != "" && val_task_n != "" && val_design != ""){
+            //     //     jQuery("#formId").submit();
+            //     // }
+
+            //  });
+            //     jQuery(document).on('change', '#validation-form-1', function() {
+            //         $('#test').text('');
+            //     });
+            //     jQuery(document).on('change', '#validation-form-2', function() {
+            //         $('#test').text('');
+            //     });
 
         </script>
         <!-- END: JS Assets-->

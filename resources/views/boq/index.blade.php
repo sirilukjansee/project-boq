@@ -9,11 +9,11 @@
         <meta name="author" content="LEFT4CODE">
         <title>All project boq - </title>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
         <script src="{{ asset('filter/filter.js') }}"></script>
         <!-- BEGIN: DataTables -->
         <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/jquery.dataTables.min.css') }}" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
         <script src="{{ asset('DataTables/jquery.dataTables.min.js') }}"></script>
         <!-- END: DataTables -->
         <!-- BEGIN: CSS Assets-->
@@ -210,56 +210,29 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col" col-index = 2>ID
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 3>Brand
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 4>Location
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 5>Area/Sq.m
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 6>Task Type
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 7>Task Name
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 8>Open date
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 9>Designer
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 10>Status
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-<<<<<<< HEAD
-                                        <th scope="col">IO</th>
-=======
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Brand</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Area/Sq.m</th>
+                                        <th scope="col">Task Type</th>
+                                        <th scope="col">Task Name</th>
+                                        <th scope="col">Open date</th>
+                                        <th scope="col">Designer</th>
+                                        <th scope="col">Status</th>
                                         <th class="text-center" scope="col">IO</th>
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" class="filterhead">#</th>
+                                        <th scope="col" class="filterhead">ID</th>
+                                        <th scope="col" class="filterhead">Brand</th>
+                                        <th scope="col" class="filterhead">Location</th>
+                                        <th scope="col" class="filterhead">Area/Sq.m</th>
+                                        <th scope="col" class="filterhead">Task Type</th>
+                                        <th scope="col" class="filterhead">Task Name</th>
+                                        <th scope="col" class="filterhead">Open date</th>
+                                        <th scope="col" class="filterhead">Designer</th>
+                                        <th scope="col" class="filterhead">Status</th>
+                                        <th class="text-center filterhead" scope="col">IO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -269,21 +242,12 @@
                                         <td class="w-40 text-center table-report__action"><h3>{{ $pro->number_id }}</td>
                                         <td class="table-report__action w-56">{{ $pro->brand_master->brand_name }}</td>
                                         <td class="table-report__action w-56">{{ $pro->location_master->location_name }}</td>
-<<<<<<< HEAD
-                                        <td class="table-report__action w-56">{{ $pro->area }}</td>
-                                        <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
-                                        <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
-                                        <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
-                                        <td class="table-report__action w-56">{{ $pro->designer_master->name }}</td>
-                                        <td class="table-report__action w-56">
-=======
                                         <td class="text-center table-report__action w-56">{{ $pro->area }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
                                         <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->designer_master->name }}</td>
                                         <td class="text-center table-report__action w-56">
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                                                 @if ( @$pro->project_id1->name == "Master BOQ" )
                                                     @if ($pro->project_id1->status == "0")
                                                     Drafted
@@ -298,11 +262,7 @@
                                                     @endif
                                                 @endif
                                         </td>
-<<<<<<< HEAD
-                                        <td class="table-report__action w-56">{{ $pro->io }}</td>
-=======
                                         <td class="text-center table-report__action w-56">{{ $pro->io }}</td>
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -317,21 +277,27 @@
         <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
-        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="dist/js/app.js"></script>
         <script>
-            window.onload = () => {
-                // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-            };
-
-            getUniqueValuesFromColumn()
-
             //data table
-            jQuery(document).ready(function () {
-                jQuery('.allWork').DataTable({
-                    "ordering": false
-                });
+            jQuery(document).ready(function() {
+            var table = jQuery('.allWork').DataTable({
+                "bLengthChange": true,
+                "iDisplayLength": 10,
+                "ordering": false,
+            });
+
+            jQuery(".filterhead").each( function ( i ) {
+                var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+                    .appendTo( jQuery(this).empty() )
+                    .on( 'change', function () {
+                    var term = $(this).val();
+                        table.column( i ).search(term, false, false ).draw();
+                    } );
+                table.column( i ).data().unique().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+                } );
             });
 
             //row button
