@@ -13,7 +13,7 @@ class Brand extends Model
 
     Protected $table = 'brands';
     protected $fillable = [
-        'code',
+        // 'code',
         'brand_name',
         'is_active',
         'create_by',

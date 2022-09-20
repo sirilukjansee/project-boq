@@ -13,14 +13,14 @@ class BrandsExport implements FromCollection,WithHeadings
 
     public function collection()
     {
-        return Brand::select('code', 'brand_name', 'is_active', 'create_by',
+        return Brand::select('brand_name', 'is_active', 'create_by',
          'update_by', 'created_at', 'updated_at', 'deleted_at')->get();
     }
 
     public function headings(): array
     {
         return [
-            'code',
+            // 'code',
             'brand_name',
             'is_active',
             'create_by',

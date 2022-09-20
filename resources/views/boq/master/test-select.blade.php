@@ -180,12 +180,13 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Content -->
         <div class="content">
             <div class="intro-y mt-3">
-                <select class="js-example-basic-single2 mr-5" name="state" id="ss">
+                <select class="tom-select" name="state" id="ss">
                     <option value="">เลือกข้อมูล</option>
-                    <option value="123">123</option>
-                    <option value="456">456</option>
+                    <option value="AL">123</option>
+                    <option value="WY">456</option>
                   </select>
-                <select class="js-example-basic-single" name="state" id="cc">
+                  <span id="gg"></span>
+                <select class="tom-select" name="state" id="dd">
                     <option value="AL">Alabama</option>
                     <option value="WY">Wyoming</option>
                   </select>
@@ -196,19 +197,24 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="{{ asset('dist/js/app.js')}}"></script>
 
         <script type="text/javascript">
-        jQuery('.js-example-basic-single2').select2();
-        jQuery('.js-example-basic-single').select2();
-            // jQuery(document).ready(function() {
-        // $('#cc').append('<option value="1" selected>EEEEE</option>');
         jQuery(document).on('change', "#ss", function(){
-            // alert("OK");
-                // $('#cc').append('<option value="1" selected>XXX</option>');
-                $("#cc option[value='WY']").attr("selected","selected");
-                jQuery('.js-example-basic-single').select2();
-            });
+            console.log($(this).val());
+            // $("#dd option[value='"+$(this).val()+"']").attr("selected","selected");
+            $("#dd").val("WY").attr("selected","selected");
+        });
+        // jQuery('.js-example-basic-single2').select2();
+        // jQuery('.js-example-basic-single').select2();
 
-            // });
-
+        // jQuery(document).on('change', "#ss", function(){
+        //     // alert("OK");
+        //     console.log($(this).val());
+        //         jQuery('#gg').children().remove().end();
+        //         // jQuery('#cc').hide();
+        //         // $('#dd').parent().hide();
+        //         $('#gg').append('<select class="js-example-basic-single" name="state" id="cc"><option value="AL">AlabamaGG</option><option value="WY">Wyoming</option></select>');
+        //         $("#cc option[value='"+$(this).val()+"']").attr("selected","selected");
+        //         jQuery('.js-example-basic-single').select2();
+        //     });
 
         </script>
 

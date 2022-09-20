@@ -15,10 +15,10 @@ class BrandsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $chk = Brand::where('code', $row['code'])->first();
+        $chk = Brand::where('brand_name', $row['brand_name'])->first();
         if ($chk) {
             Brand::where('id', $chk->id)->update([
-                'code' => $row['code'],
+                // 'code' => $row['code'],
                 'brand_name' => $row['brand_name'],
                 // "is_active" => $row['is_active'],
                 'create_by' => 2,
@@ -26,7 +26,7 @@ class BrandsImport implements ToModel, WithHeadingRow
             ]);
         }else{
             return new Brand([
-                'code' => $row['code'],
+                // 'code' => $row['code'],
                 'brand_name' => $row['brand_name'],
                 // "is_active" => $row['is_active'],
                 'create_by' => 2,

@@ -15,6 +15,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\VenderController;
 use App\Http\Controllers\MasterTORController;
 use App\Http\Controllers\ManagerController;
+use Illuminate\Support\Facades\Artisan;
 // use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\DB;
 
@@ -207,4 +208,11 @@ Route::get('/export-tor', [MasterTORController::class, 'export']);
 // Route::get('/addminorBoq', [ExcelController::class, 'index']);
 // Route::get('/addminorBoq/export', [ExcelController::class, 'ExportExcel']);
 
+Route::get('/clc', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return "Cache is cleared";
+});
 

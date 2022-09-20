@@ -17,7 +17,7 @@ class MasterTORController extends Controller
     {
         $masterTor = MasterTOR::get();
 
-        return view('boq.master.masterTOR', compact('masterTor'));
+        return view('boq.master.masterTor', compact('masterTor'));
     }
 
     public function store(Request $request)

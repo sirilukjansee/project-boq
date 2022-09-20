@@ -7,7 +7,7 @@
                     {{-- Master Data > {{ $catagories->name }} --}}
                     <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
                         <ol class="breadcrumb breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('masterBoq') }}">Master Category</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('masterBoq') }}">Master BOQ</a></li>
                             <li class="breadcrumb-item active"><a>{{ $catagories->name }}</a></li>
                         </ol>
                     </nav>
@@ -287,24 +287,35 @@
                 jQuery('#get_brand_edit').children().remove().end();
                 // console.log(data.dataBrand);
 
+                var x = 0;
+
                 if (data.dataEdit.brand_id) {
                     let rows_tags = data.dataEdit.brand_id.split(",");
-                    jQuery.each(rows_tags, function(tkey, tvalue){
-                    jQuery.each(data.dataBrand, function(key, value){
+                    // jQuery.each(rows_tags, function(tkey, tvalue){
+                        jQuery.each(data.dataBrand, function(key, value){
+                            jQuery.each(rows_tags, function(tkey, tvalue){
                         if(value.id == rows_tags[tkey]){
-                            $('#get_brand_edit').append('<option value='+value.id+' selected>'+value.brand_name+'</option>');
-                        }else{
-                            $('#get_brand_edit').append('<option value='+value.id+'>'+value.brand_name+'</option>');
+                            // console.log(rows_tags[tkey]);
+                            $('#get_brand_edit').append('<option value='+value.id+' selected>'+key+'.'+value.brand_name+'</option>');
                         }
-                    });
-                });
-                }else{
-                    jQuery.each(data.dataBrand, function(key, value){
-                        $('#get_brand_edit').append('<option value='+value.id+'>'+value.brand_name+'</option>');
+                        });
+                        // jQuery.each(rows_tags, function(tkey, tvalue){
+                        // if(rows_tags[key]){
+                            if(value.id != rows_tags[x]){
+                                console.log(rows_tags[x]);
+                                x++;
+                            // console.log(key+'.'+value.id);
+                            $('#get_brand_edit').append('<option value='+value.id+'>'+key+'.'+value.brand_name+'</option>');
+                            }
+                        // }
+                        // });
                     });
                 }
-
-
+                else{
+                    jQuery.each(data.dataBrand, function(key, value){
+                        $('#get_brand_edit').append('<option value='+value.id+'>'+key+'.'+value.brand_name+'</option>');
+                    });
+                }
             }
         });
     }
@@ -322,7 +333,7 @@
                 success: function(data) {
                     // $('#chk_code').val(data.dataChk.code);
                     jQuery.each(data.dataChk, function(key, value){
-                        if (value.code == datakey) {
+                        if (value.code.toUpperCase() == datakey.toUpperCase()) {
                             $('#comment').text("'" + value.code + "' มีอยูในระบบแล้ว !");
                             document.getElementById('btn_save').disabled = true;
 
@@ -367,7 +378,7 @@
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.name == datakey) {
+                    if (value.name.toUpperCase() == datakey.toUpperCase()) {
                         $('#comment2').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                     }
@@ -389,7 +400,7 @@
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.name == datakey) {
+                    if (value.name.toUpperCase() == datakey.toUpperCase()) {
                         $('#edit_comment2').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                         document.getElementById('btn_save_edit').disabled = true;

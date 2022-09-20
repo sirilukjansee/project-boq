@@ -242,11 +242,11 @@
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.name == datakey) {
+                    if (value.name.toUpperCase() == datakey.toUpperCase()) {
                         $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                     }
-                    if (value.email == $('.chk_email').val()) {
+                    if (value.email.toUpperCase() == $('.chk_email').val().toUpperCase()) {
                         $('#comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                     }
@@ -268,10 +268,10 @@
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.email == datakey) {
+                    if (value.email.toUpperCase() == datakey.toUpperCase()) {
                         $('#comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
-                    }if (value.name == $('.chk_name').val()) {
+                    }if (value.name.toUpperCase() == $('.chk_name').val().toUpperCase()) {
                         $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                     }
@@ -294,7 +294,7 @@
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.name == datakey) {
+                    if (value.name.toUpperCase() == datakey.toUpperCase()) {
                         $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;
                     }
@@ -321,7 +321,7 @@
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.email == datakey) {
+                    if (value.email.toUpperCase() == datakey.toUpperCase()) {
                         $('#edit_comment_email').text("'" + value.email + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save_edit').disabled = true;
                     }if (value.name == $('.chk_name_edit').val()) {

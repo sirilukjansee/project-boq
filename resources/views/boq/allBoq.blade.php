@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <title>Boq - </title>
         <!-- BEGIN: CSS Assets-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
+        <link rel="stylesheet" href="{{ asset('public/dist/css/app.css') }}" />
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -28,7 +28,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="mobile-menu md:hidden">
             <div class="mobile-menu-bar">
                 <a href="{{ url('index') }}" class="flex mr-auto">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="/dist/images/logo.svg">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
                 </a>
                 <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
             </div>
@@ -67,7 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="h-full flex items-center">
                 <!-- BEGIN: Logo -->
                 <a href="{{ url("index") }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="/dist/images/logo.svg">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
                     <span class="text-white text-lg ml-3">Test</span>
                 </a>
                 <!-- END: Logo -->
@@ -82,7 +82,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
                     <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="/dist/images/profile-8.jpg">
+                        <img alt="Midone - HTML Admin Template" src="{{ asset('public/dist/images/profile-8.jpg')}}">
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
@@ -241,7 +241,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 @if ( $tb->status == "3" )
                                                     <button class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export </button>
                                                     @else
-                                                    <a href="{{ url('projects/export/') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
+                                                    <a href="{{ url('projects/export', $tb->id ) }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="corner-right-up" class="w-4 h-4 mr-2"></i> Export</a>
                                                 @endif
 
                                             </div>
@@ -314,7 +314,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: JS Assets-->
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
-        <script src="/dist/js/app.js"></script>
+        <script src="{{ asset('public/dist/js/app.js')}}"></script>
         <!-- END: JS Assets-->
         <script type="text/javascript">
             jQuery(document).on('click', '#change_status_boq', function()   {

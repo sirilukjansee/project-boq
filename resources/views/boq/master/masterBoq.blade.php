@@ -3,7 +3,7 @@
 @section('content-data')
 <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
     <h2 class="text-lg font-medium mr-auto">
-        Master Category
+        Master BOQ
     </h2>
     <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <div class="text-center">
@@ -229,7 +229,7 @@ jQuery(document).ready(function() {
             success: function(data) {
                 // $('#chk_code').val(data.dataChk.code);
                 jQuery.each(data.dataChk, function(key, value){
-                    if (value.name == datakey) {
+                    if (value.name.toUpperCase() == datakey.toUpperCase()) {
                         $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                         document.getElementById('btn_save').disabled = true;

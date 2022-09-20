@@ -224,7 +224,7 @@
                 success: function(data) {
                     // $('#chk_code').val(data.dataChk.code);
                     jQuery.each(data.dataChk, function(key, value){
-                        if (value.name == datakey) {
+                        if (value.name.toUpperCase() == datakey.toUpperCase()) {
                             $('#comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                             $('#edit_comment').text("'" + value.name + "' มีอยูในระบบแล้ว !");
                             document.getElementById('btn_save').disabled = true;

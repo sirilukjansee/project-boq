@@ -14,14 +14,14 @@
         <!-- BEGIN: DataTables -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="{{ asset('DataTables2/jquery.dataTables.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('public/DataTables2/jquery.dataTables.min.css')}}">
         <!-- END: DataTables -->
 
-        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="{{ asset('select2/select2.min.js') }}"></script>
+        <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('public/select2/select2.min.js') }}"></script>
 
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/dist/css/app.css') }}">
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -69,7 +69,7 @@
             <div class="h-full flex items-center">
                 <!-- BEGIN: Logo -->
                 <a href="{{ url('index') }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg')}}">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
                     <span class="text-white text-lg ml-3">Test</span>
                 </a>
                 <!-- END: Logo -->
@@ -83,7 +83,7 @@
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
                     <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="{{ asset('dist/images/profile-8.jpg')}}">
+                        <img alt="Midone - HTML Admin Template" src="{{ asset('public/dist/images/profile-8.jpg')}}">
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
@@ -142,7 +142,7 @@
                         <li>
                             <a href="{{ url('masterBoq') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Job</div>
+                                <div class="top-menu__title"> Master BOQ</div>
                             </a>
                         </li>
                         <li>
@@ -199,10 +199,10 @@
         <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
-        <script type="text/javascript" src="{{ asset('DataTables2/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('public/DataTables2/jquery.dataTables.min.js') }}"></script>
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
-        <script src="{{ asset('dist/js/app.js')}}"></script>
+        <script src="{{ asset('public/dist/js/app.js')}}"></script>
         <!-- END: JS Assets-->
     </body>
 </html>

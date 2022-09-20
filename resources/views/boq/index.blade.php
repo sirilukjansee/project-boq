@@ -9,15 +9,14 @@
         <meta name="author" content="LEFT4CODE">
         <title>All project boq - </title>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="{{ asset('filter/filter.js') }}"></script>
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
         <!-- BEGIN: DataTables -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/jquery.dataTables.min.css') }}" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{{ asset('DataTables/jquery.dataTables.min.js') }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset('public/DataTables/jquery.dataTables.min.css') }}" />
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+        <script src="{{ asset('public/DataTables/jquery.dataTables.min.js') }}"></script>
         <!-- END: DataTables -->
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('public/dist/css/app.css') }}">
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -65,7 +64,7 @@
             <div class="h-full flex items-center">
                 <!-- BEGIN: Logo -->
                 <a href="{{ url('index') }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="dist/images/logo.svg">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="public/dist/images/logo.svg">
                     <span class="text-white text-lg ml-3">Test</span>
                 </a>
                 <!-- END: Logo -->
@@ -79,7 +78,7 @@
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
                     <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="dist/images/profile-8.jpg">
+                        <img alt="Midone - HTML Admin Template" src="public/dist/images/profile-8.jpg">
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
@@ -111,12 +110,12 @@
         <!-- BEGIN: Top Menu -->
         <nav class="top-nav">
             <ul>
-                <li>
+                {{-- <li>
                     <a href="{{ url('adminBoq')}}" class="top-menu">
                         <div class="top-menu__icon"> <i data-lucide="lock"></i> </div>
                         <div class="top-menu__title"> Dashboard <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="{{ url('index')}}" class="top-menu top-menu--active">
                         <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
@@ -130,27 +129,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('masterBoq')}}" class="top-menu">
+                    <a href="#" class="top-menu top-menu--active">
                         <div class="top-menu__icon"> <i data-lucide="clipboard"></i> </div>
-                        <div class="top-menu__title"> Master <i data-lucide="chevron-down" class="top-menu__sub-icon"></i></div>
+                        <div class="top-menu__title"> Master <i data-lucide="chevron-down" class="top-menu__sub-icon"></i> </div>
                     </a>
                     <ul class="">
                         <li>
-                            <a href="{{ url('/masterTaskName') }}" class="top-menu">
+                            <a href="{{ url('/masterBrand') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Task Name </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/masterTaskName') }}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Task Type </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/masterDesignPM') }}" class="top-menu">
-                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Designer_PM </div>
+                                <div class="top-menu__title"> Master Brand </div>
                             </a>
                         </li>
                         <li>
@@ -160,9 +147,33 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/masterBrand') }}" class="top-menu">
+                            <a href="{{ url('masterBoq') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Brand </div>
+                                <div class="top-menu__title"> Master BOQ</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/masterDesignPM') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Designer/PM </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/masterVender') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Vender </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/masterTaskName') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Task Name </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/masterTaskType') }}" class="top-menu">
+                                <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
+                                <div class="top-menu__title"> Master Task Type </div>
                             </a>
                         </li>
                         <li>
@@ -172,9 +183,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url('/masterVender') }}" class="top-menu">
+                            <a href="{{ url('/masterTOR') }}" class="top-menu">
                                 <div class="top-menu__icon"> <i data-lucide="plus"></i> </div>
-                                <div class="top-menu__title"> Master Vender </div>
+                                <div class="top-menu__title"> Master TOR </div>
                             </a>
                         </li>
                     </ul>
@@ -210,56 +221,29 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col" col-index = 2>ID
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 3>Brand
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 4>Location
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 5>Area/Sq.m
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 6>Task Type
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 7>Task Name
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 8>Open date
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 9>Designer
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-                                        <th scope="col" col-index = 10>Status
-                                            <select name="" class="form-control form-control-sm table-filter" onchange="filter_rows()">
-                                                <option value="all">All</option>
-                                            </select>
-                                        </th>
-<<<<<<< HEAD
-                                        <th scope="col">IO</th>
-=======
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Brand</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Area/Sq.m</th>
+                                        <th scope="col">Task Type</th>
+                                        <th scope="col">Task Name</th>
+                                        <th scope="col">Open date</th>
+                                        <th scope="col">Designer</th>
+                                        <th scope="col">Status</th>
                                         <th class="text-center" scope="col">IO</th>
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" class="filterhead">#</th>
+                                        <th scope="col" class="filterhead">ID</th>
+                                        <th scope="col" class="filterhead">Brand</th>
+                                        <th scope="col" class="filterhead">Location</th>
+                                        <th scope="col" class="filterhead">Area/Sq.m</th>
+                                        <th scope="col" class="filterhead">Task Type</th>
+                                        <th scope="col" class="filterhead">Task Name</th>
+                                        <th scope="col" class="filterhead">Open date</th>
+                                        <th scope="col" class="filterhead">Designer</th>
+                                        <th scope="col" class="filterhead">Status</th>
+                                        <th class="text-center filterhead" scope="col">IO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -269,21 +253,12 @@
                                         <td class="w-40 text-center table-report__action"><h3>{{ $pro->number_id }}</td>
                                         <td class="table-report__action w-56">{{ $pro->brand_master->brand_name }}</td>
                                         <td class="table-report__action w-56">{{ $pro->location_master->location_name }}</td>
-<<<<<<< HEAD
-                                        <td class="table-report__action w-56">{{ $pro->area }}</td>
-                                        <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
-                                        <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
-                                        <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
-                                        <td class="table-report__action w-56">{{ $pro->designer_master->name }}</td>
-                                        <td class="table-report__action w-56">
-=======
                                         <td class="text-center table-report__action w-56">{{ $pro->area }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->task_type_master->task_type_name }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->task_name_master->task_name }}</td>
                                         <td class="text-center table-report__action w-56">{{ Carbon\Carbon::parse($pro->open_date)->format('d M y') }}</td>
                                         <td class="text-center table-report__action w-56">{{ $pro->designer_master->name }}</td>
                                         <td class="text-center table-report__action w-56">
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                                                 @if ( @$pro->project_id1->name == "Master BOQ" )
                                                     @if ($pro->project_id1->status == "0")
                                                     Drafted
@@ -298,11 +273,7 @@
                                                     @endif
                                                 @endif
                                         </td>
-<<<<<<< HEAD
-                                        <td class="table-report__action w-56">{{ $pro->io }}</td>
-=======
                                         <td class="text-center table-report__action w-56">{{ $pro->io }}</td>
->>>>>>> dff1af386b41842fb7de49b4f0888cc4dc7b0728
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -317,21 +288,27 @@
         <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
-        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
-        <script src="dist/js/app.js"></script>
+        <script src="public/dist/js/app.js"></script>
         <script>
-            window.onload = () => {
-                // console.log(document.querySelector("#emp-table > tbody > tr:nth-child(1) > td:nth-child(2) ").innerHTML);
-            };
-
-            getUniqueValuesFromColumn()
-
             //data table
-            jQuery(document).ready(function () {
-                jQuery('.allWork').DataTable({
-                    "ordering": false
-                });
+            jQuery(document).ready(function() {
+            var table = jQuery('.allWork').DataTable({
+                "bLengthChange": true,
+                "iDisplayLength": 10,
+                "ordering": false,
+            });
+
+            jQuery(".filterhead").each( function ( i ) {
+                var select = jQuery('<select class="form-control-sm w-full"><option value="">All</option></select>')
+                    .appendTo( jQuery(this).empty() )
+                    .on( 'change', function () {
+                    var term = $(this).val();
+                        table.column( i ).search(term, false, false ).draw();
+                    } );
+                table.column( i ).data().unique().each( function ( d, j ) {
+                        select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+                } );
             });
 
             //row button

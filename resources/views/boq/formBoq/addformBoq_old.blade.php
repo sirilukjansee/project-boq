@@ -10,10 +10,10 @@
         <title>Boq - </title>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="{{ asset('public/select2/select2.min.js') }}"></script>
+        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('select2/select2.min.js') }}"></script>
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}" />
+        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -22,7 +22,7 @@
         <div class="mobile-menu md:hidden">
             <div class="mobile-menu-bar">
                 <a href="{{ url('index') }}" class="flex mr-auto">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="/dist/images/logo.svg">
                 </a>
                 <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
             </div>
@@ -61,7 +61,7 @@
             <div class="h-full flex items-center">
                 <!-- BEGIN: Logo -->
                 <a href="{{ url("index") }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="/dist/images/logo.svg">
                     <span class="text-white text-lg ml-3">Test</span>
                 </a>
                 <!-- END: Logo -->
@@ -75,7 +75,7 @@
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
                     <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="{{ asset('public/dist/images/profile-8.jpg')}}">
+                        <img alt="Midone - HTML Admin Template" src="/dist/images/profile-8.jpg">
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
@@ -187,11 +187,11 @@
                             <form action="{{ route('add_Boq') }}" method="post" id="form1" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-inline mb-3 mt-10">
-                                    <label for="horizontal-form-1" class="form-label ml-4"><b> Vender </b><span style="color: red">*</span> : </label>
+                                    <label for="horizontal-form-1" class="form-label ml-4">Vender : </label>
                                     <select id="vender_id" name="vender_id" class="tom-select w-72" placeholder="Select Vender..." required>
                                         <option selected value=""></option>
                                         @foreach ( $venders as $vd )
-                                        <option value="{{ $vd->id }}">{{ $vd->name }}</option>
+                                        <option value="{{ $vd->id }}">{{ $vd->first_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -204,7 +204,7 @@
                                             <div class="input-form">
                                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
-                                                    <span id="code_id{{$key + 1}}"></span>
+                                                    <span>code_id{{$key + 1}}</span>
                                                     {{-- <select id="code_id{{$key + 1}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 w-32" placeholder="Code...">
                                                         <option selected value=""></option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
@@ -226,16 +226,7 @@
                                                         <option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-3/4">
-                                                    @php
-                                                    $data_chk = App\Models\template_boqs::where('project_id', $project->id)
-                                                    ->where('name', "Master BOQ")
-                                                    ->first();
-                                                    @endphp
-                                                    @if ( $data_chk )
-                                                    <input type="number" name="material_cost[][{{ $cat->id }}]" placeholder="ค่าวัสดุ" class="form-control w-24">
-                                                    <input type="number" name="wage_cost[][{{ $cat->id }}]" placeholder="ค่าแรง" class="form-control w-24">
-                                                    @endif
+                                                    <input type="text" name="desc[][{{ $cat->id }}]" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">
                                                     <input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">
                                                 </div>
                                                 <div id="newRowsub{{$key + 1}}"></div>
@@ -277,13 +268,7 @@
                                 </div>
                                 <input type="hidden" id="is_btn" name="btn_send">
                                 <input type="submit" value="Save Draft" class="btn btn-primary mr-1">
-                                @if ($data_chk)
-                                    @if ($data_chk->status != "2")
-                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                                    @endif
-                                    @else
-                                    <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
-                                @endif
+                                <input type="button" id="btn_send1" value="Save & Send" class="btn btn-primary mr-1" data-tw-toggle="modal" data-tw-target="#delete-modal-preview">
                                 <a href="{{ url()->previous() }}" class="btn btn-dark-soft mt-5">Back</a>
                             </form>
                         </div>
@@ -315,8 +300,8 @@
         <!-- BEGIN: JS Assets-->
 
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
-        <script src="{{ asset('public/dist/js/app.js')}}"></script>
-        <script src="{{ asset('public/tom-select/dist/js/tom-select.complete.js')}}"></script>
+        <script src="/dist/js/app.js"></script>
+        <script src="../tom-select/dist/js/tom-select.complete.js"></script>
         <script type="text/javascript">
 
             //
@@ -364,7 +349,7 @@
                         //append code
                             var html = '';
                             var html2 = '';
-                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-32" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -428,7 +413,7 @@
                             jQuery('#select_code_id'+sub_num).children().remove().end();
 
                             var html = '';
-                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<select id="code_id'+sub_num+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-32" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -451,6 +436,21 @@
                             console.log($(this).val());
                             console.log($(this).attr('id'));
                             console.log("#code_id_a"+sub_num);
+
+                            // jQuery('#code_id_a'+sub_num).children().remove().end();
+
+                            // var html = '';
+                            // html += '<select id="" name="code_id[]['+value.id+']" class="code_id_a'+sub_num+' selectDropdown_2 w-32" placeholder="Code...">';
+                            // html += '<option selected value=""></option>';
+                            // jQuery.each(response.dataSub, function(key, value3){
+                            //     if(value3.catagory_id == value.id){
+                            //         html += '<option value="'+value3.id+'">'+value3.code+'</option>';
+                            //     }
+                            // });
+
+                            // html += '</select>';
+
+                            // $('#select_code_id'+sub_num).append(html);
 
                             $("#code_id_a"+sub_num+" option[value='"+$(this).val()+"']").attr("selected","selected");
 
@@ -478,7 +478,7 @@
                             var html = '';
                             html += '<div id="addsub" class="flex flex-row gap-2 mb-2">';
                             html += '<input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">';
-                            html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-24" placeholder="Code...">';
+                            html += '<select id="code_id_a'+x+'" name="code_id[]['+value.id+']" class="selectDropdown_2 w-32" placeholder="Code...">';
                             html += '<option selected value=""></option>';
                             jQuery.each(response.dataSub, function(key, value3){
                                 if(value3.catagory_id == value.id){
@@ -496,13 +496,9 @@
                             });
                             html += '</select>';
                             html += '<input type="number" name="amount[]['+value.id+']" class="form-control w-24" placeholder="จำนวน" >';
-                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-24" required>';
+                            html += '<select name="unit_id[]['+value.id+']" class="form-control w-24">';
                             html += '<option selected value=""></option>@foreach ($catagories2 as $cat2)<option value="{{$cat2->id}}">{{$cat2->unit_name}}</option>@endforeach</select>';
                             html += '<input type="text" name="desc[]['+value.id+']" placeholder="หมายเหตุ" aria-label="default input inline 2" class="w-full">';
-                            html += '@if ( $data_chk )';
-                            html += '<input type="number" name="material_cost[]['+value.id+']" placeholder="ค่าวัสดุ" class="form-control w-24">';
-                            html += '<input type="number" name="wage_cost[]['+value.id+']" placeholder="ค่าแรง" class="form-control w-24">';
-                            html += '@endif';
                             html += '<input type="button" value="ลบ" class="btn btn-secondary" id="delSubBtn">';
                             html += '</div>';
 
@@ -511,7 +507,12 @@
                         jQuery('.selectDropdown_2').select2();
                         jQuery('#sub'+sub_num).select2();
 
+                        // Tom select
+                        // new TomSelect(".sub_select2-"+x);
+                        // new TomSelect(".sub_select-"+x);
                         x++;
+
+
                          });
 
                     });
