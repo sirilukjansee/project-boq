@@ -1,13 +1,4 @@
 <!DOCTYPE html>
-<!--
-Template Name: Icewall - HTML Admin Dashboard Template
-Author: Left4code
-Website: http://www.left4code.com/
-Contact: muhammadrizki@left4code.com
-Purchase: https://themeforest.net/user/left4code/portfolio
-Renew Support: https://themeforest.net/user/left4code/portfolio
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <html lang="en" class="light">
     <!-- BEGIN: Head -->
     <head>
@@ -147,59 +138,27 @@ License: You must have a valid license purchased only from themeforest(the above
                         <h2 class="text-lg font-medium mr-auto">
                             Dasboard
                         </h2>
-                        <!---->
-                        <!--dropzone-->
-                        {{-- <div class="flex flex-col sm:items-end mt-2"> --}}
-                            <!-- BEGIN: Large Modal Toggle -->
-                                <!--<a href="javascript:;" data-tw-toggle="modal" data-tw-target="#large-modal-size-preview" class="btn btn-primary mr-1 mb-2">Import Master</a>-->
-                            <!-- END: Large Modal Toggle -->
-                        {{-- </div> --}}
-                        <!-- BEGIN: Large Modal Content -->
-                        {{-- <div id="large-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <a data-tw-dismiss="modal" href="javascript:;">
-                                        <i data-lucide="x" class="w-8 h-8 text-slate-400"></i>
-                                    </a>
-                                    <div class="modal-body p-10 text-center">
-                                        <form data-file-types="image/jpeg|image/png|image/jpg" action="/file-upload" class="dropzone">
-                                            <div class="fallback">
-                                                <input name="file" type="file" />
-                                            </div>
-                                            <div class="dz-message" data-dz-message>
-                                                <div class="text-lg font-medium">Drop files here or click to upload.</div>
-                                                <div class="text-slate-500">
-                                                    This is just a demo dropzone. Selected files are <span class="font-medium">not</span> actually uploaded.
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-                        <!-- END: Large Modal Content -->
-                        <!--dropzone-->
                     </div>
                     <!-- BEGIN: HTML Table Data -->
                     <div class="intro-y box p-5 mt-5">
                         <!--User-->
                         <div class="intro-y flex flex-col sm:flex-row items-center mt-3 mb-3">
                             <div class="text-lg font-medium mr-auto">
-                                <b>All User</b>
+                                <b>All Project</b>
                             </div>
                             <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
                                 <a href="{{ url("addUser") }}" class="btn btn-primary shadow-md mr-2"><i data-lucide="plus" class="w-4 h-4 mr-2"></i> Add User </a>
                             </div>
                         </div>
-
-                        <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+                        <!--User-->
+                        {{-- <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                             <table class="display">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="whitespace-nowrap">ID</th>
-                                        <th class="text-center whitespace-nowrap">Username</th>
-                                        <th class="text-center whitespace-nowrap">Password</th>
-                                        <th class="text-center whitespace-nowrap">Role_ID</th>
+                                        <th class="whitespace-nowrap">#</th>
+                                        <th class="text-center whitespace-nowrap">Name</th>
+                                        <th class="text-center whitespace-nowrap">E-mail</th>
+                                        <th class="text-center whitespace-nowrap">Telephone</th>
                                         <th class="text-center whitespace-nowrap"></th>
                                     </tr>
                                 </thead>
@@ -291,15 +250,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </tbody>
                             </table>
                         </div>
-                        <hr class="mt-3">
+                        <hr class="mt-3"> --}}
                         <!--User-->
 
                         <!--Project-->
-                        <div class="intro-y flex flex-col sm:flex-row items-center mt-3 mb-3">
+                        {{-- <div class="intro-y flex flex-col sm:flex-row items-center mt-3 mb-3">
                             <div class="text-lg font-medium mr-auto">
                                 <b> All Project </b>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
                             <table class="display" id="myTb">
                                 <thead class="table-light">
@@ -308,45 +267,70 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <th class="whitespace-nowrap">Brand</th>
                                         <th class="text-center whitespace-nowrap">Location</th>
                                         <th class="text-center whitespace-nowrap">Area</th>
-                                        <th class="text-center whitespace-nowrap">Task</th>
-                                        <th class="text-center whitespace-nowrap">IO</th>
+                                        <th class="text-center whitespace-nowrap">Task Type</th>
+                                        <th class="text-center whitespace-nowrap">Task Name</th>
                                         <th class="text-center whitespace-nowrap">Designer</th>
+                                        <th class="text-center whitespace-nowrap">Status</th>
+                                        <th class="text-center whitespace-nowrap">IO</th>
                                         <th class="text-center whitespace-nowrap"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ( $project_ad as $key => $pro )
                                     <tr class="intro-x">
-                                        <td class="w-40 text-center table-report__action">
+                                        <td class="w-40 text-center">
                                             <div class="flex">
-                                                <p>AA00000</p>
+                                                <p>{{$pro->number_id}}</p>
                                             </div>
                                         </td>
                                         <td>
-                                            <a class="font-medium whitespace-nowrap">flipflop</a>
+                                            <a class="font-medium whitespace-nowrap">{{$pro->brand_master->brand_name}}</a>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>Central Pinklao</p>
+                                                <p>{{$pro->location_master->location_name}}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>109 ตร.ม</p>
+                                                <p>{{$pro->area}}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>Store</p>
+                                                <p>{{$pro->task_type_master->task_type_name}}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>1234-5678</p>
+                                                <p>{{$pro->task_name_master->task_name}}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
                                             <div class="flex item-center justify-center">
-                                                <p>Somchai Jaided</p>
+                                                <p>{{$pro->designer_master->name}}</p>
+                                            </div>
+                                        </td>
+                                        <td class="table-report__action w-56">
+                                            <div class="flex item-center justify-center">
+                                                @if ( @$pro->project_id1->name == "Master BOQ" )
+                                                    @if ($pro->project_id1->status == "0")
+                                                    Drafted
+                                                    @elseif ($pro->project_id1->status == "1")
+                                                    Waiting Approval
+                                                    @elseif ($pro->project_id1->status == "2")
+                                                    Approval
+                                                    @elseif ($pro->project_id1->status == "3")
+                                                    Reject
+                                                    @elseif ($pro->project_id1->status == "4")
+                                                    Rework
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td class="table-report__action w-56">
+                                            <div class="flex item-center justify-center">
+                                                <p>{{ $pro->io }}</p>
                                             </div>
                                         </td>
                                         <td class="table-report__action w-56">
@@ -357,90 +341,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="intro-x">
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <p>AA00000</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap">flipflop</a>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Central Pinklao</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>109 ตร.ม</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Store</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>1234-5678</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Somchai Jaided</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center">
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <a href="{{ url('addprojectBoq') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="settings" class="w-4 h-4 mr-2"></i> Edit </a>
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="x" class="w-4 h-4 mr-2"></i> Delete </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="intro-x">
-                                        <td class="w-40 text-center table-report__action">
-                                            <div class="flex">
-                                                <p>AA00000</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a class="font-medium whitespace-nowrap">flipflop</a>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Central Pinklao</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>109 ตร.ม</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Store</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>1234-5678</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex item-center justify-center">
-                                                <p>Somchai Jaided</p>
-                                            </div>
-                                        </td>
-                                        <td class="table-report__action w-56">
-                                            <div class="flex items-center justify-center">
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="eye" class="w-4 h-4"></i></a>
-                                                <a href="{{ url('addprojectBoq') }}" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="settings" class="w-4 h-4 mr-2"></i> Edit </a>
-                                                <a href="" class="btn btn-outline-secondary w-full sm:w-auto mr-2" aria-expanded="false"> <i data-lucide="x" class="w-4 h-4 mr-2"></i> Delete </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -524,7 +425,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <hr class="mt-3">
                             <!--BOQ-->
                             {{-- BOQ from Vender --}}
-                        <div class="intro-y flex flex-col sm:flex-row items-center mt-3 mb-3">
+                        {{-- <div class="intro-y flex flex-col sm:flex-row items-center mt-3 mb-3">
                             <div class="text-lg font-medium mr-auto">
                                 <b> BOQ from Vender </b>
                             </div>
@@ -602,7 +503,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> --}}
                         {{-- BOQ from Vender --}}
                     </div>
 

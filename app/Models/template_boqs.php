@@ -19,6 +19,9 @@ class template_boqs extends Model
         'date',
         'status',
         'comment',
+        'overhead',
+        'discount',
+        'vender_id',
         'approve_by',
         'approve_at',
         'create_by',
@@ -27,6 +30,12 @@ class template_boqs extends Model
 
     public function project(){
         return $this->hasOne(Project::class,'id','project_id');
+    }
+    public function vender_name(){
+        return $this->hasOne(Vender::class,'id','vender_id');
+    }
+    public function cat_sub(){
+        return $this->hasMany(Boq::class,'template_boq_id','id');
     }
 
 }

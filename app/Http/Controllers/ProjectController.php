@@ -23,6 +23,12 @@ class ProjectController extends Controller
         return view('boq.index', compact('project'));
     }
 
+    public function adminView(){
+        $project_ad = Project::orderBy('id', 'desc')->get();
+
+        return view('boq.adminBoq', compact('project_ad'));
+    }
+
     public function create()
     {
         $project = Project::all();
@@ -38,6 +44,18 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $request->validate([
+            'brand' => 'required',
+            'location' => 'required',
+            'area' => 'required',
+            'task' => 'required',
+            'task_n' => 'required',
+            'startDate' => 'required',
+            'finishDate' => 'required',
+            'openDate' => 'required',
+            'ds_name' => 'required'
+        ]);
+
         $project = new Project;
         $project->brand = $request->brand;
         $project->location = $request->location;

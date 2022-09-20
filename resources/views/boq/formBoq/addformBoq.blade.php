@@ -204,7 +204,11 @@
                                             <div class="input-form">
                                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+<<<<<<< HEAD
                                                     <span id="code_id{{$key + 1}}"></span>
+=======
+                                                    {{-- <span id="code_id{{$key + 1}}"></span> --}}
+>>>>>>> d30c20414f11954a314b122c855b50384d98788d
                                                     {{-- <select id="code_id{{$key + 1}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2 w-32" placeholder="Code...">
                                                         <option selected value=""></option>
                                                         @foreach ($cat->catagory_sub as $cat_s)

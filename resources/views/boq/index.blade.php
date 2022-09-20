@@ -10,10 +10,18 @@
         <title>All project boq - </title>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+<<<<<<< HEAD
         <!-- BEGIN: DataTables -->
         <link rel="stylesheet" type="text/css" href="{{ asset('public/DataTables/jquery.dataTables.min.css') }}" />
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
         <script src="{{ asset('public/DataTables/jquery.dataTables.min.js') }}"></script>
+=======
+        <script src="{{ asset('filter/filter.js') }}"></script>
+        <!-- BEGIN: DataTables -->
+        <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/jquery.dataTables.min.css') }}" />
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+        <script src="{{ asset('DataTables/jquery.dataTables.min.js') }}"></script>
+>>>>>>> d30c20414f11954a314b122c855b50384d98788d
         <!-- END: DataTables -->
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('public/dist/css/app.css') }}">
@@ -288,7 +296,11 @@
         <!-- END: Content -->
 
         <!-- BEGIN: JS Assets-->
+<<<<<<< HEAD
         <script src="public/dist/js/app.js"></script>
+=======
+        <script src="dist/js/app.js"></script>
+>>>>>>> d30c20414f11954a314b122c855b50384d98788d
         <script>
             //data table
             jQuery(document).ready(function() {

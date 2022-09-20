@@ -10,8 +10,13 @@
         <title>Boq - </title>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<<<<<<< HEAD
         <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
         <script src="{{ asset('public/select2/select2.min.js') }}"></script>
+=======
+        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('select2/select2.min.js') }}"></script>
+>>>>>>> d30c20414f11954a314b122c855b50384d98788d
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
@@ -205,7 +210,11 @@
                                             @if ( $data_chk == '')
                                                 <div id="addsub" class="flex flex-row gap-2 mb-2">
                                                     <input id="checkbox-switch-1" class="form-check-input" type="checkbox" name="test">
+<<<<<<< HEAD
                                                     <span>code_id{{$key + 1}}</span>
+=======
+                                                    {{-- <span>code_id{{$key + 1}}</span> --}}
+>>>>>>> d30c20414f11954a314b122c855b50384d98788d
                                                     {{-- <select id="code_id{{$cat->id}}" name="code_id[][{{$cat->id}}]" class="selectDropdown_2" placeholder="Code...">
                                                         <option selected value=""></option>
                                                         @foreach ($cat->catagory_sub as $cat_s)
@@ -319,7 +328,11 @@
         <!-- END: Modal Content -->
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
+<<<<<<< HEAD
         <script src="{{ asset('public/dist/js/app.js')}}"></script>
+=======
+        <script src="/dist/js/app.js"></script>
+>>>>>>> d30c20414f11954a314b122c855b50384d98788d
         {{-- <script src="/tom-select/dist/js/tom-select.complete.js"></script> --}}
         <script type="text/javascript">
 
