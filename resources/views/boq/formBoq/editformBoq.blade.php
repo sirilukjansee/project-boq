@@ -10,10 +10,10 @@
         <title>Boq - </title>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet" />
-        <script src="{{ asset('select2/select2.min.js') }}"></script>
+        <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('public/select2/select2.min.js') }}"></script>
         <!-- BEGIN: CSS Assets-->
-        <link rel="stylesheet" href="{{ asset('dist/css/_app.css') }}" />
+        <link rel="stylesheet" href="{{ asset('public/dist/css/_app.css') }}" />
         <!-- END: CSS Assets-->
     </head>
     <!-- END: Head -->
@@ -22,7 +22,7 @@
         <div class="mobile-menu md:hidden">
             <div class="mobile-menu-bar">
                 <a href="{{ url('index') }}" class="flex mr-auto">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="/dist/images/logo.svg">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
                 </a>
                 <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
             </div>
@@ -61,7 +61,7 @@
             <div class="h-full flex items-center">
                 <!-- BEGIN: Logo -->
                 <a href="{{ url("index") }}" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" class="w-6" src="/dist/images/logo.svg">
+                    <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('public/dist/images/logo.svg')}}">
                     <span class="text-white text-lg ml-3">Test</span>
                 </a>
                 <!-- END: Logo -->
@@ -75,7 +75,7 @@
                 <!-- BEGIN: Account Menu -->
                 <div class="intro-x dropdown w-8 h-8">
                     <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="/dist/images/profile-8.jpg">
+                        <img alt="Midone - HTML Admin Template" src="{{ asset('public/dist/images/profile-8.jpg')}}">
                     </div>
                     <div class="dropdown-menu w-56">
                         <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
@@ -319,7 +319,7 @@
         <!-- END: Modal Content -->
         <!-- END: Content -->
         <!-- BEGIN: JS Assets-->
-        <script src="/dist/js/app.js"></script>
+        <script src="{{ asset('public/dist/js/app.js')}}"></script>
         {{-- <script src="/tom-select/dist/js/tom-select.complete.js"></script> --}}
         <script type="text/javascript">
 
@@ -354,7 +354,7 @@
             {
                 var x = 1;
                 jQuery.ajax({
-                url: "/addformBoq/select-catagory",
+                url: "../addformBoq/select-catagory",
                 type: "GET",
                 datatype: "JSON",
                 success: function(response) {
